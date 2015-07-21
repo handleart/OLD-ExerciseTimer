@@ -7,6 +7,7 @@
 //
 
 #import "ViewTimerViewController.h"
+//#import <AudioToolbox/AudioToolbox.h>
 
 @interface ViewTimerViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *buttonPauseStart;
@@ -16,7 +17,7 @@
 @property NSDate *currentTime;
 @property NSDate *extraTime;
 
-@property int counter;
+@property NSInteger counter;
 @property int iWhichTimer;
 
 @property int repNumCount;
@@ -28,20 +29,67 @@
 
 @implementation ViewTimerViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.labelRepTimerText.layer.borderWidth = 0.5;
+    self.labelRepNumText.layer.borderWidth = 0.5;
+    self.buttonPauseStart.layer.borderWidth = 0.5;
+    
+    //[self.buttonPauseStart setTitle:@"Continue" forState:UIControlStateHighlighted];
+    [self.buttonPauseStart setTitle:@"Continue" forState:UIControlStateSelected];
+    
+    [self setUpInitialState];
+
+}
+
+-(void) viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.timer invalidate];
+    self.timer = nil;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Utilities
+
 - (void)updateScreen{
     int minutes, seconds;
     
     minutes = seconds = 0;
     
-    minutes = _counter / 60;
-    seconds = (_counter % 60);
+    minutes = (int) (_counter / 60);
+    seconds = (int) (_counter % 60);
     
     self.labelRepTimerText.text = [NSString stringWithFormat:@"%02d:%02d", minutes, seconds];
     self.labelRepNumText.text = [NSString stringWithFormat:@"%@", _sRepName];
 }
 
 
+- (void)makeASound {
+    SystemSoundID mBeep;
+    
+    NSString* path = [[NSBundle mainBundle]
+                      pathForResource:@"Beep" ofType:@"aiff"];
+    
+    
+    NSURL* url = [NSURL fileURLWithPath:path];
+    
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &mBeep);
+    
+    // Play the sound
+    AudioServicesPlaySystemSound(mBeep);
+    
+    // Dispose of the sound
+    //AudioServicesDisposeSystemSoundID(mBeep);
+}
+
 -(void) countDownTimer{
+    [self makeASound];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown:) userInfo:nil repeats:YES];
 }
 
@@ -56,21 +104,22 @@
         
         if (_repNumCount < _iNumReps) {
             if (_iWhichTimer == 1) {
-                _sRepName = @"Break";
+                //_sRepName = @"Break";
+                _sRepName = [NSString stringWithFormat:@"Transition / Break %d",_repNumCount];
                 _iWhichTimer = 2;
                 _counter = _iRepLen2;
-            
+                
             } else if (_iWhichTimer == 2) {
-                 _repNumCount ++;
+                _repNumCount ++;
                 _sRepName = [NSString stringWithFormat:@"Rep #%d",_repNumCount];
                 _iWhichTimer = 1;
                 _counter = _iRepLen1;
-            
+                
             } else {
                 NSLog(@"Um. Woops? You haven't designed this thing for more than 2 timers");
             }
-    
-        
+            
+            
             //This need to be fixed
             
             [self updateScreen];
@@ -97,38 +146,7 @@
     
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    self.labelRepTimerText.layer.borderWidth = 0.5;
-    self.labelRepNumText.layer.borderWidth = 0.5;
-    self.buttonPauseStart.layer.borderWidth = 0.5;
-    
-
-    //[self.buttonPauseStart setTitle:@"Continue" forState:UIControlStateHighlighted];
-    [self.buttonPauseStart setTitle:@"Continue" forState:UIControlStateSelected];
-    
-    
-    
-    [self setUpInitialState];
-    
-
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
--(void) viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    [self.timer invalidate];
-    self.timer = nil;
-}
-
-
+#pragma mark - Buttons
 
 - (IBAction)handleButtonClick:(id)sender {
     

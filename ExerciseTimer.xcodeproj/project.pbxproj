@@ -16,6 +16,7 @@
 		9CB503A81B547C01006FD3B9 /* ExerciseTimerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB503A71B547C01006FD3B9 /* ExerciseTimerTests.m */; };
 		9CB503B61B548664006FD3B9 /* ViewTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB503B51B548664006FD3B9 /* ViewTimerViewController.m */; };
 		9CF9FCB01B5DD8A100AA749E /* SetTimerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CF9FCAF1B5DD8A100AA749E /* SetTimerTableViewController.m */; };
+		9CF9FCB21B5F0AE900AA749E /* Beep.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9CF9FCB11B5F0AE800AA749E /* Beep.aiff */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		9CB503B51B548664006FD3B9 /* ViewTimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewTimerViewController.m; sourceTree = "<group>"; };
 		9CF9FCAE1B5DD8A100AA749E /* SetTimerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTimerTableViewController.h; sourceTree = "<group>"; };
 		9CF9FCAF1B5DD8A100AA749E /* SetTimerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTimerTableViewController.m; sourceTree = "<group>"; };
+		9CF9FCB11B5F0AE800AA749E /* Beep.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Beep.aiff; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				9CB503B51B548664006FD3B9 /* ViewTimerViewController.m */,
 				9CF9FCAE1B5DD8A100AA749E /* SetTimerTableViewController.h */,
 				9CF9FCAF1B5DD8A100AA749E /* SetTimerTableViewController.m */,
+				9CF9FCB11B5F0AE800AA749E /* Beep.aiff */,
 			);
 			path = ExerciseTimer;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 				9CB503971B547C01006FD3B9 /* Main.storyboard in Resources */,
 				9C7F72BE1B559C3D0090E7CA /* background.jpg in Resources */,
 				9CB5039C1B547C01006FD3B9 /* LaunchScreen.xib in Resources */,
+				9CF9FCB21B5F0AE900AA749E /* Beep.aiff in Resources */,
 				9CB503991B547C01006FD3B9 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
