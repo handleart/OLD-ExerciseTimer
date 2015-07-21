@@ -16,8 +16,9 @@
 
 @interface SetTimerTableViewController ()
 
+@property (weak, nonatomic) IBOutlet UISwitch *dimScreenSwitch;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *dimScreenSwitch;
+
 @property (weak, nonatomic) IBOutlet UIPickerView *timer2Picker;
 @property (weak, nonatomic) IBOutlet UITextField *timer2Label;
 @property (weak, nonatomic) IBOutlet UIPickerView *timer1Picker;
@@ -244,6 +245,17 @@
     }
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+- (IBAction)dimScreenSwitchPressed:(id)sender {
+    
+    if ([self.dimScreenSwitch isOn]) {
+        [self.dimScreenSwitch setOn:YES animated:YES];
+        [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+    } else {
+        [self.dimScreenSwitch setOn:NO animated:YES];
+        [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+    }
+    
 }
 
 - (void)showPickerCell:(UIPickerView *)picker {

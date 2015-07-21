@@ -118,12 +118,14 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PeE-TP-k0x" id="avi-v2-jVh">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <pickerView tag="2" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Z8-48-1DW">
-                                                    <rect key="frame" x="140" y="0.0" width="320" height="162"/>
+                                                <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Z8-48-1DW">
+                                                    <rect key="frame" x="140" y="-2" width="320" height="162"/>
                                                 </pickerView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="8Z8-48-1DW" secondAttribute="bottom" constant="10" id="Gns-v1-Cpn"/>
                                                 <constraint firstAttribute="centerX" secondItem="8Z8-48-1DW" secondAttribute="centerX" id="fKq-ab-yaz"/>
+                                                <constraint firstItem="8Z8-48-1DW" firstAttribute="top" secondItem="avi-v2-jVh" secondAttribute="topMargin" constant="10" id="yBp-g3-IHm"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -158,12 +160,14 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JFp-li-iLQ" id="vRm-hw-EI5">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <pickerView tag="2" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sKg-Xz-UvQ">
+                                                <pickerView tag="2" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sKg-Xz-UvQ">
                                                     <rect key="frame" x="140" y="0.0" width="320" height="162"/>
                                                 </pickerView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="centerX" secondItem="sKg-Xz-UvQ" secondAttribute="centerX" id="OXw-As-ld6"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="sKg-Xz-UvQ" secondAttribute="bottom" constant="10" id="fcl-dU-LsO"/>
+                                                <constraint firstItem="sKg-Xz-UvQ" firstAttribute="top" secondItem="vRm-hw-EI5" secondAttribute="topMargin" constant="10" id="pIe-s5-2Ve"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -198,12 +202,14 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZsH-Yi-Mu7" id="KOn-Ax-ale">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <pickerView tag="2" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i6L-0b-i3E">
-                                                    <rect key="frame" x="140" y="0.0" width="320" height="162"/>
+                                                <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i6L-0b-i3E">
+                                                    <rect key="frame" x="140" y="-2" width="320" height="162"/>
                                                 </pickerView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="centerX" secondItem="i6L-0b-i3E" secondAttribute="centerX" id="NnN-Sk-mDT"/>
+                                                <constraint firstItem="i6L-0b-i3E" firstAttribute="top" secondItem="KOn-Ax-ale" secondAttribute="topMargin" constant="10" id="git-xE-pjd"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="i6L-0b-i3E" secondAttribute="bottom" constant="10" id="nib-Yc-WwG"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -218,8 +224,11 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0RB-Oz-yNn">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0RB-Oz-yNn">
                                                     <rect key="frame" x="533" y="4" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="dimScreenSwitchPressed:" destination="EWN-gJ-VEw" eventType="valueChanged" id="qon-g5-gmN"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -246,7 +255,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="dimScreenSwitch" destination="6Q6-Ns-e2A" id="mc8-P4-yx0"/>
+                        <outlet property="dimScreenSwitch" destination="0RB-Oz-yNn" id="7bs-Gd-8bN"/>
                         <outlet property="label1" destination="P1F-b7-3hA" id="RWa-Lz-epH"/>
                         <outlet property="label2" destination="deX-tq-yp3" id="5DE-Cd-uFq"/>
                         <outlet property="numLabel" destination="BXS-9N-KUy" id="d8m-6C-paz"/>
