@@ -7,14 +7,11 @@
 //
 
 #import "ViewTimerViewController.h"
-//#import "SetTimerViewController.h"
-
 
 @interface ViewTimerViewController ()
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *buttonChangeTimerSetting;
 @property (weak, nonatomic) IBOutlet UIButton *buttonPauseStart;
-@property (weak, nonatomic) IBOutlet UILabel *lableRepTimerText;
-@property (weak, nonatomic) IBOutlet UILabel *labelRepNumText;
+@property (weak, nonatomic) IBOutlet UITextField *labelRepTimerText;
+@property (weak, nonatomic) IBOutlet UITextField *labelRepNumText;
 
 @property NSDate *currentTime;
 @property NSDate *extraTime;
@@ -39,7 +36,7 @@
     minutes = _counter / 60;
     seconds = (_counter % 60);
     
-    self.lableRepTimerText.text = [NSString stringWithFormat:@"%02d:%02d", minutes, seconds];
+    self.labelRepTimerText.text = [NSString stringWithFormat:@"%02d:%02d", minutes, seconds];
     self.labelRepNumText.text = [NSString stringWithFormat:@"%@", _sRepName];
 }
 
@@ -104,13 +101,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.lableRepTimerText.layer.borderWidth = 0.5;
+    self.labelRepTimerText.layer.borderWidth = 0.5;
     self.labelRepNumText.layer.borderWidth = 0.5;
     self.buttonPauseStart.layer.borderWidth = 0.5;
     
 
     //[self.buttonPauseStart setTitle:@"Continue" forState:UIControlStateHighlighted];
     [self.buttonPauseStart setTitle:@"Continue" forState:UIControlStateSelected];
+    
     
     
     [self setUpInitialState];
@@ -130,15 +128,15 @@
     self.timer = nil;
 }
 
-- (IBAction)unwindToList:(UIStoryboardSegue *)segue {
-    
-}
+
 
 - (IBAction)handleButtonClick:(id)sender {
     
     UIButton *button = (UIButton *)sender;
     NSLog(@"Button Title: %@", button.currentTitle);
     NSLog(@"Button Equal: %d", button == self.buttonPauseStart);
+    
+    
     
     if (button == self.buttonPauseStart) {
         if ([button.currentTitle containsString:@"Restart"]) {
@@ -159,7 +157,7 @@
 
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -167,8 +165,8 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
+
 }
-*/
  
 @end
 

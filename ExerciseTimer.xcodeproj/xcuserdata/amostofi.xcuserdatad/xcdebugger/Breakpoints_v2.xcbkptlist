@@ -9,14 +9,30 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ExerciseTimer/ViewTimerViewController.m"
-            timestampString = "458699842.75375"
+            filePath = "ExerciseTimer/SetTimerViewController.m"
+            timestampString = "459138390.370765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
-            landmarkName = "@implementation ViewTimerViewController"
-            landmarkType = "3">
+            startingLineNumber = "223"
+            endingLineNumber = "223"
+            landmarkName = "-prepareForSegue:sender:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ExerciseTimer/SetTimerTableViewController.m"
+            timestampString = "459192910.377541"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "304"
+            endingLineNumber = "304"
+            landmarkName = "-numberOfComponentsInPickerView:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -26,12 +42,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ExerciseTimer/SetTimerViewController.m"
-            timestampString = "458760903.271811"
+            timestampString = "459138124.458271"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
-            landmarkName = "-prepareForSegue:sender:"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "-numberOfComponentsInPickerView:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ExerciseTimer/SetTimerTableViewController.m"
+            timestampString = "459192910.377541"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
+            landmarkName = "-showPickerCell:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

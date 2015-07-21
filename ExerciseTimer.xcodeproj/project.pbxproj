@@ -15,7 +15,7 @@
 		9CB5039C1B547C01006FD3B9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CB5039A1B547C01006FD3B9 /* LaunchScreen.xib */; };
 		9CB503A81B547C01006FD3B9 /* ExerciseTimerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB503A71B547C01006FD3B9 /* ExerciseTimerTests.m */; };
 		9CB503B61B548664006FD3B9 /* ViewTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB503B51B548664006FD3B9 /* ViewTimerViewController.m */; };
-		9CB503C51B548AAE006FD3B9 /* SetTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB503C41B548AAE006FD3B9 /* SetTimerViewController.m */; };
+		9CF9FCB01B5DD8A100AA749E /* SetTimerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CF9FCAF1B5DD8A100AA749E /* SetTimerTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,8 +43,8 @@
 		9CB503A71B547C01006FD3B9 /* ExerciseTimerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExerciseTimerTests.m; sourceTree = "<group>"; };
 		9CB503B41B548664006FD3B9 /* ViewTimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewTimerViewController.h; sourceTree = "<group>"; };
 		9CB503B51B548664006FD3B9 /* ViewTimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewTimerViewController.m; sourceTree = "<group>"; };
-		9CB503C31B548AAE006FD3B9 /* SetTimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTimerViewController.h; sourceTree = "<group>"; };
-		9CB503C41B548AAE006FD3B9 /* SetTimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTimerViewController.m; sourceTree = "<group>"; };
+		9CF9FCAE1B5DD8A100AA749E /* SetTimerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTimerTableViewController.h; sourceTree = "<group>"; };
+		9CF9FCAF1B5DD8A100AA749E /* SetTimerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTimerTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,8 +95,8 @@
 				9CB5038B1B547C01006FD3B9 /* Supporting Files */,
 				9CB503B41B548664006FD3B9 /* ViewTimerViewController.h */,
 				9CB503B51B548664006FD3B9 /* ViewTimerViewController.m */,
-				9CB503C31B548AAE006FD3B9 /* SetTimerViewController.h */,
-				9CB503C41B548AAE006FD3B9 /* SetTimerViewController.m */,
+				9CF9FCAE1B5DD8A100AA749E /* SetTimerTableViewController.h */,
+				9CF9FCAF1B5DD8A100AA749E /* SetTimerTableViewController.m */,
 			);
 			path = ExerciseTimer;
 			sourceTree = "<group>";
@@ -231,7 +231,7 @@
 				9CB503911B547C01006FD3B9 /* AppDelegate.m in Sources */,
 				9CB503B61B548664006FD3B9 /* ViewTimerViewController.m in Sources */,
 				9CB5038E1B547C01006FD3B9 /* main.m in Sources */,
-				9CB503C51B548AAE006FD3B9 /* SetTimerViewController.m in Sources */,
+				9CF9FCB01B5DD8A100AA749E /* SetTimerTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
