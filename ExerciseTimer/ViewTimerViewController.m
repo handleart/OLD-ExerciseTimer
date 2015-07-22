@@ -7,7 +7,8 @@
 //
 
 #import "ViewTimerViewController.h"
-//#import <AudioToolbox/AudioToolbox.h>
+#import "AudioToolbox/AudioToolbox.h"
+
 
 @interface ViewTimerViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *buttonPauseStart;
@@ -25,6 +26,9 @@
 
 @property NSString *sRepName;
 
+@property SystemSoundID mBeep;
+
+
 @end
 
 @implementation ViewTimerViewController
@@ -41,6 +45,8 @@
     
     [self setUpInitialState];
 
+
+
 }
 
 -(void) viewDidDisappear:(BOOL)animated
@@ -48,6 +54,23 @@
     [super viewDidDisappear:animated];
     [self.timer invalidate];
     self.timer = nil;
+    // Dispose of the sound
+    if (!_mBeep) {
+        AudioServicesDisposeSystemSoundID(_mBeep);
+    }
+    
+}
+
+-(void)applicationWillResignActive:(UIApplication *)application {
+    [self.timer invalidate];
+}
+
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    [self countDownTimer];
+}
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,6 +79,8 @@
 }
 
 #pragma mark - Utilities
+
+
 
 - (void)updateScreen{
     int minutes, seconds;
@@ -69,9 +94,8 @@
     self.labelRepNumText.text = [NSString stringWithFormat:@"%@", _sRepName];
 }
 
-
-- (void)makeASound {
-    SystemSoundID mBeep;
+- (void)playASound {
+    //SystemSoundID mBeep;
     
     NSString* path = [[NSBundle mainBundle]
                       pathForResource:@"Beep" ofType:@"aiff"];
@@ -79,17 +103,24 @@
     
     NSURL* url = [NSURL fileURLWithPath:path];
     
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &mBeep);
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, & _mBeep);
     
     // Play the sound
-    AudioServicesPlaySystemSound(mBeep);
+    AudioServicesPlaySystemSound(_mBeep);
     
-    // Dispose of the sound
-    //AudioServicesDisposeSystemSoundID(mBeep);
+    
 }
 
+
 -(void) countDownTimer{
-    [self makeASound];
+    UIBackgroundTaskIdentifier bgTask =0;
+    UIApplication  *app = [UIApplication sharedApplication];
+    bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
+        [app endBackgroundTask:bgTask];
+    }];
+
+    
+    [self playASound];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown:) userInfo:nil repeats:YES];
 }
 

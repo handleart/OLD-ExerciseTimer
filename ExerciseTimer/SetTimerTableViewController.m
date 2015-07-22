@@ -9,7 +9,7 @@
 #define cRepPickerIndex 1
 #define cTimer1PickerIndex 3
 #define cTimer2PickerIndex 5
-#define cPickerCellHeight 164
+#define cPickerCellHeight 170
 
 #import "SetTimerTableViewController.h"
 #import "ViewTimerViewController.h"
@@ -17,7 +17,7 @@
 @interface SetTimerTableViewController ()
 
 @property (weak, nonatomic) IBOutlet UISwitch *dimScreenSwitch;
-
+@property (weak, nonatomic) IBOutlet UITextField *dimScreenLabel;
 
 @property (weak, nonatomic) IBOutlet UIPickerView *timer2Picker;
 @property (weak, nonatomic) IBOutlet UITextField *timer2Label;
@@ -67,10 +67,23 @@
     [self definePickerData];
     [self definePickerState];
 
-    
+    if (_bNotFirstTime != YES) {
+        [self.repPicker selectRow:0 inComponent:0 animated:NO];
+        
+        [self.timer1Picker selectRow:1 inComponent:1 animated:NO];
+        [self.timer2Picker selectRow:1 inComponent:1 animated:NO];
+        
+        [self pickerView:self.repPicker didSelectRow:0 inComponent:0];
+        [self pickerView:self.timer1Picker didSelectRow:1 inComponent:1];
+        [self pickerView:self.timer2Picker didSelectRow:1 inComponent:1];
+        
+        _bNotFirstTime = YES;
+        
+        
+    }
+
     
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -125,17 +138,7 @@
     self.aTimer1PickListValues = @[[_aMin copy], [_aSec copy]];
     self.aTimer2PickListValues = @[[_aMin copy], [_aSec copy]];
     
-    if (_bNotFirstTime != YES) {
-        [self.repPicker selectRow:0 inComponent:0 animated:NO];
-        [self.timer1Picker selectRow:1 inComponent:1 animated:NO];
-        [self.timer2Picker selectRow:1 inComponent:1 animated:NO];
-        
-        [self pickerView:self.repPicker didSelectRow:0 inComponent:0];
-        [self pickerView:self.timer1Picker didSelectRow:1 inComponent:1];
-        [self pickerView:self.timer2Picker didSelectRow:1 inComponent:1];
-    
-        _bNotFirstTime = YES;
-    }
+
     
     
 }
@@ -246,11 +249,13 @@
 - (IBAction)dimScreenSwitchPressed:(id)sender {
     
     if ([self.dimScreenSwitch isOn]) {
-        [self.dimScreenSwitch setOn:YES animated:YES];
-        [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
-    } else {
-        [self.dimScreenSwitch setOn:NO animated:YES];
+        //[self.dimScreenSwitch setOn:YES animated:YES];
         [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+        _dimScreenLabel.text = @"Dim Screen - Disabled";
+    } else {
+        //[self.dimScreenSwitch setOn:NO animated:YES];
+        [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+        _dimScreenLabel.text = @"Dim Screen";
     }
     
 }
