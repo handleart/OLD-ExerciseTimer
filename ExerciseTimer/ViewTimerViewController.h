@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-//#include <AudioToolbox/AudioToolbox.h>
 
 
 @interface ViewTimerViewController : UIViewController
 
-//- (IBAction)unwindToSetTimer:(UIStoryboardSegue *)segue;
+- (IBAction)unwindToList:(UIStoryboardSegue *)segue;
 
 @property NSInteger iNumReps;
 @property NSInteger iRepLen1;
