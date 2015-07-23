@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>92055507-C8DF-484D-A155-E33CBCC98CF8</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Exercise Timer</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>205FFF7C132BD0C7728738845EC0C5F4F324D601</key>
+		<string>github.com:handleart/Exercise-Timer.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Exercise Timer.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>205FFF7C132BD0C7728738845EC0C5F4F324D601</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:handleart/Exercise-Timer.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>205FFF7C132BD0C7728738845EC0C5F4F324D601</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>205FFF7C132BD0C7728738845EC0C5F4F324D601</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ExerciseTimer-bk</string>
+		</dict>
+	</array>
+</dict>
+</plist>
