@@ -39,9 +39,10 @@
     
     
     
-    [self sendAppRunningNotice];
+    //[self sendAppRunningNotice];
 
 }
+
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {

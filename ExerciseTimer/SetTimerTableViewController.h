@@ -15,5 +15,6 @@
 
 
 @property BOOL bNotFirstTime;
+@property float iVolume;
 
 @end
