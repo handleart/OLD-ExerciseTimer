@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		9C00384E1B6040E40081C032 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C00384D1B6040E40081C032 /* Media.xcassets */; };
 		9C17AAA21B6D4D3B00CDA99C /* ViewTimerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C17AAA11B6D4D3A00CDA99C /* ViewTimerTableViewController.m */; };
+		9C4D71A91B6EEB3D00F500DD /* Temple Bell.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C4D71A81B6EEB3D00F500DD /* Temple Bell.aiff */; };
 		9C5E74721B6DA8C400E2AAFF /* Whistle.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C5E74711B6DA8C400E2AAFF /* Whistle.aiff */; };
-		9C5E74751B6DABF300E2AAFF /* Temple Bell.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C5E74741B6DABF300E2AAFF /* Temple Bell.aiff */; };
 		9C5E74791B6EA0CE00E2AAFF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C5E74781B6EA0CE00E2AAFF /* AVFoundation.framework */; };
 		9C5E747C1B6EAE9700E2AAFF /* Triple Temple Bell.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C5E747A1B6EAE9700E2AAFF /* Triple Temple Bell.aiff */; };
 		9C5E747D1B6EAE9700E2AAFF /* Triple Whistle.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C5E747B1B6EAE9700E2AAFF /* Triple Whistle.aiff */; };
@@ -40,8 +40,8 @@
 		9C00384D1B6040E40081C032 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		9C17AAA01B6D4D3A00CDA99C /* ViewTimerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewTimerTableViewController.h; sourceTree = "<group>"; };
 		9C17AAA11B6D4D3A00CDA99C /* ViewTimerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewTimerTableViewController.m; sourceTree = "<group>"; };
+		9C4D71A81B6EEB3D00F500DD /* Temple Bell.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Temple Bell.aiff"; sourceTree = SOURCE_ROOT; };
 		9C5E74711B6DA8C400E2AAFF /* Whistle.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Whistle.aiff; sourceTree = SOURCE_ROOT; };
-		9C5E74741B6DABF300E2AAFF /* Temple Bell.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "Temple Bell.aiff"; path = "../../../../../Desktop/Temple Bell.aiff"; sourceTree = "<group>"; };
 		9C5E74781B6EA0CE00E2AAFF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		9C5E747A1B6EAE9700E2AAFF /* Triple Temple Bell.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Triple Temple Bell.aiff"; sourceTree = SOURCE_ROOT; };
 		9C5E747B1B6EAE9700E2AAFF /* Triple Whistle.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Triple Whistle.aiff"; sourceTree = SOURCE_ROOT; };
@@ -89,7 +89,7 @@
 				9C5E747B1B6EAE9700E2AAFF /* Triple Whistle.aiff */,
 				9CF9FCB11B5F0AE800AA749E /* Beep.aiff */,
 				9C5E74711B6DA8C400E2AAFF /* Whistle.aiff */,
-				9C5E74741B6DABF300E2AAFF /* Temple Bell.aiff */,
+				9C4D71A81B6EEB3D00F500DD /* Temple Bell.aiff */,
 			);
 			name = Sounds;
 			sourceTree = "<group>";
@@ -252,13 +252,13 @@
 				9C5E74721B6DA8C400E2AAFF /* Whistle.aiff in Resources */,
 				9C5E747F1B6EE84C00E2AAFF /* Volume.png in Resources */,
 				9CB503971B547C01006FD3B9 /* Main.storyboard in Resources */,
-				9C5E74751B6DABF300E2AAFF /* Temple Bell.aiff in Resources */,
 				9CB5039C1B547C01006FD3B9 /* LaunchScreen.xib in Resources */,
 				9CF9FCB21B5F0AE900AA749E /* Beep.aiff in Resources */,
 				9C5E747D1B6EAE9700E2AAFF /* Triple Whistle.aiff in Resources */,
 				9CBC2D0F1B602A7900474CD1 /* Settings.bundle in Resources */,
 				9C00384E1B6040E40081C032 /* Media.xcassets in Resources */,
 				9C5E747C1B6EAE9700E2AAFF /* Triple Temple Bell.aiff in Resources */,
+				9C4D71A91B6EEB3D00F500DD /* Temple Bell.aiff in Resources */,
 				9CB503991B547C01006FD3B9 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
