@@ -15,6 +15,8 @@
 		9C5E747C1B6EAE9700E2AAFF /* Triple Temple Bell.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C5E747A1B6EAE9700E2AAFF /* Triple Temple Bell.aiff */; };
 		9C5E747D1B6EAE9700E2AAFF /* Triple Whistle.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C5E747B1B6EAE9700E2AAFF /* Triple Whistle.aiff */; };
 		9C5E747F1B6EE84C00E2AAFF /* Volume.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C5E747E1B6EE84C00E2AAFF /* Volume.png */; };
+		9C8D43631B7527B4005C1523 /* aTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8D43621B7527B4005C1523 /* aTimer.m */; };
+		9C8D43661B7528E4005C1523 /* ChooseTimerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8D43651B7528E4005C1523 /* ChooseTimerTableViewController.m */; };
 		9CB5038E1B547C01006FD3B9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB5038D1B547C01006FD3B9 /* main.m */; };
 		9CB503911B547C01006FD3B9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB503901B547C01006FD3B9 /* AppDelegate.m */; };
 		9CB503971B547C01006FD3B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CB503951B547C01006FD3B9 /* Main.storyboard */; };
@@ -46,6 +48,10 @@
 		9C5E747A1B6EAE9700E2AAFF /* Triple Temple Bell.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Triple Temple Bell.aiff"; sourceTree = SOURCE_ROOT; };
 		9C5E747B1B6EAE9700E2AAFF /* Triple Whistle.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Triple Whistle.aiff"; sourceTree = SOURCE_ROOT; };
 		9C5E747E1B6EE84C00E2AAFF /* Volume.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Volume.png; path = ../Volume.png; sourceTree = "<group>"; };
+		9C8D43611B7527B4005C1523 /* aTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aTimer.h; sourceTree = "<group>"; };
+		9C8D43621B7527B4005C1523 /* aTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = aTimer.m; sourceTree = "<group>"; };
+		9C8D43641B7528E4005C1523 /* ChooseTimerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseTimerTableViewController.h; sourceTree = "<group>"; };
+		9C8D43651B7528E4005C1523 /* ChooseTimerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseTimerTableViewController.m; sourceTree = "<group>"; };
 		9CB503881B547C01006FD3B9 /* Exercise Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Exercise Timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CB5038C1B547C01006FD3B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9CB5038D1B547C01006FD3B9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -128,7 +134,10 @@
 			children = (
 				9CB5038F1B547C01006FD3B9 /* AppDelegate.h */,
 				9CB503901B547C01006FD3B9 /* AppDelegate.m */,
+				9CCBBA241B75B88100CBAE6A /* Classes */,
 				9CB503951B547C01006FD3B9 /* Main.storyboard */,
+				9C8D43641B7528E4005C1523 /* ChooseTimerTableViewController.h */,
+				9C8D43651B7528E4005C1523 /* ChooseTimerTableViewController.m */,
 				9CB503981B547C01006FD3B9 /* Images.xcassets */,
 				9CB5039A1B547C01006FD3B9 /* LaunchScreen.xib */,
 				9CB5038B1B547C01006FD3B9 /* Supporting Files */,
@@ -166,6 +175,15 @@
 				9CB503A61B547C01006FD3B9 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9CCBBA241B75B88100CBAE6A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				9C8D43611B7527B4005C1523 /* aTimer.h */,
+				9C8D43621B7527B4005C1523 /* aTimer.m */,
+			);
+			name = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,9 +295,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C8D43661B7528E4005C1523 /* ChooseTimerTableViewController.m in Sources */,
 				9CB503911B547C01006FD3B9 /* AppDelegate.m in Sources */,
 				9CB5038E1B547C01006FD3B9 /* main.m in Sources */,
 				9C17AAA21B6D4D3B00CDA99C /* ViewTimerTableViewController.m in Sources */,
+				9C8D43631B7527B4005C1523 /* aTimer.m in Sources */,
 				9CF9FCB01B5DD8A100AA749E /* SetTimerTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

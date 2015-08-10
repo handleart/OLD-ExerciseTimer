@@ -7,8 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "aTimer.h"
 
 @interface AppDelegate ()
+
+
 
 @end
 
@@ -22,6 +25,20 @@
             [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound categories:nil]];
         }
     #endif
+    
+    // look for saved data.
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectoryPath = [paths objectAtIndex:0];
+    NSString *filePath = [documentsDirectoryPath stringByAppendingPathComponent:@"timerAppData"];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        NSData *data = [NSData dataWithContentsOfFile:filePath];
+        NSDictionary *savedData = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        
+        if ([savedData objectForKey:@"timers"] != nil) {
+            self.timers = [[NSMutableArray alloc] initWithArray:[savedData objectForKey:@"timers"]];
+        }
+    }
     
     return YES;
 }
@@ -79,5 +96,20 @@
         [app scheduleLocalNotification:alarm];
     }
 }
+
+- (void) saveData {
+    NSMutableDictionary *dataDict = [[NSMutableDictionary alloc] initWithCapacity:3];
+    if (self.timers != nil) {
+        [dataDict setObject:self.timers forKey:@"timers"];
+    }
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectoryPath = [paths objectAtIndex:0];
+    NSString *filePath = [documentsDirectoryPath stringByAppendingPathComponent:@"timerAppData"];
+    
+    [NSKeyedArchiver archiveRootObject:dataDict toFile:filePath];
+}
+
+
 
 @end

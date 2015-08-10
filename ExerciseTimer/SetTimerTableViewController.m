@@ -10,10 +10,13 @@
 #define cTimer1PickerIndex 3
 #define cTimer2PickerIndex 5
 #define cSoundPickerIndex 8
+#define saveIndex 9
 #define cPickerCellHeight 162
 
 #import "SetTimerTableViewController.h"
 #import "ViewTimerTableViewController.h"
+#import "AppDelegate.h"
+#import "aTimer.h"
 
 @interface SetTimerTableViewController ()
 
@@ -27,6 +30,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *timer1Label;
 @property (weak, nonatomic) IBOutlet UITextField *numLabel;
 @property (weak, nonatomic) IBOutlet UITextField *soundNameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *playButton;
 
 
 @property (weak, nonatomic) IBOutlet UIPickerView *soundNamePicker;
@@ -63,6 +68,8 @@
 @property NSInteger iLenOfTimer1;
 @property NSInteger iLenOfTimer2;
 
+@property aTimer *tmpTimer;
+
 //@property NSString* sFont = @"HelveticaNeue-Bold";
 
 
@@ -82,7 +89,10 @@
    
     [self definePickerData];
     [self definePickerState];
-
+    
+    
+    _tmpTimer = [[aTimer alloc] init];
+    
     //only runs on initial load of the page
     if (_bNotFirstTime != YES) {
         //Makes sure a value is selected from picklist
@@ -101,8 +111,10 @@
         
         _iVolume = 0.5f;
         
+        //NSLog([[AVAudioSession sharedInstance] outputVolume]);
         
-        
+        //[self.playButton setEnabled:NO];
+        //[self.playButton setTintColor:[UIColor clearColor]];
         
     }
      
@@ -356,6 +368,37 @@
     }
     
 }
+
+- (IBAction)saveButtonClicked:(id)sender {
+    NSLog(@"Save button pressed");
+    
+    
+    _tmpTimer.timerName = @"Temp";
+    _tmpTimer.iNumReps = self.iNumRep;
+    _tmpTimer.iRepLen1 = self.iLenOfTimer1;
+    _tmpTimer.iRepLen2 = self.iLenOfTimer2;
+    
+    _tmpTimer.sRepSoundName= self.sSoundName;
+    _tmpTimer.sRepSoundExtension = self.sSoundNameExtension;
+    
+    AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+
+    if ([[app timers] containsObject:_tmpTimer]) {
+        NSLog(@"value already in timer");
+        
+    } else {
+        [[app timers] addObject:_tmpTimer];
+        self.saveButton.enabled = NO;
+    }
+
+    
+    //[[app timers] addObject:_tmpTimer];
+
+    //
+    
+}
+
 
 //updates the booleans for which cell is now showing
 - (void)showPickerCell:(UIPickerView *)picker {
@@ -626,6 +669,7 @@
     }
 
 }
+
 
 
 @end

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="cdB-mQ-cuW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3a5-X6-u5k">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
@@ -398,6 +398,27 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Save" id="xqW-Nq-zsN">
+                                        <rect key="frame" x="0.0" y="946" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xqW-Nq-zsN" id="cl4-hB-oMD">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PSX-zk-6dS">
+                                                    <rect key="frame" x="225" y="-8" width="150" height="60"/>
+                                                    <state key="normal" title="Save"/>
+                                                    <connections>
+                                                        <action selector="saveButtonClicked:" destination="EWN-gJ-VEw" eventType="touchUpInside" id="87l-gp-oDK"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="PSX-zk-6dS" firstAttribute="centerY" secondItem="cl4-hB-oMD" secondAttribute="centerY" id="YoA-aU-Ss1"/>
+                                                <constraint firstItem="PSX-zk-6dS" firstAttribute="centerX" secondItem="cl4-hB-oMD" secondAttribute="centerX" id="kXG-7a-KUK"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -418,7 +439,9 @@
                         <outlet property="dimScreenLabel" destination="zjy-Qe-DOr" id="GN5-bv-8te"/>
                         <outlet property="dimScreenSwitch" destination="0RB-Oz-yNn" id="7bs-Gd-8bN"/>
                         <outlet property="numLabel" destination="BXS-9N-KUy" id="d8m-6C-paz"/>
+                        <outlet property="playButton" destination="YV3-FY-A7u" id="zNR-bK-1os"/>
                         <outlet property="repPicker" destination="8Z8-48-1DW" id="8ZZ-S1-2k1"/>
+                        <outlet property="saveButton" destination="PSX-zk-6dS" id="ixJ-gE-kUG"/>
                         <outlet property="soundNameLabel" destination="TJ0-1H-sYa" id="PmP-k9-eqa"/>
                         <outlet property="soundNamePicker" destination="EVE-w0-nd4" id="ITr-Xa-efY"/>
                         <outlet property="timer1Label" destination="eUu-65-5yp" id="rfM-wU-QhF"/>
@@ -448,6 +471,58 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Xq-zw-8yt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2145" y="438"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="b8f-Sm-JTg">
+            <objects>
+                <navigationController id="3a5-X6-u5k" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="t85-dr-iPh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="uJL-Dz-2Qw" kind="relationship" relationship="rootViewController" id="SxL-jM-Lne"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Na0-kt-qqa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-332" y="1143"/>
+        </scene>
+        <!--Choose Timer-->
+        <scene sceneID="r8J-cO-Obd">
+            <objects>
+                <tableViewController title="Choose Timer" id="uJL-Dz-2Qw" customClass="ChooseTimerTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="aSw-aJ-GPI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ListPrototypeCell" id="gMj-jp-Sgw">
+                                <rect key="frame" x="0.0" y="86" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gMj-jp-Sgw" id="56H-rK-fxP">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="uJL-Dz-2Qw" id="4KS-ix-zDh"/>
+                            <outlet property="delegate" destination="uJL-Dz-2Qw" id="5fK-dH-lpi"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Rt9-zW-9Qk">
+                        <barButtonItem key="leftBarButtonItem" title="Custom" id="nmn-uJ-tMC"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="lb3-XR-z64">
+                            <connections>
+                                <segue destination="cdB-mQ-cuW" kind="presentation" id="NWN-7E-WxT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Jj-sI-vsf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="566" y="1135"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BBN-60-G0h">
