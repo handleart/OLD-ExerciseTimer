@@ -10,6 +10,7 @@
 
 @interface ViewTimerTableViewController : UITableViewController
 
+@property NSInteger iRepLen0;
 @property NSInteger iNumReps;
 @property NSInteger iRepLen1;
 @property NSInteger iRepLen2;

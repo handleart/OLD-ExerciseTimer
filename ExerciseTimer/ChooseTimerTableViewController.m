@@ -15,7 +15,6 @@
 @property NSMutableArray *savedTimers;
 @property aTimer *selectedTimer;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *addTimer;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *customTimer;
 
 @end
 
@@ -34,6 +33,7 @@
     
     //app.timers = _savedTimers;
     //[app saveData];
+    
     
     self.savedTimers = app.timers;
     

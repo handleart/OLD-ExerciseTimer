@@ -37,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *playButton;
 @property (weak, nonatomic) IBOutlet UITextField *repNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *timerTotalLabel;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *rewindButton;
 
 
 @property (weak, nonatomic) IBOutlet UIPickerView *soundNamePicker;
@@ -100,6 +101,7 @@
     [self definePickerData];
     [self definePickerState];
 
+    [self configureButtons];
     
     if (_tmpTimer != nil) {
         
@@ -145,7 +147,7 @@
         
         
         [_repNameTextField setBackgroundColor:[UIColor blueColor]];
-        
+        _iVolume = 0.5f;
         
         
     } else {
@@ -170,6 +172,7 @@
             _bNotFirstTime = YES;
             
             _iVolume = 0.5f;
+            //_iVolume = [[AVAudioSession sharedInstance] outputVolume];
             
             //NSLog([[AVAudioSession sharedInstance] outputVolume]);
             
@@ -188,7 +191,7 @@
     //[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    [self configureButtons];
+    
     
 }
 
@@ -202,6 +205,8 @@
     [self.tableView setContentOffset:CGPointMake(0, 0) animated:NO];    
 }
 
+
+//This includes both Pickers and Text Fields delegation
 - (void)definePickerState {
     self.repPicker.dataSource = self;
     self.repPicker.delegate = self;
@@ -219,6 +224,15 @@
     self.soundNamePicker.dataSource = self;
     self.soundNamePicker.delegate = self;
     self.soundNamePicker.hidden = true;
+    
+    self.repNameTextField.delegate = self;
+}
+
+//hide the text field when not active
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    [textField setBackgroundColor:[UIColor blueColor]];
+    return NO; 
 }
 
 //Set the values for the picklists
@@ -278,6 +292,17 @@
     _saveButton.layer.borderWidth = 1.0f;
     _saveButton.layer.borderColor = [[UIColor whiteColor] CGColor];
     _saveButton.layer.cornerRadius = 8.0f;
+    
+    if (_saveViewIsShowing == true && _tmpTimer == nil) {
+        [_playButton setEnabled:NO];
+        [_playButton setTintColor: [UIColor clearColor]];
+        
+        
+    } else if (_saveViewIsShowing == false) {
+        [_rewindButton setEnabled:NO];
+        [_rewindButton setTintColor: [UIColor clearColor]];
+    }
+    
 }
 
 - (IBAction)saveButtonClicked:(id)sender {
@@ -304,7 +329,8 @@
         
     } else {
         [[app timers] addObject:_tmpTimer];
-        
+        [_playButton setEnabled:YES];
+        [_playButton setTintColor:nil];
         
     }
     

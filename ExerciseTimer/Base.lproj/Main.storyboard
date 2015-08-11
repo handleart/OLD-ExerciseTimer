@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3a5-X6-u5k">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GXa-Al-sAe">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
@@ -63,8 +63,8 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mxl-Ai-gcx">
-                                                    <rect key="frame" x="248" y="47" width="105" height="46"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="38"/>
+                                                    <rect key="frame" x="218" y="34" width="165" height="72"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="60"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -409,7 +409,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Rep Name" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RLe-CN-TJp">
-                                                    <rect key="frame" x="18" y="10" width="217" height="30"/>
+                                                    <rect key="frame" x="18" y="10" width="412" height="30"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -457,6 +457,7 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <tabBarItem key="tabBarItem" title="Item" id="YfM-8B-pAH"/>
                     <navigationItem key="navigationItem" id="NL4-5h-5t0">
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" systemItem="rewind" id="oNA-Pz-mGw">
@@ -483,6 +484,7 @@
                         <outlet property="playButton" destination="YV3-FY-A7u" id="zNR-bK-1os"/>
                         <outlet property="repNameTextField" destination="RLe-CN-TJp" id="KWw-d7-Xhc"/>
                         <outlet property="repPicker" destination="8Z8-48-1DW" id="8ZZ-S1-2k1"/>
+                        <outlet property="rewindButton" destination="oNA-Pz-mGw" id="kpC-Ss-mIy"/>
                         <outlet property="saveButton" destination="PSX-zk-6dS" id="ixJ-gE-kUG"/>
                         <outlet property="soundNameLabel" destination="TJ0-1H-sYa" id="PmP-k9-eqa"/>
                         <outlet property="soundNamePicker" destination="EVE-w0-nd4" id="ITr-Xa-efY"/>
@@ -516,10 +518,11 @@
             </objects>
             <point key="canvasLocation" x="2145" y="438"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Preset Timers-->
         <scene sceneID="b8f-Sm-JTg">
             <objects>
                 <navigationController id="3a5-X6-u5k" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Preset Timers" image="Preset Tab Image" id="UMZ-Tp-eFw"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="t85-dr-iPh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -530,7 +533,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Na0-kt-qqa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-332" y="1143"/>
+            <point key="canvasLocation" x="-1076" y="444"/>
         </scene>
         <!--Choose Timer-->
         <scene sceneID="r8J-cO-Obd">
@@ -578,11 +581,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Rt9-zW-9Qk">
-                        <barButtonItem key="leftBarButtonItem" title="Custom Timer" id="nmn-uJ-tMC">
-                            <connections>
-                                <segue destination="cdB-mQ-cuW" kind="presentation" identifier="Custom Button Clicked" id="6Ce-hd-TjS"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="lb3-XR-z64">
                             <connections>
                                 <segue destination="cdB-mQ-cuW" kind="presentation" identifier="Add Timer Clicked" id="NWN-7E-WxT"/>
@@ -591,17 +589,36 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addTimer" destination="lb3-XR-z64" id="rfF-V2-sdD"/>
-                        <outlet property="customTimer" destination="nmn-uJ-tMC" id="lFH-VE-hcU"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Jj-sI-vsf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="561" y="1254"/>
+            <point key="canvasLocation" x="-327" y="438"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Tab Bar Controller-->
+        <scene sceneID="ycr-qT-Hpy">
+            <objects>
+                <tabBarController id="GXa-Al-sAe" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="ypo-c8-u9C">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="cdB-mQ-cuW" kind="relationship" relationship="viewControllers" id="G0U-Rb-t89"/>
+                        <segue destination="3a5-X6-u5k" kind="relationship" relationship="viewControllers" id="LtS-Nr-dSX"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2fy-TO-6ft" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-293" y="1227"/>
+        </scene>
+        <!--Manual Timer-->
         <scene sceneID="BBN-60-G0h">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cdB-mQ-cuW" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Manual Timer" image="Manual Tab Image" id="LhQ-2B-YBT"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="a3I-YH-PGd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -618,9 +635,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Manual Tab Image" width="35" height="35"/>
+        <image name="Preset Tab Image" width="35" height="35"/>
         <image name="Volume.png" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eQh-dO-BfK"/>
+        <segue reference="G0U-Rb-t89"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -48,29 +48,11 @@
     
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     
-    
-    //Initially set the button names here in code. Moved it to Storyboard since there is only one name for the Selected State
-    //[self.buttonPauseStart setTitle:@"Continue" forState:UIControlStateSelected];
-    
-    //test data
-    //_iNumReps = 3;
-    //_iRepLen1 = 5;
-    //_iRepLen2 = 5;
-    
-    //This needs to be fixed to get these values from SetTimerViewController
-    
-    //_sRepSoundName = @"Temple Bell";
-    //_sRepSoundExtension = @"aiff";
-    
-    //_sEndSoundName = @"Triple Temple Bell";
-    //_sEndSoundExtension = @"aiff";
+    //Need to move this into setting to allow user to preselect it. For the time being, the lead in to the counter is set up as 5 sec.
+    _iRepLen0 = 5;
     
     [self setUpInitialState];
     //_player.volume = _iVolume;
-    
-    
-    
-    
 }
 - (IBAction)volumeSliderValueChanged:(id)sender {
     //NSLog(@"%@", _volumeSlider);
@@ -96,6 +78,7 @@
     
 }
 
+/*
 -(void)applicationWillResignActive:(UIApplication *)application {
     [self.timer invalidate];
 }
@@ -104,10 +87,12 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [self countDownTimer];
 }
+
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     
 }
-
+*/
+ 
 
 #pragma mark - Utilities
 
@@ -128,13 +113,13 @@
     
     [self prepareToPlayASound:_sRepSoundName fileExtension:_sRepSoundExtension];
     
-    _counter = _iRepLen1;
+    _counter = _iRepLen0;
     
-    _repNumCount = 1;
+    _repNumCount = 0;
     
-    _sRepName = [NSString stringWithFormat:@"Rep #%d",_repNumCount];
-    
-    _iWhichTimer = 1;
+    //_sRepName = [NSString stringWithFormat:@"Get Ready!",_repNumCount];
+    _sRepName = [NSString stringWithFormat:@"Prep Counter"];
+    _iWhichTimer = 0;
     
     [self updateScreen];
     [self playASound];
@@ -175,13 +160,6 @@
 }
 
 - (void)prepareToPlayASound:(NSString *)filename fileExtension:(NSString *)ext {
-    
-    //AVAudioSession.sharedInstance().setActive(true, error: nil)
-    
-    
-    
-    
-    
     NSString *audioFilePath = [[NSBundle mainBundle] pathForResource:filename ofType:ext];
     NSURL *pathAsURL = [[NSURL alloc] initFileURLWithPath:audioFilePath];
     NSError *error;
@@ -192,8 +170,7 @@
         NSLog(@"%@", [error localizedDescription]);
     }
     else{
-        // In this example we'll pre-load the audio into the buffer. You may avoid it if you want
-        // as it's not always possible to pre-load the audio.
+        // preload the audio player
         [_player prepareToPlay];
     }
     
@@ -226,7 +203,6 @@
     
     if (_counter <=0) {
         [timer invalidate];
-        
         if (_repNumCount < _iNumReps) {
             if (_iWhichTimer == 1) {
                 //_sRepName = @"Break";
@@ -235,8 +211,9 @@
                 _counter = _iRepLen2;
                 
             
-            } else if (_iWhichTimer == 2) {
+            } else if (_iWhichTimer == 2 || _iWhichTimer == 0) {
                 _repNumCount ++;
+
                 _sRepName = [NSString stringWithFormat:@"Rep %d",_repNumCount];
                 _iWhichTimer = 1;
                 _counter = _iRepLen1;
