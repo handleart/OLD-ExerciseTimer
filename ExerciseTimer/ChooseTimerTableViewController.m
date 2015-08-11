@@ -7,11 +7,15 @@
 //
 
 #import "ChooseTimerTableViewController.h"
+#import "SetTimerTableViewController.h"
 #import "aTimer.h"
 #import "appDelegate.h"
 
 @interface ChooseTimerTableViewController ()
 @property NSMutableArray *savedTimers;
+@property aTimer *selectedTimer;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *addTimer;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *customTimer;
 
 @end
 
@@ -19,6 +23,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[UIScrollView appearance] setBackgroundColor:[UIColor blueColor]];
     
     self.savedTimers = [[NSMutableArray alloc] init];
     
@@ -32,6 +38,8 @@
     self.savedTimers = app.timers;
     
     
+
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,10 +47,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - helpers
-- (void)loadData {
+#pragma mark - unwind method
+- (IBAction)unwindToChooseTimer:(UIStoryboardSegue *)segue {
+    SetTimerTableViewController *source = [segue sourceViewController];
     
-    
+    //only reload if a new timer is created on the subsequent page
+    if (source.tmpTimer != nil) {
+        [self.tableView reloadData];
+    }
     
 }
 
@@ -50,20 +62,20 @@
 - (void)initTestData {
     
     aTimer *timer1 = [[aTimer alloc] init];
-    timer1.timerName = @"8 Min Abs";
+    timer1.sTimerName = @"8 Min Abs";
     [self.savedTimers addObject:timer1];
     
     aTimer *timer2 = [[aTimer alloc] init];
-    timer2.timerName = @"Mindfulness of Breathing";
+    timer2.sTimerName = @"Mindfulness of Breathing";
     [self.savedTimers addObject:timer2];
     
     aTimer *timer3 = [[aTimer alloc] init];
-    timer3.timerName = @"Other";
+    timer3.sTimerName = @"Other";
     [self.savedTimers addObject:timer3];
     
 }
 
-#pragma mark - Table view data source
+#pragma mark - Table view
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -77,14 +89,40 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ListPrototypeCell"forIndexPath:indexPath];
     
-    aTimer *tmpTimer = [self.savedTimers objectAtIndex:indexPath.row];
-    cell.textLabel.text = tmpTimer.timerName;
     
-    // Configure the cell...
+    
+    aTimer *tmpTimer = [self.savedTimers objectAtIndex:indexPath.row];
+    cell.textLabel.text = tmpTimer.sTimerName;
+    
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Total Length: %02li:%02li, Sound: %@", (tmpTimer.iNumReps * (tmpTimer.iRepLen1 + tmpTimer.iRepLen2)) / 60, (tmpTimer.iNumReps * (tmpTimer.iRepLen1 + tmpTimer.iRepLen2)) % 60,tmpTimer.sRepSoundName];
     
     return cell;
 }
 
+
+#pragma mark - Table View methods
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    cell.backgroundColor = [UIColor blueColor];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.detailTextLabel.textColor = [UIColor whiteColor];
+    
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self.savedTimers removeObjectAtIndex:indexPath.row];
+        AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        [app saveData];
+        [tableView reloadData];
+    }
+}
 
 /*
 // Override to support conditional editing of the table view.
@@ -120,14 +158,29 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    UINavigationController *dc = (UINavigationController *)segue.destinationViewController;
+    SetTimerTableViewController *dest = [[dc viewControllers] lastObject];
+    
+    if (sender == _addTimer) {
+        [dest setSaveViewIsShowing: true];
+    }
+    
+    if ([segue.identifier isEqualToString:@"Table Selected"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        aTimer *tmpTimer = [_savedTimers objectAtIndex:indexPath.row];
+        
+        [dest setSaveViewIsShowing: true];
+        [dest setTmpTimer: tmpTimer];
+        
+    }
+    
 }
-*/
+
 
 @end

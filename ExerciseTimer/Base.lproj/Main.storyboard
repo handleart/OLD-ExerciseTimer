@@ -18,6 +18,8 @@
             <string>HelveticaNeue</string>
             <string>HelveticaNeue</string>
             <string>HelveticaNeue</string>
+            <string>HelveticaNeue</string>
+            <string>HelveticaNeue</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -122,14 +124,15 @@
                                                     </constraints>
                                                     <edgeInsets key="layoutMargins" top="20" left="20" bottom="20" right="20"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
-                                                    <state key="normal" title="Pause"/>
+                                                    <state key="normal" title="Pause">
+                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
                                                     <state key="selected" title="Continue"/>
                                                     <connections>
                                                         <action selector="handleButtonClick:" destination="T52-eC-ED6" eventType="touchUpInside" id="rar-9O-tln"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="tintColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="Bkm-2J-YtR" firstAttribute="centerX" secondItem="NVV-AV-i9p" secondAttribute="centerX" id="O46-hb-m4S"/>
@@ -146,7 +149,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="P0a-qO-sNN">
-                        <barButtonItem key="leftBarButtonItem" title="Set Timer" id="0Y2-1P-gTk">
+                        <barButtonItem key="leftBarButtonItem" systemItem="rewind" id="0Y2-1P-gTk">
                             <connections>
                                 <segue destination="wWQ-s0-2YW" kind="unwind" unwindAction="unwindToSetTimer:" id="0Zi-Pe-yuO"/>
                             </connections>
@@ -356,14 +359,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Sound" adjustsFontSizeToFit="NO" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="MIJ-jt-aKK">
-                                                    <rect key="frame" x="18" y="7" width="69" height="26"/>
+                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="TJ0-1H-sYa">
+                                                    <rect key="frame" x="538" y="9" width="44" height="26"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="TJ0-1H-sYa">
-                                                    <rect key="frame" x="538" y="9" width="44" height="26"/>
+                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Sound" adjustsFontSizeToFit="NO" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="MIJ-jt-aKK">
+                                                    <rect key="frame" x="18" y="8" width="69" height="26"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -398,15 +401,41 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Timer Name" rowHeight="50" id="ORx-1J-fTS">
+                                        <rect key="frame" x="0.0" y="946" width="600" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ORx-1J-fTS" id="B0x-aX-p3L">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Rep Name" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RLe-CN-TJp">
+                                                    <rect key="frame" x="18" y="10" width="217" height="30"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="RLe-CN-TJp" firstAttribute="leading" secondItem="B0x-aX-p3L" secondAttribute="leadingMargin" constant="10" id="EJR-DF-fa7"/>
+                                                <constraint firstItem="RLe-CN-TJp" firstAttribute="centerY" secondItem="B0x-aX-p3L" secondAttribute="centerY" id="SqZ-uD-pyA"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Save" id="xqW-Nq-zsN">
-                                        <rect key="frame" x="0.0" y="946" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="996" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xqW-Nq-zsN" id="cl4-hB-oMD">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PSX-zk-6dS">
-                                                    <rect key="frame" x="225" y="-8" width="150" height="60"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PSX-zk-6dS">
+                                                    <rect key="frame" x="225" y="2" width="150" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="FG0-j9-LO0"/>
+                                                        <constraint firstAttribute="width" constant="150" id="QSh-zJ-H1n"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
                                                     <state key="normal" title="Save"/>
                                                     <connections>
                                                         <action selector="saveButtonClicked:" destination="EWN-gJ-VEw" eventType="touchUpInside" id="87l-gp-oDK"/>
@@ -429,6 +458,18 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="NL4-5h-5t0">
+                        <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="rewind" id="oNA-Pz-mGw">
+                            <connections>
+                                <segue destination="1rD-LN-hDg" kind="unwind" unwindAction="unwindToChooseTimer:" id="XoY-3i-d3L"/>
+                            </connections>
+                        </barButtonItem>
+                        <textField key="titleView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="6j6-1w-evN">
+                            <rect key="frame" x="273" y="7" width="54" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
                         <barButtonItem key="rightBarButtonItem" systemItem="play" id="YV3-FY-A7u">
                             <connections>
                                 <segue destination="w6f-Q4-iM0" kind="presentation" identifier="ViewTimer" id="sRz-uO-Piv"/>
@@ -440,6 +481,7 @@
                         <outlet property="dimScreenSwitch" destination="0RB-Oz-yNn" id="7bs-Gd-8bN"/>
                         <outlet property="numLabel" destination="BXS-9N-KUy" id="d8m-6C-paz"/>
                         <outlet property="playButton" destination="YV3-FY-A7u" id="zNR-bK-1os"/>
+                        <outlet property="repNameTextField" destination="RLe-CN-TJp" id="KWw-d7-Xhc"/>
                         <outlet property="repPicker" destination="8Z8-48-1DW" id="8ZZ-S1-2k1"/>
                         <outlet property="saveButton" destination="PSX-zk-6dS" id="ixJ-gE-kUG"/>
                         <outlet property="soundNameLabel" destination="TJ0-1H-sYa" id="PmP-k9-eqa"/>
@@ -448,9 +490,11 @@
                         <outlet property="timer1Picker" destination="sKg-Xz-UvQ" id="FJK-IV-GHN"/>
                         <outlet property="timer2Label" destination="IWx-7g-Juf" id="8Jb-BF-b2d"/>
                         <outlet property="timer2Picker" destination="i6L-0b-i3E" id="Udj-jL-LQD"/>
+                        <outlet property="timerTotalLabel" destination="6j6-1w-evN" id="Vrn-Jb-zyH"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="msW-Nx-7wr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="1rD-LN-hDg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1392" y="444"/>
         </scene>
@@ -492,18 +536,40 @@
         <scene sceneID="r8J-cO-Obd">
             <objects>
                 <tableViewController title="Choose Timer" id="uJL-Dz-2Qw" customClass="ChooseTimerTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="aSw-aJ-GPI">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="52" sectionHeaderHeight="22" sectionFooterHeight="22" id="aSw-aJ-GPI">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ListPrototypeCell" id="gMj-jp-Sgw">
-                                <rect key="frame" x="0.0" y="86" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ListPrototypeCell" textLabel="OyO-PC-rHB" detailTextLabel="ZMX-oi-dVD" rowHeight="52" style="IBUITableViewCellStyleSubtitle" id="gMj-jp-Sgw">
+                                <rect key="frame" x="0.0" y="86" width="600" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gMj-jp-Sgw" id="56H-rK-fxP">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="51"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OyO-PC-rHB">
+                                            <rect key="frame" x="15" y="9" width="32" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZMX-oi-dVD">
+                                            <rect key="frame" x="15" y="29" width="41" height="14"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <segue destination="cdB-mQ-cuW" kind="presentation" identifier="Table Selected" id="eQh-dO-BfK"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -512,17 +578,25 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Rt9-zW-9Qk">
-                        <barButtonItem key="leftBarButtonItem" title="Custom" id="nmn-uJ-tMC"/>
+                        <barButtonItem key="leftBarButtonItem" title="Custom Timer" id="nmn-uJ-tMC">
+                            <connections>
+                                <segue destination="cdB-mQ-cuW" kind="presentation" identifier="Custom Button Clicked" id="6Ce-hd-TjS"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="lb3-XR-z64">
                             <connections>
-                                <segue destination="cdB-mQ-cuW" kind="presentation" id="NWN-7E-WxT"/>
+                                <segue destination="cdB-mQ-cuW" kind="presentation" identifier="Add Timer Clicked" id="NWN-7E-WxT"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addTimer" destination="lb3-XR-z64" id="rfF-V2-sdD"/>
+                        <outlet property="customTimer" destination="nmn-uJ-tMC" id="lFH-VE-hcU"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Jj-sI-vsf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="566" y="1135"/>
+            <point key="canvasLocation" x="561" y="1254"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BBN-60-G0h">
@@ -546,4 +620,7 @@
     <resources>
         <image name="Volume.png" width="128" height="128"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="eQh-dO-BfK"/>
+    </inferredMetricsTieBreakers>
 </document>

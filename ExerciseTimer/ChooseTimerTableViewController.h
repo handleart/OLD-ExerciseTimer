@@ -10,4 +10,6 @@
 
 @interface ChooseTimerTableViewController : UITableViewController
 
+- (IBAction)unwindToChooseTimer:(UIStoryboardSegue *)segue;
+
 @end

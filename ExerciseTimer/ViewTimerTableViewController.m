@@ -302,9 +302,19 @@
 
 
 
-/*
+
 
 #pragma mark - Table view data source
+ 
+ //set the background color to blue for the table
+ - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+ 
+     cell.backgroundColor = [UIColor blueColor];
+     cell.textLabel.textColor = [UIColor whiteColor];
+ 
+}
+
+/*
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections

@@ -10,13 +10,16 @@
 #define cTimer1PickerIndex 3
 #define cTimer2PickerIndex 5
 #define cSoundPickerIndex 8
-#define saveIndex 9
+#define cNameIndex 9
+#define cSaveIndex 10
 #define cPickerCellHeight 162
+#define cDefaultTableHeight 60
 
+#import "QuartzCore/QuartzCore.h"
 #import "SetTimerTableViewController.h"
 #import "ViewTimerTableViewController.h"
 #import "AppDelegate.h"
-#import "aTimer.h"
+
 
 @interface SetTimerTableViewController ()
 
@@ -32,6 +35,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *soundNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *playButton;
+@property (weak, nonatomic) IBOutlet UITextField *repNameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *timerTotalLabel;
 
 
 @property (weak, nonatomic) IBOutlet UIPickerView *soundNamePicker;
@@ -44,6 +49,7 @@
 @property (assign) BOOL timer1PickerIsShowing;
 @property (assign) BOOL timer2PickerIsShowing;
 @property (assign) BOOL soundPickerIsShowing;
+
 
 @property (strong, nonatomic) UITextField *activeTextField;
 
@@ -68,7 +74,11 @@
 @property NSInteger iLenOfTimer1;
 @property NSInteger iLenOfTimer2;
 
-@property aTimer *tmpTimer;
+//@property aTimer *tmpTimer;
+
+
+//Values can be null or createNew
+
 
 //@property NSString* sFont = @"HelveticaNeue-Bold";
 
@@ -89,35 +99,88 @@
    
     [self definePickerData];
     [self definePickerState];
+
     
-    
-    _tmpTimer = [[aTimer alloc] init];
-    
-    //only runs on initial load of the page
-    if (_bNotFirstTime != YES) {
-        //Makes sure a value is selected from picklist
-        [self.repPicker selectRow:0 inComponent:0 animated:NO];
-        [self.timer1Picker selectRow:1 inComponent:1 animated:NO];
-        [self.timer2Picker selectRow:1 inComponent:1 animated:NO];
-        [self.soundNamePicker selectRow:0 inComponent:0 animated:NO];
+    if (_tmpTimer != nil) {
         
-        //Runs pickerview didselect row to update labels on the screen
-        [self pickerView:self.repPicker didSelectRow:0 inComponent:0];
-        [self pickerView:self.timer1Picker didSelectRow:1 inComponent:1];
-        [self pickerView:self.timer2Picker didSelectRow:1 inComponent:1];
-        [self pickerView:self.soundNamePicker didSelectRow:0 inComponent:0];
+        _repNameTextField.text = _tmpTimer.sTimerName;
         
-        _bNotFirstTime = YES;
+        _dimScreenSwitch.on = _tmpTimer.bDimScreen;
         
-        _iVolume = 0.5f;
         
-        //NSLog([[AVAudioSession sharedInstance] outputVolume]);
+        //set up sound
+        _soundNameLabel.text = _tmpTimer.sRepSoundName;
+        _sSoundName = _tmpTimer.sRepSoundName;
         
-        //[self.playButton setEnabled:NO];
-        //[self.playButton setTintColor:[UIColor clearColor]];
+        //This is defined in two places. Need to define costent in different file or maybe a method ?
+        _sSoundNameExtension = @"aiff";
         
+        
+        //rep number
+        
+        NSUInteger repIndex = [_aNumRepsPickListValues indexOfObject:[NSString stringWithFormat:@"%li", _tmpTimer.iNumReps]];
+        [self.repPicker selectRow:repIndex inComponent:0 animated:NO];
+        [self pickerView:self.repPicker didSelectRow:repIndex inComponent:0];
+       
+        
+        //Timer 1
+        NSInteger rep1LenMin = _tmpTimer.iRepLen1 / 60;
+        NSInteger rep1LenSec = _tmpTimer.iRepLen1 % 60;
+        NSUInteger iLen1IndexMin = [_aMin indexOfObject:[NSString stringWithFormat:@"%li", rep1LenMin]];
+        NSUInteger iLen1IndexSec = [_aSec indexOfObject:[NSString stringWithFormat:@"%li", rep1LenSec]];
+        [self.timer1Picker selectRow:iLen1IndexMin inComponent:0 animated:NO];
+        [self.timer1Picker selectRow:iLen1IndexSec inComponent:1 animated:NO];
+        [self pickerView:self.timer1Picker didSelectRow:iLen1IndexMin inComponent:0];
+        [self pickerView:self.timer1Picker didSelectRow:iLen1IndexSec inComponent:1];
+        
+        //Timer 2
+        NSInteger rep2LenMin = _tmpTimer.iRepLen2 / 60;
+        NSInteger rep2LenSec = _tmpTimer.iRepLen2 % 60;
+        NSUInteger iLen2IndexMin = [_aMin indexOfObject:[NSString stringWithFormat:@"%li", rep2LenMin]];
+        NSUInteger iLen2IndexSec = [_aSec indexOfObject:[NSString stringWithFormat:@"%li", rep2LenSec]];
+        [self.timer2Picker selectRow:iLen2IndexMin inComponent:0 animated:NO];
+        [self.timer2Picker selectRow:iLen2IndexSec inComponent:1 animated:NO];
+        [self pickerView:self.timer2Picker didSelectRow:iLen2IndexMin inComponent:0];
+        [self pickerView:self.timer2Picker didSelectRow:iLen2IndexSec inComponent:1];
+        
+        
+        [_repNameTextField setBackgroundColor:[UIColor blueColor]];
+        
+        
+        
+    } else {
+        _tmpTimer = [[aTimer alloc] init];
+        //only runs on initial load of the page -- which is the same as when _tmpTimer has not been init
+        if (_bNotFirstTime != YES) {
+            //if (_tmpTimer == nil) {
+            
+            //}
+            //Makes sure a value is selected from picklist
+            [self.repPicker selectRow:0 inComponent:0 animated:NO];
+            [self.timer1Picker selectRow:1 inComponent:1 animated:NO];
+            [self.timer2Picker selectRow:1 inComponent:1 animated:NO];
+            [self.soundNamePicker selectRow:0 inComponent:0 animated:NO];
+            
+            //Runs pickerview didselect row to update labels on the screen
+            [self pickerView:self.repPicker didSelectRow:0 inComponent:0];
+            [self pickerView:self.timer1Picker didSelectRow:1 inComponent:1];
+            [self pickerView:self.timer2Picker didSelectRow:1 inComponent:1];
+            [self pickerView:self.soundNamePicker didSelectRow:0 inComponent:0];
+            
+            _bNotFirstTime = YES;
+            
+            _iVolume = 0.5f;
+            
+            //NSLog([[AVAudioSession sharedInstance] outputVolume]);
+            
+            //[self.playButton setEnabled:NO];
+            //[self.playButton setTintColor:[UIColor clearColor]];
+        }
     }
-     
+    
+
+    
+    
     //_dimScreenLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:22];
     
     
@@ -125,7 +188,7 @@
     //[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    
+    [self configureButtons];
     
 }
 
@@ -204,6 +267,76 @@
     
 }
 
+
+#pragma  mark - buttons
+
+-(void)configureButtons {
+    //[self.saveButton setTitle:@"Save" forState:UIControlStateNormal];
+    //[_saveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal forState:UIControlStateSelected];
+    
+    [_saveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _saveButton.layer.borderWidth = 1.0f;
+    _saveButton.layer.borderColor = [[UIColor whiteColor] CGColor];
+    _saveButton.layer.cornerRadius = 8.0f;
+}
+
+- (IBAction)saveButtonClicked:(id)sender {
+    NSLog(@"Save button pressed");
+    
+    
+    _tmpTimer.sTimerName = self.repNameTextField.text;
+    _tmpTimer.iNumReps = self.iNumRep;
+    _tmpTimer.iRepLen1 = self.iLenOfTimer1;
+    _tmpTimer.iRepLen2 = self.iLenOfTimer2;
+    _tmpTimer.bDimScreen = self.dimScreenSwitch.on;
+    
+    
+    
+    
+    _tmpTimer.sRepSoundName= self.sSoundName;
+    _tmpTimer.sRepSoundExtension = self.sSoundNameExtension;
+    
+    AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    
+    if ([[app timers] containsObject:_tmpTimer]) {
+        NSLog(@"value already in timer");
+        
+    } else {
+        [[app timers] addObject:_tmpTimer];
+        
+        
+    }
+    
+    [app saveData];
+    
+    [UIView animateWithDuration:0.1f
+                          delay:0.0f
+                        options: UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         [_saveButton
+                          setBackgroundColor:[UIColor grayColor]];
+                     }
+                     completion:nil];
+    
+    [UIView animateWithDuration:0.1f
+                          delay:0.0f
+                        options: UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         [_saveButton
+                          setBackgroundColor:[UIColor blueColor]];
+                     }
+                     completion:nil];
+
+    
+    //[[app timers] addObject:_tmpTimer];
+    
+    //
+    
+}
+
+
+
 #pragma mark - Table view methods
 
 //set the background color to blue for the table
@@ -212,6 +345,8 @@
     cell.backgroundColor = [UIColor blueColor];
 
 }
+ 
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -232,9 +367,13 @@
         
     } else if (indexPath.row == cSoundPickerIndex) {
         height = self.soundPickerIsShowing ? cPickerCellHeight : 0.0f;
+    } else if (indexPath.row == cSaveIndex || indexPath.row == cNameIndex) {
+        height = self.saveViewIsShowing ? cDefaultTableHeight : 0.0f;
     } else {
-        height = 80;
+        height = cDefaultTableHeight;
     }
+    
+    
     
     return height;
 }
@@ -368,37 +507,6 @@
     }
     
 }
-
-- (IBAction)saveButtonClicked:(id)sender {
-    NSLog(@"Save button pressed");
-    
-    
-    _tmpTimer.timerName = @"Temp";
-    _tmpTimer.iNumReps = self.iNumRep;
-    _tmpTimer.iRepLen1 = self.iLenOfTimer1;
-    _tmpTimer.iRepLen2 = self.iLenOfTimer2;
-    
-    _tmpTimer.sRepSoundName= self.sSoundName;
-    _tmpTimer.sRepSoundExtension = self.sSoundNameExtension;
-    
-    AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    
-
-    if ([[app timers] containsObject:_tmpTimer]) {
-        NSLog(@"value already in timer");
-        
-    } else {
-        [[app timers] addObject:_tmpTimer];
-        self.saveButton.enabled = NO;
-    }
-
-    
-    //[[app timers] addObject:_tmpTimer];
-
-    //
-    
-}
-
 
 //updates the booleans for which cell is now showing
 - (void)showPickerCell:(UIPickerView *)picker {
@@ -582,7 +690,8 @@
         
     }
 
-   
+    _timerTotalLabel.text = [NSString stringWithFormat:@"Total Length: %02li:%02li", (_iNumRep * (_iLenOfTimer1 + _iLenOfTimer2) / 60), (_iNumRep * (_iLenOfTimer1 + _iLenOfTimer2)) % 60];
+
     
 }
 

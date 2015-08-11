@@ -10,10 +10,11 @@
 
 @interface aTimer : NSObject <NSCoding>
 
-@property NSString *timerName;
+@property NSString *sTimerName;
 @property NSInteger iNumReps;
 @property NSInteger iRepLen1;
 @property NSInteger iRepLen2;
+@property BOOL bDimScreen;
 
 @property NSString* sRepSoundName;
 @property NSString* sRepSoundExtension;

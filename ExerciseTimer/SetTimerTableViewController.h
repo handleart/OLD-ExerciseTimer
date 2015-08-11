@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "aTimer.h"
 
 @interface SetTimerTableViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 
@@ -16,5 +16,7 @@
 
 @property BOOL bNotFirstTime;
 @property float iVolume;
+@property (assign) BOOL saveViewIsShowing;
+@property aTimer *tmpTimer;
 
 @end

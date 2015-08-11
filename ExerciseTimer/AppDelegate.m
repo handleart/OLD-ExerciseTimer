@@ -108,6 +108,8 @@
     NSString *filePath = [documentsDirectoryPath stringByAppendingPathComponent:@"timerAppData"];
     
     [NSKeyedArchiver archiveRootObject:dataDict toFile:filePath];
+    
+    NSLog(@"Data Saved");
 }
 
 
