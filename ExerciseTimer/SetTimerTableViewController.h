@@ -15,7 +15,7 @@
 
 
 @property BOOL bNotFirstTime;
-@property float iVolume;
+//@property float iVolume;
 @property (assign) BOOL saveViewIsShowing;
 @property aTimer *tmpTimer;
 

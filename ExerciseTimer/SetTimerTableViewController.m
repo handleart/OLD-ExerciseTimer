@@ -90,8 +90,8 @@
 
 
 - (IBAction)unwindToSetTimer:(UIStoryboardSegue *)segue {
-    ViewTimerTableViewController *source = [segue sourceViewController];
-    _iVolume = source.iVolume;
+    //ViewTimerTableViewController *source = [segue sourceViewController];
+    //_iVolume = source.iVolume;
     
 }
 
@@ -147,7 +147,7 @@
         
         
         [_repNameTextField setBackgroundColor:[UIColor blueColor]];
-        _iVolume = 0.5f;
+        //_iVolume = 0.5f;
         
         
     } else {
@@ -171,7 +171,7 @@
             
             _bNotFirstTime = YES;
             
-            _iVolume = 0.5f;
+            //_iVolume = 0.5f;
             //_iVolume = [[AVAudioSession sharedInstance] outputVolume];
             
             //NSLog([[AVAudioSession sharedInstance] outputVolume]);
@@ -798,7 +798,7 @@
         [dest setSEndSoundName: tmp];
         [dest setSEndSoundExtension: _sSoundNameExtension];
         
-        [dest setIVolume: _iVolume];
+        //[dest setIVolume: _iVolume];
 
         
     }

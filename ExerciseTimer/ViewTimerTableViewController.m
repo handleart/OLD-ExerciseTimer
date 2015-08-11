@@ -33,6 +33,7 @@
 
 @property (nonatomic, retain) AVAudioPlayer *player;
 
+@property float iVolume;
 
 //@property SystemSoundID mBeep;
 
@@ -51,8 +52,16 @@
     //Need to move this into setting to allow user to preselect it. For the time being, the lead in to the counter is set up as 5 sec.
     _iRepLen0 = 5;
     
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    _iVolume = [userDefaults floatForKey:@"volume"];
+    _volumeSlider.value = _iVolume;
     [self setUpInitialState];
-    //_player.volume = _iVolume;
+    //
+    
+    
+
+    
+    
 }
 - (IBAction)volumeSliderValueChanged:(id)sender {
     //NSLog(@"%@", _volumeSlider);
@@ -175,7 +184,6 @@
     }
     
     _player.volume = _iVolume;
-    _volumeSlider.value = _iVolume;
     
     
 }
@@ -365,8 +373,10 @@
     }
     */
     
-        
-        
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setFloat:_iVolume forKey:@"volume"];
+    [userDefaults synchronize];
+    
         
 }
 

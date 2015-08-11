@@ -40,6 +40,14 @@
         }
     }
     
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([userDefaults objectForKey:@"volume"] == nil) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setFloat:0.5f forKey:@"volume"];
+        [userDefaults synchronize];
+    }
+    
     return YES;
 }
 

@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -94,16 +95,25 @@
                                                     </connections>
                                                 </slider>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Volume.png" translatesAutoresizingMaskIntoConstraints="NO" id="Lf6-9N-tU8">
-                                                    <rect key="frame" x="405" y="10" width="45" height="24"/>
+                                                    <rect key="frame" x="398" y="10" width="45" height="24"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="45" id="CoU-uD-NqE"/>
                                                         <constraint firstAttribute="height" constant="24" id="nvg-3j-55S"/>
                                                     </constraints>
                                                 </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Volume-Mute.png" translatesAutoresizingMaskIntoConstraints="NO" id="YFZ-O1-esP">
+                                                    <rect key="frame" x="163" y="10" width="45" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="24" id="4Iq-7O-dVa"/>
+                                                        <constraint firstAttribute="width" constant="45" id="Zvz-Fa-eUy"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Lf6-9N-tU8" firstAttribute="leading" secondItem="1w0-u3-4LC" secondAttribute="trailing" constant="5" id="5qq-en-fZb"/>
+                                                <constraint firstItem="Lf6-9N-tU8" firstAttribute="centerX" secondItem="1w0-u3-4LC" secondAttribute="trailing" constant="20" id="5qq-en-fZb"/>
+                                                <constraint firstItem="1w0-u3-4LC" firstAttribute="leading" secondItem="YFZ-O1-esP" secondAttribute="centerX" constant="15" id="MgA-2b-4gT"/>
                                                 <constraint firstItem="1w0-u3-4LC" firstAttribute="centerY" secondItem="aqM-q5-xsP" secondAttribute="centerY" id="WYE-iA-RTs"/>
+                                                <constraint firstItem="YFZ-O1-esP" firstAttribute="centerY" secondItem="1w0-u3-4LC" secondAttribute="centerY" id="bo9-R6-DvF"/>
                                                 <constraint firstItem="Lf6-9N-tU8" firstAttribute="centerY" secondItem="1w0-u3-4LC" secondAttribute="centerY" id="ded-vC-Z1I"/>
                                                 <constraint firstItem="1w0-u3-4LC" firstAttribute="centerX" secondItem="aqM-q5-xsP" secondAttribute="centerX" id="xio-Ko-I9K"/>
                                             </constraints>
@@ -637,6 +647,7 @@
     <resources>
         <image name="Manual Tab Image" width="35" height="35"/>
         <image name="Preset Tab Image" width="35" height="35"/>
+        <image name="Volume-Mute.png" width="128" height="128"/>
         <image name="Volume.png" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
