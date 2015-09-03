@@ -11,8 +11,6 @@
 
 @interface AppDelegate ()
 
-
-
 @end
 
 @implementation AppDelegate
@@ -31,6 +29,7 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectoryPath = [paths objectAtIndex:0];
     NSString *filePath = [documentsDirectoryPath stringByAppendingPathComponent:@"timerAppData"];
+   
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         NSData *data = [NSData dataWithContentsOfFile:filePath];
@@ -39,15 +38,55 @@
         if ([savedData objectForKey:@"timers"] != nil) {
             self.timers = [[NSMutableArray alloc] initWithArray:[savedData objectForKey:@"timers"]];
         }
+        else {
+            self.timers = [[NSMutableArray alloc] init];
+            
+        }
+    
+    } //else {
+    //    self.timers = [[NSMutableArray alloc] init];
+    //}
+    
+    NSString *filePathExerciseSet = [documentsDirectoryPath stringByAppendingPathComponent:@"exerciseTimerAppData"];
+    NSData *ExerciseSetData = [NSData dataWithContentsOfFile:filePathExerciseSet];
+    NSDictionary *ExerciseSetSavedData = [NSKeyedUnarchiver unarchiveObjectWithData:ExerciseSetData];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePathExerciseSet]) {
+    
+        if ([ExerciseSetSavedData objectForKey:@"exerciseSets"] != nil) {
+            self.exerciseSets = [[NSMutableArray alloc] initWithArray:[ExerciseSetSavedData objectForKey:@"exerciseSets"]];
+        } else {
+            self.exerciseSets = [[NSMutableArray alloc] init];
+        }
+        
+        
     }
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    
+    // set initial defaults
     
     if ([userDefaults objectForKey:@"volume"] == nil) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setFloat:0.5f forKey:@"volume"];
         [userDefaults synchronize];
     }
+    
+    if ([userDefaults objectForKey:@"dimScreen"] == nil) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setBool:false forKey:@"dimScreen"];
+        [userDefaults synchronize];
+    }
+    
+    
+    if ([userDefaults objectForKey:@"introLength"] == nil) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setInteger:5 forKey:@"introLength"];
+        [userDefaults synchronize];
+    }
+
+    //NSLog(@"%li", (long)[userDefaults integerForKey:@"introLength"]);
     
     return YES;
 }
@@ -106,7 +145,7 @@
     }
 }
 
-- (void) saveData {
+- (void) saveTimersData {
     NSMutableDictionary *dataDict = [[NSMutableDictionary alloc] initWithCapacity:3];
     if (self.timers != nil) {
         [dataDict setObject:self.timers forKey:@"timers"];
@@ -118,7 +157,24 @@
     
     [NSKeyedArchiver archiveRootObject:dataDict toFile:filePath];
     
-    NSLog(@"Data Saved");
+    NSLog(@"Timer Data Saved");
 }
+
+
+- (void) saveExerciseSetData {
+    NSMutableDictionary *dataDict = [[NSMutableDictionary alloc] initWithCapacity:3];
+    if (self.exerciseSets != nil) {
+        [dataDict setObject:self.exerciseSets forKey:@"exerciseSets"];
+    }
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectoryPath = [paths objectAtIndex:0];
+    NSString *filePath = [documentsDirectoryPath stringByAppendingPathComponent:@"exerciseTimerAppData"];
+    
+    [NSKeyedArchiver archiveRootObject:dataDict toFile:filePath];
+    
+    NSLog(@"Exercise Data Saved");
+}
+
 
 @end

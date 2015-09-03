@@ -9,9 +9,9 @@
 #define cRepPickerIndex 1
 #define cTimer1PickerIndex 3
 #define cTimer2PickerIndex 5
-#define cSoundPickerIndex 8
-#define cNameIndex 9
-#define cSaveIndex 10
+#define cSoundPickerIndex 7
+#define cNameIndex 8
+#define cSaveIndex 9
 #define cPickerCellHeight 162
 #define cDefaultTableHeight 60
 
@@ -37,6 +37,8 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *playButton;
 @property (weak, nonatomic) IBOutlet UITextField *repNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *timerTotalLabel;
+
+
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rewindButton;
 
 
@@ -146,7 +148,7 @@
         [self pickerView:self.timer2Picker didSelectRow:iLen2IndexSec inComponent:1];
         
         
-        [_repNameTextField setBackgroundColor:[UIColor blueColor]];
+        //[_repNameTextField setBackgroundColor:[UIColor blueColor]];
         //_iVolume = 0.5f;
         
         
@@ -187,7 +189,7 @@
     //_dimScreenLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:22];
     
     
-    [[UIScrollView appearance] setBackgroundColor:[UIColor blueColor]];
+    //[[UIScrollView appearance] setBackgroundColor:[UIColor blueColor]];
     //[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -231,7 +233,7 @@
 //hide the text field when not active
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    [textField setBackgroundColor:[UIColor blueColor]];
+    //[textField setBackgroundColor:[UIColor blueColor]];
     return NO; 
 }
 
@@ -288,19 +290,21 @@
     //[self.saveButton setTitle:@"Save" forState:UIControlStateNormal];
     //[_saveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal forState:UIControlStateSelected];
     
-    [_saveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_timerTotalLabel setBackgroundColor:[UIColor clearColor]];
+    
+    //[_saveButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     _saveButton.layer.borderWidth = 1.0f;
-    _saveButton.layer.borderColor = [[UIColor whiteColor] CGColor];
+    //_saveButton.layer.borderColor = [[UIColor blueColor] CGColor];
     _saveButton.layer.cornerRadius = 8.0f;
     
     if (_saveViewIsShowing == true && _tmpTimer == nil) {
         [_playButton setEnabled:NO];
-        [_playButton setTintColor: [UIColor clearColor]];
+        //[_playButton setTintColor: [UIColor clearColor]];
         
         
     } else if (_saveViewIsShowing == false) {
         [_rewindButton setEnabled:NO];
-        [_rewindButton setTintColor: [UIColor clearColor]];
+        //[_rewindButton setTintColor: [UIColor clearColor]];
     }
     
 }
@@ -334,7 +338,7 @@
         
     }
     
-    [app saveData];
+    [app saveTimersData];
     
     [UIView animateWithDuration:0.1f
                           delay:0.0f
@@ -368,7 +372,7 @@
 //set the background color to blue for the table
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    cell.backgroundColor = [UIColor blueColor];
+    //cell.backgroundColor = [UIColor blueColor];
 
 }
  
@@ -519,6 +523,7 @@
 }
 - (IBAction)dimScreenSwitchPressed:(id)sender {
     
+    /*
     if ([self.dimScreenSwitch isOn]) {
         //[self.dimScreenSwitch setOn:YES animated:YES];
         [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
@@ -531,6 +536,7 @@
         //_dimScreenLabel.text = @"Screen dims?";
         NSLog(@"Switch is off");
     }
+     */
     
 }
 
@@ -639,7 +645,7 @@
      NSString *tmp = [[NSString alloc] init];
      
      //label.backgroundColor = [UIColor blueColor];
-     label.textColor = [UIColor whiteColor];
+     //label.textColor = [UIColor whiteColor];
      //label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
      label.font = [UIFont fontWithName:@"HelveticaNeue" size:22];
      
@@ -716,8 +722,9 @@
         
     }
 
-    _timerTotalLabel.text = [NSString stringWithFormat:@"Total Length: %02li:%02li", (_iNumRep * (_iLenOfTimer1 + _iLenOfTimer2) / 60), (_iNumRep * (_iLenOfTimer1 + _iLenOfTimer2)) % 60];
+    _timerTotalLabel.text = [NSString stringWithFormat:@"Total Length: %02li:%02li", (_iNumRep * (_iLenOfTimer1) / 60 + (_iNumRep-1) * _iLenOfTimer2 / 60), (_iNumRep * _iLenOfTimer1 + (_iNumRep-1) *_iLenOfTimer2) % 60];
 
+    
     
 }
 

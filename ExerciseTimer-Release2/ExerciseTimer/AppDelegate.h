@@ -12,8 +12,10 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property NSMutableArray *timers;
+@property NSMutableArray *exerciseSets;
 
--(void)saveData;
+-(void)saveTimersData;
+-(void)saveExerciseSetData;
 
 @end
 

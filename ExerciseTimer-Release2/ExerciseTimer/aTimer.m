@@ -42,7 +42,7 @@
 }
 
 -(NSInteger)totalLength {
-    return _iNumReps * (_iRepLen1 + _iRepLen2);
+    return _iNumReps * _iRepLen1 + (_iNumReps - 1) * _iRepLen2;
     
 }
 

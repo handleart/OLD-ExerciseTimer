@@ -50,13 +50,21 @@
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     
     //Need to move this into setting to allow user to preselect it. For the time being, the lead in to the counter is set up as 5 sec.
-    _iRepLen0 = 5;
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    _iRepLen0 = [userDefaults integerForKey:@"introLength"];;
     _iVolume = [userDefaults floatForKey:@"volume"];
     _volumeSlider.value = _iVolume;
+    BOOL dimSwitch = [userDefaults boolForKey:@"keepScreenOn"];
+    
+    if (dimSwitch == YES) {
+        [[UIApplication sharedApplication] setIdleTimerDisabled:dimSwitch];
+    }
+    
+    
+    
     [self setUpInitialState];
-    //
+    
     
     
 
@@ -131,7 +139,12 @@
     _iWhichTimer = 0;
     
     [self updateScreen];
-    [self playASound];
+    
+    if (_iWhichTimer != 0) {
+    
+        [self playASound];
+    }
+        
     [self countDownTimer];
     
 }
@@ -255,7 +268,7 @@
     //[self.buttonPauseStart setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal forState:UIControlStateSelected];
     
     _buttonPauseStart.layer.borderWidth = 1.0f;
-    _buttonPauseStart.layer.borderColor = [[UIColor whiteColor] CGColor];
+    _buttonPauseStart.layer.borderColor = [[UIColor redColor] CGColor];
     _buttonPauseStart.layer.cornerRadius = 8.0f;
 }
 
@@ -294,8 +307,8 @@
  //set the background color to blue for the table
  - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
  
-     cell.backgroundColor = [UIColor blueColor];
-     cell.textLabel.textColor = [UIColor whiteColor];
+     //cell.backgroundColor = [UIColor blueColor];
+     //cell.textLabel.textColor = [UIColor whiteColor];
  
 }
 
@@ -377,6 +390,8 @@
     [userDefaults setFloat:_iVolume forKey:@"volume"];
     [userDefaults synchronize];
     
+    
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
         
 }
 

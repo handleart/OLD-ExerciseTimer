@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[UIScrollView appearance] setBackgroundColor:[UIColor blueColor]];
+    //[[UIScrollView appearance] setBackgroundColor:[UIColor blueColor]];
     
     self.savedTimers = [[NSMutableArray alloc] init];
     
@@ -89,13 +89,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ListPrototypeCell"forIndexPath:indexPath];
     
-    
-    
-    aTimer *tmpTimer = [self.savedTimers objectAtIndex:indexPath.row];
-    cell.textLabel.text = tmpTimer.sTimerName;
-    
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Total Length: %02li:%02li, Sound: %@", (tmpTimer.iNumReps * (tmpTimer.iRepLen1 + tmpTimer.iRepLen2)) / 60, (tmpTimer.iNumReps * (tmpTimer.iRepLen1 + tmpTimer.iRepLen2)) % 60,tmpTimer.sRepSoundName];
-    
     return cell;
 }
 
@@ -104,9 +97,14 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    cell.backgroundColor = [UIColor blueColor];
-    cell.textLabel.textColor = [UIColor whiteColor];
-    cell.detailTextLabel.textColor = [UIColor whiteColor];
+    aTimer *tmpTimer = [self.savedTimers objectAtIndex:indexPath.row];
+    cell.textLabel.text = tmpTimer.sTimerName;
+    
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Total Length: %02li:%02li, Sound: %@", tmpTimer.totalLength / 60, tmpTimer.totalLength % 60,tmpTimer.sRepSoundName];
+    
+    //cell.backgroundColor = [UIColor blueColor];
+    //cell.textLabel.textColor = [UIColor whiteColor];
+    //cell.detailTextLabel.textColor = [UIColor whiteColor];
     
 }
 
@@ -119,7 +117,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.savedTimers removeObjectAtIndex:indexPath.row];
         AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-        [app saveData];
+        [app saveTimersData];
         [tableView reloadData];
     }
 }

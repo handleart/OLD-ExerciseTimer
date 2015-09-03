@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		9C00384E1B6040E40081C032 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C00384D1B6040E40081C032 /* Media.xcassets */; };
 		9C17AAA21B6D4D3B00CDA99C /* ViewTimerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C17AAA11B6D4D3A00CDA99C /* ViewTimerTableViewController.m */; };
+		9C1F01A41B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C1F01A31B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m */; };
+		9C2406441B883F1D00A22E0E /* CreateExerciseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2406431B883F1D00A22E0E /* CreateExerciseTableViewCell.m */; };
+		9C2EAD421B90D09C0052B4A6 /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2EAD411B90D09C0052B4A6 /* SettingTableViewController.m */; };
 		9C4D71A91B6EEB3D00F500DD /* Temple Bell.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C4D71A81B6EEB3D00F500DD /* Temple Bell.aiff */; };
 		9C5E74721B6DA8C400E2AAFF /* Whistle.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C5E74711B6DA8C400E2AAFF /* Whistle.aiff */; };
 		9C5E74791B6EA0CE00E2AAFF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C5E74781B6EA0CE00E2AAFF /* AVFoundation.framework */; };
@@ -26,7 +29,6 @@
 		9CBC2D0F1B602A7900474CD1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC2D0E1B602A7900474CD1 /* Settings.bundle */; };
 		9CC8A15B1B82FDE4006D2155 /* ExerciseSetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC8A15A1B82FDE4006D2155 /* ExerciseSetTableViewController.m */; };
 		9CC8A15F1B82FE80006D2155 /* anExerciseSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC8A15E1B82FE80006D2155 /* anExerciseSet.m */; };
-		9CC8A1621B830382006D2155 /* CreateExerciseSetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC8A1611B830382006D2155 /* CreateExerciseSetTableViewController.m */; };
 		9CE318701B7AAC33001F6846 /* Volume-Mute.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CE3186F1B7AAC33001F6846 /* Volume-Mute.png */; };
 		9CF9FCB01B5DD8A100AA749E /* SetTimerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CF9FCAF1B5DD8A100AA749E /* SetTimerTableViewController.m */; };
 		9CF9FCB21B5F0AE900AA749E /* Beep.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9CF9FCB11B5F0AE800AA749E /* Beep.aiff */; };
@@ -46,6 +48,11 @@
 		9C00384D1B6040E40081C032 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		9C17AAA01B6D4D3A00CDA99C /* ViewTimerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewTimerTableViewController.h; sourceTree = "<group>"; };
 		9C17AAA11B6D4D3A00CDA99C /* ViewTimerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewTimerTableViewController.m; sourceTree = "<group>"; };
+		9C1F01A31B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateExerciseSetTableViewController.m; sourceTree = "<group>"; };
+		9C2406421B883F1D00A22E0E /* CreateExerciseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateExerciseTableViewCell.h; sourceTree = "<group>"; };
+		9C2406431B883F1D00A22E0E /* CreateExerciseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateExerciseTableViewCell.m; sourceTree = "<group>"; };
+		9C2EAD401B90D09C0052B4A6 /* SettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableViewController.h; sourceTree = "<group>"; };
+		9C2EAD411B90D09C0052B4A6 /* SettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewController.m; sourceTree = "<group>"; };
 		9C4D71A81B6EEB3D00F500DD /* Temple Bell.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Temple Bell.aiff"; sourceTree = SOURCE_ROOT; };
 		9C5E74711B6DA8C400E2AAFF /* Whistle.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Whistle.aiff; sourceTree = SOURCE_ROOT; };
 		9C5E74781B6EA0CE00E2AAFF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -73,7 +80,6 @@
 		9CC8A15D1B82FE80006D2155 /* anExerciseSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = anExerciseSet.h; sourceTree = "<group>"; };
 		9CC8A15E1B82FE80006D2155 /* anExerciseSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = anExerciseSet.m; sourceTree = "<group>"; };
 		9CC8A1601B830382006D2155 /* CreateExerciseSetTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateExerciseSetTableViewController.h; sourceTree = "<group>"; };
-		9CC8A1611B830382006D2155 /* CreateExerciseSetTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateExerciseSetTableViewController.m; sourceTree = "<group>"; };
 		9CE3186F1B7AAC33001F6846 /* Volume-Mute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Volume-Mute.png"; sourceTree = SOURCE_ROOT; };
 		9CF9FCAE1B5DD8A100AA749E /* SetTimerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTimerTableViewController.h; sourceTree = "<group>"; };
 		9CF9FCAF1B5DD8A100AA749E /* SetTimerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTimerTableViewController.m; sourceTree = "<group>"; };
@@ -99,6 +105,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9C2406411B883EF800A22E0E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				9C2406421B883F1D00A22E0E /* CreateExerciseTableViewCell.h */,
+				9C2406431B883F1D00A22E0E /* CreateExerciseTableViewCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
 		9C5E74731B6DA8D000E2AAFF /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +159,7 @@
 		9CB5038A1B547C01006FD3B9 /* ExerciseTimer */ = {
 			isa = PBXGroup;
 			children = (
+				9C2406411B883EF800A22E0E /* Cell */,
 				9CB5038F1B547C01006FD3B9 /* AppDelegate.h */,
 				9CB503901B547C01006FD3B9 /* AppDelegate.m */,
 				9CC8A15C1B82FDEC006D2155 /* Controllers */,
@@ -196,7 +212,9 @@
 				9CC8A15A1B82FDE4006D2155 /* ExerciseSetTableViewController.m */,
 				9CC8A1591B82FDE4006D2155 /* ExerciseSetTableViewController.h */,
 				9CC8A1601B830382006D2155 /* CreateExerciseSetTableViewController.h */,
-				9CC8A1611B830382006D2155 /* CreateExerciseSetTableViewController.m */,
+				9C1F01A31B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m */,
+				9C2EAD401B90D09C0052B4A6 /* SettingTableViewController.h */,
+				9C2EAD411B90D09C0052B4A6 /* SettingTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -324,13 +342,15 @@
 			files = (
 				9C8D43661B7528E4005C1523 /* ChooseTimerTableViewController.m in Sources */,
 				9CB503911B547C01006FD3B9 /* AppDelegate.m in Sources */,
-				9CC8A1621B830382006D2155 /* CreateExerciseSetTableViewController.m in Sources */,
+				9C2406441B883F1D00A22E0E /* CreateExerciseTableViewCell.m in Sources */,
 				9CB5038E1B547C01006FD3B9 /* main.m in Sources */,
+				9C2EAD421B90D09C0052B4A6 /* SettingTableViewController.m in Sources */,
 				9CC8A15B1B82FDE4006D2155 /* ExerciseSetTableViewController.m in Sources */,
 				9C17AAA21B6D4D3B00CDA99C /* ViewTimerTableViewController.m in Sources */,
 				9CC8A15F1B82FE80006D2155 /* anExerciseSet.m in Sources */,
 				9C8D43631B7527B4005C1523 /* aTimer.m in Sources */,
 				9CF9FCB01B5DD8A100AA749E /* SetTimerTableViewController.m in Sources */,
+				9C1F01A41B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

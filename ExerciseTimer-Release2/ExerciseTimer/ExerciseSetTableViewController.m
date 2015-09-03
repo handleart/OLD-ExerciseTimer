@@ -9,6 +9,8 @@
 #import "ExerciseSetTableViewController.h"
 #import "anExerciseSet.h"
 #import "aTimer.h"
+#import "AppDelegate.h"
+#import "CreateExerciseSetTableViewController.h"
 
 @interface ExerciseSetTableViewController ()
 
@@ -23,7 +25,13 @@
     [super viewDidLoad];
     self.exerciseSet = [[NSMutableArray alloc] init];
     
-    [self initTestData];
+    //[self initTestData];
+    
+    AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+
+
+    self.exerciseSet = app.exerciseSets;
+
     
 }
 
@@ -94,9 +102,7 @@
     
     tmpExerciseSet2.aExercises = savedTimers2;
     
-    
     [self.exerciseSet addObject:tmpExerciseSet2];
-    
     
     NSMutableArray *savedTimers3 = [[NSMutableArray alloc] init];
     [savedTimers3 addObject:timer3];
@@ -188,9 +194,11 @@
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.exerciseSet removeObjectAtIndex:indexPath.row];
-        //AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-        //[app saveData];
-        [tableView reloadData];
+        AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        [app saveExerciseSetData];
+        [tableView beginUpdates];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView endUpdates];
     }
 }
 /*
@@ -226,10 +234,24 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    
+    if ([segue.identifier isEqualToString:@"ViewExistingExerciseSet"]) {
+        UINavigationController *dc = (UINavigationController *)segue.destinationViewController;
+        CreateExerciseSetTableViewController *dest = [[dc viewControllers] lastObject];
+        
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        //aTimer *tmpTimer = [_exerciseSet objectAtIndex:indexPath.row];
+        
+        [dest setExerciseSet: [_exerciseSet objectAtIndex:indexPath.row]];
+        
+    }
+    
+
 }
 
 - (IBAction)unwindToChooseExerciseSet:(UIStoryboardSegue *)segue {
-    
+    [self.tableView reloadData];
 }
 
 @end

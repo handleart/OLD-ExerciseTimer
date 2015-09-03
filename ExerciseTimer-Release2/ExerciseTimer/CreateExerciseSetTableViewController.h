@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "anExerciseSet.h"
 
 @interface CreateExerciseSetTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource>
+
+@property anExerciseSet *exerciseSet;
 
 @end
