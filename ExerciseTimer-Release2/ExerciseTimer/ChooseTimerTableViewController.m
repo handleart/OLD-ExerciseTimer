@@ -7,7 +7,7 @@
 //
 
 #import "ChooseTimerTableViewController.h"
-#import "SetTimerTableViewController.h"
+#import "SetTimerNewTableViewController.h"
 #import "aTimer.h"
 #import "appDelegate.h"
 
@@ -22,6 +22,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
+    self.navigationController.navigationBar.translucent = NO;
+    
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    
+    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     
     //[[UIScrollView appearance] setBackgroundColor:[UIColor blueColor]];
     
@@ -49,7 +57,7 @@
 
 #pragma mark - unwind method
 - (IBAction)unwindToChooseTimer:(UIStoryboardSegue *)segue {
-    SetTimerTableViewController *source = [segue sourceViewController];
+    SetTimerNewTableViewController *source = [segue sourceViewController];
     
     //only reload if a new timer is created on the subsequent page
     if (source.tmpTimer != nil) {
@@ -99,9 +107,12 @@
     
     aTimer *tmpTimer = [self.savedTimers objectAtIndex:indexPath.row];
     cell.textLabel.text = tmpTimer.sTimerName;
+    //[cell.textLabel setFont:[UIFont systemFontOfSize:20]];
     
     cell.detailTextLabel.text = [NSString stringWithFormat:@"Total Length: %02li:%02li, Sound: %@", tmpTimer.totalLength / 60, tmpTimer.totalLength % 60,tmpTimer.sRepSoundName];
     
+    
+    //cell.backgroundColor = [UIColor colorWithRed:215/255 green:222/255 blue:226/255 alpha:0.2];
     //cell.backgroundColor = [UIColor blueColor];
     //cell.textLabel.textColor = [UIColor whiteColor];
     //cell.detailTextLabel.textColor = [UIColor whiteColor];
@@ -163,7 +174,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     UINavigationController *dc = (UINavigationController *)segue.destinationViewController;
-    SetTimerTableViewController *dest = [[dc viewControllers] lastObject];
+    SetTimerNewTableViewController *dest = [[dc viewControllers] lastObject];
     
     if (sender == _addTimer) {
         [dest setSaveViewIsShowing: true];
@@ -173,7 +184,7 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         aTimer *tmpTimer = [_savedTimers objectAtIndex:indexPath.row];
         
-        [dest setSaveViewIsShowing: true];
+        [dest setSaveViewIsShowing: YES];
         [dest setTmpTimer: tmpTimer];
         
     }

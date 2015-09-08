@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9C00384E1B6040E40081C032 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C00384D1B6040E40081C032 /* Media.xcassets */; };
+		9C0BB28E1B9CFF05005F7FA8 /* SetTimerNewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C0BB28D1B9CFF05005F7FA8 /* SetTimerNewTableViewController.m */; };
 		9C17AAA21B6D4D3B00CDA99C /* ViewTimerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C17AAA11B6D4D3A00CDA99C /* ViewTimerTableViewController.m */; };
 		9C1F01A41B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C1F01A31B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m */; };
 		9C2406441B883F1D00A22E0E /* CreateExerciseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2406431B883F1D00A22E0E /* CreateExerciseTableViewCell.m */; };
@@ -30,7 +31,6 @@
 		9CC8A15B1B82FDE4006D2155 /* ExerciseSetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC8A15A1B82FDE4006D2155 /* ExerciseSetTableViewController.m */; };
 		9CC8A15F1B82FE80006D2155 /* anExerciseSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC8A15E1B82FE80006D2155 /* anExerciseSet.m */; };
 		9CE318701B7AAC33001F6846 /* Volume-Mute.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CE3186F1B7AAC33001F6846 /* Volume-Mute.png */; };
-		9CF9FCB01B5DD8A100AA749E /* SetTimerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CF9FCAF1B5DD8A100AA749E /* SetTimerTableViewController.m */; };
 		9CF9FCB21B5F0AE900AA749E /* Beep.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9CF9FCB11B5F0AE800AA749E /* Beep.aiff */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +46,8 @@
 
 /* Begin PBXFileReference section */
 		9C00384D1B6040E40081C032 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		9C0BB28C1B9CFF05005F7FA8 /* SetTimerNewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTimerNewTableViewController.h; sourceTree = "<group>"; };
+		9C0BB28D1B9CFF05005F7FA8 /* SetTimerNewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTimerNewTableViewController.m; sourceTree = "<group>"; };
 		9C17AAA01B6D4D3A00CDA99C /* ViewTimerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewTimerTableViewController.h; sourceTree = "<group>"; };
 		9C17AAA11B6D4D3A00CDA99C /* ViewTimerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewTimerTableViewController.m; sourceTree = "<group>"; };
 		9C1F01A31B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateExerciseSetTableViewController.m; sourceTree = "<group>"; };
@@ -81,8 +83,6 @@
 		9CC8A15E1B82FE80006D2155 /* anExerciseSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = anExerciseSet.m; sourceTree = "<group>"; };
 		9CC8A1601B830382006D2155 /* CreateExerciseSetTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateExerciseSetTableViewController.h; sourceTree = "<group>"; };
 		9CE3186F1B7AAC33001F6846 /* Volume-Mute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Volume-Mute.png"; sourceTree = SOURCE_ROOT; };
-		9CF9FCAE1B5DD8A100AA749E /* SetTimerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTimerTableViewController.h; sourceTree = "<group>"; };
-		9CF9FCAF1B5DD8A100AA749E /* SetTimerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTimerTableViewController.m; sourceTree = "<group>"; };
 		9CF9FCB11B5F0AE800AA749E /* Beep.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Beep.aiff; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -207,10 +207,10 @@
 				9C8D43651B7528E4005C1523 /* ChooseTimerTableViewController.m */,
 				9C17AAA01B6D4D3A00CDA99C /* ViewTimerTableViewController.h */,
 				9C17AAA11B6D4D3A00CDA99C /* ViewTimerTableViewController.m */,
-				9CF9FCAE1B5DD8A100AA749E /* SetTimerTableViewController.h */,
-				9CF9FCAF1B5DD8A100AA749E /* SetTimerTableViewController.m */,
-				9CC8A15A1B82FDE4006D2155 /* ExerciseSetTableViewController.m */,
+				9C0BB28C1B9CFF05005F7FA8 /* SetTimerNewTableViewController.h */,
+				9C0BB28D1B9CFF05005F7FA8 /* SetTimerNewTableViewController.m */,
 				9CC8A1591B82FDE4006D2155 /* ExerciseSetTableViewController.h */,
+				9CC8A15A1B82FDE4006D2155 /* ExerciseSetTableViewController.m */,
 				9CC8A1601B830382006D2155 /* CreateExerciseSetTableViewController.h */,
 				9C1F01A31B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m */,
 				9C2EAD401B90D09C0052B4A6 /* SettingTableViewController.h */,
@@ -346,10 +346,10 @@
 				9CB5038E1B547C01006FD3B9 /* main.m in Sources */,
 				9C2EAD421B90D09C0052B4A6 /* SettingTableViewController.m in Sources */,
 				9CC8A15B1B82FDE4006D2155 /* ExerciseSetTableViewController.m in Sources */,
+				9C0BB28E1B9CFF05005F7FA8 /* SetTimerNewTableViewController.m in Sources */,
 				9C17AAA21B6D4D3B00CDA99C /* ViewTimerTableViewController.m in Sources */,
 				9CC8A15F1B82FE80006D2155 /* anExerciseSet.m in Sources */,
 				9C8D43631B7527B4005C1523 /* aTimer.m in Sources */,
-				9CF9FCB01B5DD8A100AA749E /* SetTimerTableViewController.m in Sources */,
 				9C1F01A41B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

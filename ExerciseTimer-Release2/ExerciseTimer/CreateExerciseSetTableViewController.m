@@ -7,13 +7,20 @@
 //
 
 #import "CreateExerciseSetTableViewController.h"
-#import "aTimer.h"
+//#import "aTimer.h"
 //#import "anExerciseSet.h"
 #import "AppDelegate.h"
 #import "CreateExerciseTableViewCell.h"
 #import "QuartzCore/QuartzCore.h"
 #import "ExerciseSetTableViewController.h"
+#import "ViewTimerTableViewController.h"
+#import "SetTimerNewTableViewController.h"
 
+#define nameSectionIndex 0
+//#define editSectionIndex 1
+#define addTimerSectionIndex 1
+#define timerSectionIndex 2
+#define saveSectionIndex 3
 
 @interface CreateExerciseSetTableViewController ()
 
@@ -27,7 +34,9 @@
 @property NSInteger clickedRow;
 @property UITextField *nameTextField;
 @property UIButton *saveButton;
+@property UIButton *addPresetTimerButton;
 @property BOOL pickerIsShowing;
+@property NSString *sPlaceholderValue;
 
 @end
 
@@ -36,10 +45,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.layer.cornerRadius = 10;
+    self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
+    self.navigationController.navigationBar.translucent = NO;
+    
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    
+    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    
+    //self.view.layer.cornerRadius = 10;
     
     
     AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    _sPlaceholderValue = [NSString stringWithFormat:@"Exercise Set %li", [[app exerciseSets] count] + 1];
+    _nameTextField.placeholder = _sPlaceholderValue;
+
     
     //app.timers = _savedTimers;
     //[app saveData];
@@ -47,18 +67,21 @@
     _selectedPickerRow = 0;
     _pickerIsShowing = YES;
     _pickerRow = 0;
-    _pickerSection = 1;
+    _pickerSection = 2;
     _lastPickerRow = -1;
     
     self.aPresetTimers = app.timers;
     
-    _exerciseSet.sSetName = @"";
-    _exerciseSet.iTotalLength = 0;
+    //_exerciseSet.sSetName = @"";
+    
     
     if (self.exerciseSet == nil) {
         self.exerciseSet = [[anExerciseSet alloc] init];
         [self addRow];
+    } else {
+        _pickerRow = [_exerciseSet.aExercises count];
     }
+    
     _picker = [[UIPickerView alloc] init];
     _picker.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -86,9 +109,63 @@
     
     
 }
-- (IBAction)addPresetTimer:(id)sender {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    //[textField setBackgroundColor:[UIColor blueColor]];
+    return NO;
+}
+- (IBAction)editButtonPressed:(id)sender {
+    //CreateCustomPresetTimer
+    
+    self.editing = !self.editing;
+    
+    _pickerIsShowing = NO;
+    
+    NSIndexPath *pickerIndexPath = [NSIndexPath indexPathForRow:_pickerRow inSection:timerSectionIndex];
+    
+    
+    [self.tableView beginUpdates];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:pickerIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+    
+
+    
+    NSLog(@"Editing has been enabled");
+    
+    
+    
+}
+
+- (IBAction)addCustomTimerPressed:(id)sender {
+    [self performSegueWithIdentifier:@"CreateCustomPresetTimer" sender:self];
+    
+}
+
+- (IBAction)addPresetTimerPressed:(id)sender {
     [self addRow];
     
+    /*
+    [UIView animateWithDuration:0.1f
+                          delay:0.0f
+                        options: UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         [_addPresetTimerButton
+                          setBackgroundColor:[UIColor grayColor]];
+                     }
+                     completion:nil];
+    
+    [UIView animateWithDuration:0.1f
+                          delay:0.0f
+                        options: UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         [_addPresetTimerButton
+                          setBackgroundColor:[UIColor clearColor]];
+                     }
+                     completion:nil];
+
+    
+     */
+     
     UITableView *tableView = self.tableView;
     _clickedRow = [[self.exerciseSet aExercises] count] - 1;
     _pickerRow = _clickedRow + 1;
@@ -109,12 +186,12 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (section == 1) {
+    if (section == timerSectionIndex) {
     
         if (_pickerIsShowing) {
             return ([_exerciseSet.aExercises count] + 1);
@@ -122,6 +199,8 @@
         
         return [_exerciseSet.aExercises count];
     
+    } else if ( section == addTimerSectionIndex) {
+        return 2;
     }
 
     //for section 0 and 2 there is only one row
@@ -136,7 +215,7 @@
     // Configure the cell...
     //cell = [tableView dequeueReusableCellWithIdentifier:@"PresetTimerExerciseNamePrototypeCell" forIndexPath:indexPath];
     
-    if (indexPath.section == 1) {
+    if (indexPath.section == timerSectionIndex) {
         UITableViewCell *cell;
         if (indexPath.row == _pickerRow && _pickerIsShowing) {
             cell = [tableView dequeueReusableCellWithIdentifier:@"PresetTimerPickerPrototypeCell" forIndexPath:indexPath];
@@ -145,8 +224,7 @@
             cell = [tableView dequeueReusableCellWithIdentifier:@"PresetTimerNamePrototypeCell" forIndexPath:indexPath];
         }
         return cell;
-    // section 0
-    } else if (indexPath.section == 0) {
+    } else if (indexPath.section == nameSectionIndex) {
         UITableViewCell *cell;
         //CreateExerciseTableViewCell *cell;
         cell = [tableView dequeueReusableCellWithIdentifier:@"PresetTimerExerciseNamePrototypeCell" forIndexPath:indexPath];
@@ -158,7 +236,14 @@
         _nameTextField = [[UITextField alloc] init];
         
         _nameTextField.tag = 3;
-        _nameTextField.placeholder = @"My Exercise Set";
+        
+        if ([_exerciseSet.sSetName isEqualToString:@""] || _exerciseSet.sSetName == nil) {
+            _nameTextField.placeholder = _sPlaceholderValue;
+        } else {
+            _nameTextField.text = _exerciseSet.sSetName;
+        }
+        
+        
         _nameTextField.translatesAutoresizingMaskIntoConstraints = NO;
         [cell.contentView addSubview:_nameTextField];
         [cell addConstraint:[NSLayoutConstraint constraintWithItem:_nameTextField attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:cell.textLabel attribute:NSLayoutAttributeTrailing multiplier:1 constant:8]];
@@ -168,8 +253,7 @@
         _nameTextField.textAlignment = NSTextAlignmentRight;
         
         return cell;
-    // section 2
-    } else {        
+    } else if (indexPath.section == saveSectionIndex ){
         //CreateExerciseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SavePrototypeCell" forIndexPath:indexPath];
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TestCell" forIndexPath:indexPath];
         
@@ -233,6 +317,169 @@
                                                                       constant:40]];
         
          return cell;
+    } else if (indexPath.section == addTimerSectionIndex) {
+        UITableViewCell *cell = [[UITableViewCell alloc] init];
+        
+        
+        if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+            [cell setLayoutMargins:UIEdgeInsetsZero];
+            
+        }
+        
+        if (indexPath.row == 0) {
+        
+            _addPresetTimerButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
+            UILabel *addPresetLabel = [[UILabel alloc] init];
+            
+            addPresetLabel.text = @"Add Preset";
+            
+            _addPresetTimerButton.translatesAutoresizingMaskIntoConstraints = NO;
+            addPresetLabel.translatesAutoresizingMaskIntoConstraints = NO;
+            
+            [_addPresetTimerButton addTarget:self action:@selector(addPresetTimerPressed:) forControlEvents:UIControlEventTouchUpInside];
+            
+            [cell.contentView addSubview:_addPresetTimerButton];
+            [cell.contentView addSubview:addPresetLabel];
+            
+            //center x
+            [cell addConstraint:[NSLayoutConstraint constraintWithItem:_addPresetTimerButton
+                                                             attribute:NSLayoutAttributeLeading
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:cell.contentView
+                                                             attribute:NSLayoutAttributeLeadingMargin
+                                                            multiplier:1.0
+                                                              constant:0]];
+            
+            //center y
+            [cell addConstraint:[NSLayoutConstraint constraintWithItem:_addPresetTimerButton
+                                                             attribute:NSLayoutAttributeCenterY
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:cell.contentView
+                                                             attribute:NSLayoutAttributeCenterY
+                                                            multiplier:1.0
+                                                              constant:0]];
+            
+            [cell addConstraint:[NSLayoutConstraint constraintWithItem:addPresetLabel
+                                                             attribute:NSLayoutAttributeLeading
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:_addPresetTimerButton
+                                                             attribute:NSLayoutAttributeTrailing
+                                                            multiplier:1.0
+                                                              constant:5]];
+            
+            [cell addConstraint:[NSLayoutConstraint constraintWithItem:addPresetLabel
+                                                             attribute:NSLayoutAttributeCenterY
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:_addPresetTimerButton
+                                                             attribute:NSLayoutAttributeCenterY
+                                                            multiplier:1.0
+                                                              constant:0]];
+            
+            
+            UIButton *addCustom = [UIButton buttonWithType:UIButtonTypeContactAdd];
+            UILabel *addCustomLabel = [[UILabel alloc] init];
+            
+            addCustomLabel.text = @"Add Custom";
+
+            
+            addCustom.translatesAutoresizingMaskIntoConstraints = NO;
+            addCustomLabel.translatesAutoresizingMaskIntoConstraints = NO;
+            [addCustom addTarget:self action:@selector(addCustomTimerPressed:) forControlEvents:UIControlEventTouchUpInside];
+            
+            [cell.contentView addSubview:addCustom];
+            [cell.contentView addSubview:addCustomLabel];
+            
+            [cell addConstraint:[NSLayoutConstraint constraintWithItem:addCustomLabel
+                                                             attribute:NSLayoutAttributeTrailing
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:cell.contentView
+                                                             attribute:NSLayoutAttributeTrailingMargin
+                                                            multiplier:1.0
+                                                              constant:0]];
+            
+            [cell addConstraint:[NSLayoutConstraint constraintWithItem:addCustomLabel
+                                                             attribute:NSLayoutAttributeCenterY
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:cell.contentView
+                                                             attribute:NSLayoutAttributeCenterY
+                                                            multiplier:1.0
+                                                              constant:0]];
+            
+            [cell addConstraint:[NSLayoutConstraint constraintWithItem:addCustomLabel
+                                                             attribute:NSLayoutAttributeLeading
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:addCustom
+                                                             attribute:NSLayoutAttributeTrailing
+                                                            multiplier:1.0
+                                                              constant:5]];
+            
+            [cell addConstraint:[NSLayoutConstraint constraintWithItem:addCustom
+                                                             attribute:NSLayoutAttributeCenterY
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:cell.contentView
+                                                             attribute:NSLayoutAttributeCenterY
+                                                            multiplier:1.0
+                                                              constant:0]];
+            
+            
+        } else if (indexPath.row == 1) {
+        
+            UIButton *edit = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            edit.layer.borderWidth = 1.0f;
+            //self.button.layer.borderColor = [[UIColor whiteColor] CGColor];
+            edit.layer.cornerRadius = 8.0f;
+            edit.translatesAutoresizingMaskIntoConstraints = NO;
+            [edit setTitle:@"Edit" forState:UIControlStateNormal];
+            [edit setTitle:@"Edit" forState:UIControlStateSelected];
+            
+            edit.translatesAutoresizingMaskIntoConstraints = NO;
+            [edit addTarget:self action:@selector(editButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+            
+            [cell.contentView addSubview:edit];
+            
+            
+            [cell addConstraint:[NSLayoutConstraint constraintWithItem:edit
+                                                             attribute:NSLayoutAttributeCenterX
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:cell.contentView
+                                                             attribute:NSLayoutAttributeCenterX
+                                                            multiplier:1.0
+                                                              constant:10]];
+            
+            //center y
+            [cell addConstraint:[NSLayoutConstraint constraintWithItem:edit
+                                                             attribute:NSLayoutAttributeCenterY
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:cell.contentView
+                                                             attribute:NSLayoutAttributeCenterY
+                                                            multiplier:1.0
+                                                              constant:0]];
+            
+            //width
+            [cell addConstraint:[NSLayoutConstraint constraintWithItem:edit
+                                                             attribute:NSLayoutAttributeWidth
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:nil
+                                                             attribute:NSLayoutAttributeWidth
+                                                            multiplier:1.0
+                                                              constant:70]];
+            
+            //height
+            [cell addConstraint:[NSLayoutConstraint constraintWithItem:edit
+                                                             attribute:NSLayoutAttributeHeight
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:nil
+                                                             attribute:NSLayoutAttributeHeight
+                                                            multiplier:1.0
+                                                              constant:40]];
+        
+        }
+        return cell;
+        
+    } else {
+        //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TestCell" forIndexPath:indexPath];
+        UITableViewCell *cell = [[UITableViewCell alloc] init];
+        return cell;
     }
     
     
@@ -263,7 +510,13 @@
     
     AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     
-    _exerciseSet.sSetName = _nameTextField.text;
+    if ([_nameTextField.text isEqualToString:@""] || [_nameTextField.text length] == 0) {
+        _exerciseSet.sSetName = _nameTextField.placeholder;
+    } else {
+        _exerciseSet.sSetName = _nameTextField.text;
+    }
+    
+    
     
     if ([[app exerciseSets] containsObject:_exerciseSet]) {
         NSLog(@"value already in timer");
@@ -286,7 +539,7 @@
     }
      */
     
-    [self performSegueWithIdentifier:@"CreateExerciseSet" sender:self];
+    //[self performSegueWithIdentifier:@"CreateExerciseSet" sender:self];
     
     
     
@@ -301,7 +554,7 @@
 
     //NSInteger tmp = indexPath.row;
     
-    if (indexPath.section == 1) {
+    if (indexPath.section == timerSectionIndex) {
     
         if (indexPath.row == _pickerRow && _pickerIsShowing == YES) {
 
@@ -346,7 +599,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 1) {
+    if (indexPath.section == timerSectionIndex) {
         if (indexPath.row == _clickedRow && _pickerIsShowing == YES) {
             _pickerIsShowing = NO;
             _clickedRow = indexPath.row;
@@ -393,7 +646,7 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 1) {
+    if (indexPath.section == timerSectionIndex  && indexPath.row != _pickerRow && [_exerciseSet.aExercises count] > 1) {
         return YES;
     }
     return NO;
@@ -402,17 +655,24 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    /*
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.exerciseSet.aExercises removeObjectAtIndex:indexPath.row];
-        _pickerRow = [_exerciseSet.aExercises count];
-        [tableView reloadData];
+        if (indexPath.section == timerSectionIndex && indexPath.row != _pickerRow && [_exerciseSet.aExercises count] > 1) {
+    
+        
+            [self.exerciseSet.aExercises removeObjectAtIndex:indexPath.row];
+            _pickerRow = [_exerciseSet.aExercises count];
+            _pickerIsShowing = NO;
+            [tableView reloadData];
+        }
+        
     }
-    */
 }
 
+
+
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0 || indexPath.section == 3) {
+    if (indexPath.section == nameSectionIndex || indexPath.section == addTimerSectionIndex || indexPath.section == saveSectionIndex) {
         return 50;
         
     } else {
@@ -428,6 +688,11 @@
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the item to be re-orderable.
     return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+{
+    
 }
 
 #pragma mark - picker section
@@ -486,9 +751,48 @@
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
+- (IBAction)unwindToCreateExerciseSet:(UIStoryboardSegue *)segue {
+    SetTimerNewTableViewController *source = [segue sourceViewController];
+    
+    //only reload if a new timer is created on the subsequent page
+    if (source.tmpTimer != nil) {
+        [_exerciseSet.aExercises addObject:source.tmpTimer];
+        _clickedRow = [[self.exerciseSet aExercises] count] - 1;
+        _pickerRow = _clickedRow + 1;
+        _pickerSection = 2;
+        _lastPickerRow = -1;
+        _pickerIsShowing = YES;
+        AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        [_picker reloadAllComponents];
+        [_picker selectRow:(long)[app.timers count] - 1 inComponent:0 animated:NO];
+        
+        [self.tableView reloadData];
+
+    }
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"ViewTimerFromExerciseSet"]) {
+        
+        UINavigationController *dc = (UINavigationController *)segue.destinationViewController;
+        
+        ViewTimerTableViewController *dest = [[dc viewControllers] lastObject];
+        
+        [dest setExerciseSet:_exerciseSet];
+        [dest setSource:@"CreateExerciseSetTableViewController"];
+        
+        //[dest setIVolume: _iVolume];
+        
+        
+    } else if ([segue.identifier isEqualToString:@"CreateCustomPresetTimer"]) {
+        UINavigationController *dc = (UINavigationController *)segue.destinationViewController;
+        
+        SetTimerNewTableViewController *dest = [[dc viewControllers] lastObject];
+        
+        [dest setAddViewIsShowing:YES];
+    }
+
 }
 
 

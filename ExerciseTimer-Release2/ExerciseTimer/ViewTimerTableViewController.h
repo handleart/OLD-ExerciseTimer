@@ -7,19 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "anExerciseSet.h"
 
 @interface ViewTimerTableViewController : UITableViewController
 
-@property NSInteger iRepLen0;
-@property NSInteger iNumReps;
-@property NSInteger iRepLen1;
-@property NSInteger iRepLen2;
-@property NSString* sRepSoundName;
-@property NSString* sRepSoundExtension;
 
-@property NSString* sEndSoundName;
-@property NSString* sEndSoundExtension;
-
-
+@property anExerciseSet* exerciseSet;
+//@property NSString* pageTitle;
+@property NSString* source;
 
 @end

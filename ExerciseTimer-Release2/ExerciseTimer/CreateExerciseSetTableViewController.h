@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "anExerciseSet.h"
+#import "aTimer.h"
 
 @interface CreateExerciseSetTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property anExerciseSet *exerciseSet;
+//@property aTimer  *tmpTimer;
+
+- (IBAction)unwindToCreateExerciseSet:(UIStoryboardSegue *)segue;
 
 @end

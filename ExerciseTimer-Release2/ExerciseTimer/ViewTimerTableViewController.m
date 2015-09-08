@@ -7,10 +7,11 @@
 //
 
 #import "ViewTimerTableViewController.h"
-#import "SetTimerTableViewController.h"
+#import "SetTimerNewTableViewController.h"
 //#import "AudioToolbox/AudioToolbox.h"
 #import <AVFoundation/AVFoundation.h>
 #import "QuartzCore/QuartzCore.h"
+#import "aTimer.h"
 
 
 @interface ViewTimerTableViewController ()
@@ -37,12 +38,28 @@
 
 //@property SystemSoundID mBeep;
 
+//Intro Length
+@property NSInteger iRepLen0;
+
+@property aTimer* tmpTimer;
+@property long setCount;
+
 @end
 
 @implementation ViewTimerTableViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
+    self.navigationController.navigationBar.translucent = NO;
+    
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    
+    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+
     
     //Set up the properties for sound play in the app. The app is set up to ignore silent and to play nice with other apps playing music
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:nil];
@@ -52,6 +69,9 @@
     //Need to move this into setting to allow user to preselect it. For the time being, the lead in to the counter is set up as 5 sec.
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    _setCount = 0;
+    _tmpTimer = [_exerciseSet.aExercises objectAtIndex:_setCount];
     _iRepLen0 = [userDefaults integerForKey:@"introLength"];;
     _iVolume = [userDefaults floatForKey:@"volume"];
     _volumeSlider.value = _iVolume;
@@ -61,8 +81,6 @@
         [[UIApplication sharedApplication] setIdleTimerDisabled:dimSwitch];
     }
     
-    
-    
     [self setUpInitialState];
     
     
@@ -71,6 +89,7 @@
     
     
 }
+
 - (IBAction)volumeSliderValueChanged:(id)sender {
     //NSLog(@"%@", _volumeSlider);
     _player.volume = _volumeSlider.value;
@@ -127,12 +146,13 @@
 
 - (void)setUpInitialState {
     [self configureButtons];
-    
-    [self prepareToPlayASound:_sRepSoundName fileExtension:_sRepSoundExtension];
+    [self prepareToPlayASound:_tmpTimer.sRepSoundName fileExtension:_tmpTimer.sRepSoundExtension];
     
     _counter = _iRepLen0;
-    
     _repNumCount = 0;
+    if (_exerciseSet.sSetName != nil) {
+        self.navigationItem.title = _tmpTimer.sTimerName;
+    }
     
     //_sRepName = [NSString stringWithFormat:@"Get Ready!",_repNumCount];
     _sRepName = [NSString stringWithFormat:@"Prep Counter"];
@@ -177,7 +197,9 @@
 }
 
 -(void)playEndSound {
-    [self prepareToPlayASound:_sEndSoundName fileExtension:_sEndSoundExtension];
+    NSString *sEndSoundName = [NSString stringWithFormat:@"Triple %@", _tmpTimer.sRepSoundName];
+    NSString *sEndSoundExtension = _tmpTimer.sRepSoundExtension;
+    [self prepareToPlayASound:sEndSoundName fileExtension:sEndSoundExtension];
     [_player play];
 }
 
@@ -197,8 +219,6 @@
     }
     
     _player.volume = _iVolume;
-    
-    
 }
 
 
@@ -224,12 +244,12 @@
     
     if (_counter <=0) {
         [timer invalidate];
-        if (_repNumCount < _iNumReps) {
+        if (_repNumCount < _tmpTimer.iNumReps) {
             if (_iWhichTimer == 1) {
                 //_sRepName = @"Break";
                 _sRepName = [NSString stringWithFormat:@"Transition / Break %d",_repNumCount];
                 _iWhichTimer = 2;
-                _counter = _iRepLen2;
+                _counter = _tmpTimer.iRepLen2;
                 
             
             } else if (_iWhichTimer == 2 || _iWhichTimer == 0) {
@@ -237,7 +257,7 @@
 
                 _sRepName = [NSString stringWithFormat:@"Rep %d",_repNumCount];
                 _iWhichTimer = 1;
-                _counter = _iRepLen1;
+                _counter = _tmpTimer.iRepLen1;
                 
                 
             } else {
@@ -252,10 +272,29 @@
             [self countDownTimer];
         }
         else {
-            [self.buttonPauseStart setTitle:@"Restart" forState:UIControlStateNormal];
             
-            [self playEndSound];
-        
+            NSLog(@"%li", [_exerciseSet.aExercises count]);
+            if ([_exerciseSet.aExercises count] - 1 > _setCount) {
+                _setCount += 1;
+                
+                _tmpTimer = [_exerciseSet.aExercises objectAtIndex:_setCount];
+                
+                _sRepName = [NSString stringWithFormat:@"Next up - %@ set", _tmpTimer.sTimerName];
+                _repNumCount = 0;
+                _iWhichTimer = 0;
+                _counter = _iRepLen0;
+                
+                
+                
+                [self playASound];
+                [self updateScreen];
+                [self countDownTimer];
+                
+            } else {
+                [self.buttonPauseStart setTitle:@"Restart" forState:UIControlStateNormal];
+                [self playEndSound];
+            }
+            
         }
     }
 }
@@ -277,6 +316,25 @@
     UIButton *button = (UIButton *)sender;
     NSLog(@"Button Title: %@", button.currentTitle);
     NSLog(@"Button Equal: %d", button == self.buttonPauseStart);
+    
+    [UIView animateWithDuration:0.1f
+                          delay:0.0f
+                        options: UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         [button
+                          setBackgroundColor:[UIColor grayColor]];
+                     }
+                     completion:nil];
+    
+    [UIView animateWithDuration:0.1f
+                          delay:0.0f
+                        options: UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         [button
+                          setBackgroundColor:[UIColor clearColor]];
+                     }
+                     completion:nil];
+    
 
     if (button == self.buttonPauseStart) {
         if ([button.currentTitle containsString:@"Restart"]) {
@@ -285,9 +343,11 @@
             
             
             if (button.selected == YES){
+                //[self.buttonPauseStart setTitle:@"Continue" forState:UIControlStateNormal];
                 [self countDownTimer];
                 
             } else if (button.selected == NO) {
+                //[self.buttonPauseStart setTitle:@"Pause" forState:UIControlStateNormal];
                 [self.timer invalidate];
             }
             
@@ -371,6 +431,14 @@
 */
 
 #pragma mark - Navigation
+
+- (IBAction)backButtonPressed:(id)sender {
+    if ([_source  isEqual: @"CreateExerciseSetTableViewController"]) {
+        [self performSegueWithIdentifier:@"unwindToCreateExerciseSet" sender:self];
+    } else {
+        [self performSegueWithIdentifier:@"unwindToSetTimer" sender:self];
+    }
+}
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
