@@ -408,7 +408,7 @@
             </objects>
             <point key="canvasLocation" x="1411" y="416"/>
         </scene>
-        <!--Exercise Set List-->
+        <!--Exercise Sets-->
         <scene sceneID="BNF-zW-XjC">
             <objects>
                 <tableViewController id="HyY-sp-PGS" customClass="ExerciseSetTableViewController" sceneMemberID="viewController">
@@ -452,7 +452,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Exercise Set List" id="zcp-gl-2s6">
+                    <navigationItem key="navigationItem" title="Exercise Sets" id="zcp-gl-2s6">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="XGE-Hi-ZGR">
                             <connections>
                                 <segue destination="Wld-Lf-JsI" kind="presentation" identifier="" id="Ft4-rJ-RHW"/>
@@ -511,11 +511,11 @@
             </objects>
             <point key="canvasLocation" x="-206" y="2057"/>
         </scene>
-        <!--Exercise Set-->
+        <!--Exercise Sets-->
         <scene sceneID="V9z-P4-X68">
             <objects>
                 <navigationController id="Cfc-my-VQX" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Exercise Set" image="Exercise Set Tab Image" id="jEF-rz-J0Y"/>
+                    <tabBarItem key="tabBarItem" title="Exercise Sets" image="Exercise Set Tab Image" id="jEF-rz-J0Y"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="A4b-p0-7eh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

@@ -95,10 +95,10 @@
         
         self.navigationItem.leftBarButtonItem.tintColor = [UIColor blueColor];
         self.navigationItem.leftBarButtonItem.enabled = NO;
-        NSLog(@"blue color");
+       // NSLog(@"blue color");
     } else {
         self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
-        NSLog(@"white color");
+        //NSLog(@"white color");
     }
 
     
