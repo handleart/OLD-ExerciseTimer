@@ -13,6 +13,8 @@
 #import "AppDelegate.h"
 #import "anExerciseSet.h"
 
+
+
 @interface SetTimerNewTableViewController ()
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *playButton;
@@ -55,6 +57,10 @@
 @property NSInteger lastPickerRow;
 @property BOOL pickerIsShowing;
 
+@property NSInteger totalLengthSectionIndex;
+@property NSInteger timerSectionIndex;
+@property NSInteger saveSectionIndex;
+
 @end
 
 @implementation SetTimerNewTableViewController
@@ -64,12 +70,38 @@
     [super viewDidLoad];
 
     [self definePickerData];
-
+    
+    _totalLengthSectionIndex = 0;
+    _timerSectionIndex = 1;
+    _saveSectionIndex = 2;
+    
     self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
     self.navigationController.navigationBar.translucent = NO;
     
-    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    if (_saveViewIsShowing == NO && _addViewIsShowing == NO) {
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+    } else if (_addViewIsShowing == YES) {
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor blueColor];
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    } else if (_tmpTimer != nil) {
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+    } else {
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    }
+    
+    
+    
+    if (_saveViewIsShowing == NO && _addViewIsShowing == NO) {
+        
+        self.navigationItem.leftBarButtonItem.tintColor = [UIColor blueColor];
+        self.navigationItem.leftBarButtonItem.enabled = NO;
+        NSLog(@"blue color");
+    } else {
+        self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+        NSLog(@"white color");
+    }
+
+    
     
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     
@@ -116,6 +148,8 @@
         NSUInteger iLen2IndexSec = [_aSec indexOfObject:[NSString stringWithFormat:@"%li", _iLenOfTimer2sec]];
         [self.timer2Picker selectRow:iLen2IndexMin inComponent:0 animated:NO];
         [self.timer2Picker selectRow:iLen2IndexSec inComponent:1 animated:NO];
+        
+        _sSoundName = _tmpTimer.sRepSoundName;
 
     } else {
         _tmpTimer = [[aTimer alloc] init];
@@ -140,7 +174,15 @@
 
     
     _pickerIsShowing = false;
-    _nameRow = 0;
+    
+    //Be careful changing the -1 value for _nameRow. It is used throughout this page to change the rows
+    if (_addViewIsShowing == YES || _saveViewIsShowing == YES) {
+        _nameRow = 0;
+    } else {
+        _nameRow = -1;
+    }
+    
+    
     _repRow = 1 + _nameRow;
     _timer1Row = 2 + _nameRow;
     _timer2Row = 3 + _nameRow;
@@ -164,9 +206,8 @@
     } else if (_saveViewIsShowing == YES) {
         [self performSegueWithIdentifier:@"unwindToChooseTimer" sender:self];
     } else {
-        
+
     }
-    
     
 }
 
@@ -185,8 +226,12 @@
         [[app timers] addObject:_tmpTimer];
         [_playButton setEnabled:YES];
         [_playButton setTintColor:nil];
-        
+        if (_saveViewIsShowing) {
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+            self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+        }
     }
+
     
     [app saveTimersData];
     
@@ -279,15 +324,19 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    if (_saveViewIsShowing == YES || _addViewIsShowing) {
+        return 3;
+    }
+    
+    return 2;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 1) {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {;
+    if (section == _timerSectionIndex) {
         if (_pickerIsShowing == YES) {
-            return 6;
+            return 6 + _nameRow;
         } else {
-            return 5 ;
+            return 5 + _nameRow;
         }
     } else {
         return 1;
@@ -295,10 +344,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 1 && indexPath.row != _pickerRow) {
+    if (indexPath.section == _timerSectionIndex && indexPath.row != _pickerRow) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoPrototypeCell" forIndexPath:indexPath];
         return cell;
-    } else if (indexPath.section ==1 && indexPath.row == _pickerRow) {
+    } else if (indexPath.section == _timerSectionIndex && indexPath.row == _pickerRow) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PickerPrototypeCell" forIndexPath:indexPath];
         return cell;
     } else {
@@ -312,7 +361,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     
-    if (indexPath.section == 0 && indexPath.row == 0) {
+    if (indexPath.section == _totalLengthSectionIndex && indexPath.row == 0) {
         
 
         _totalLength.text = [NSString stringWithFormat:@"Timer Length: %02li:%02li", (_iNumRep * (_iLenOfTimer1) / 60 + (_iNumRep-1) * _iLenOfTimer2 / 60), (_iNumRep * _iLenOfTimer1 + (_iNumRep-1) *_iLenOfTimer2) % 60];
@@ -347,7 +396,7 @@
                                                         multiplier:1.0
                                                           constant:200]];
         
-    } else if (indexPath.section == 2 && indexPath.row == 0) {
+    } else if (indexPath.section == _saveSectionIndex && indexPath.row == 0) {
     
         _saveButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         
@@ -407,7 +456,7 @@
                                                         multiplier:1.0
                                                           constant:40]];
     
-    } else if (indexPath.section == 1) {
+    } else if (indexPath.section ==  _timerSectionIndex) {
         if (indexPath.row == _nameRow) {
             cell.textLabel.text = @"Rep Name";
             cell.detailTextLabel.hidden = YES;
@@ -434,7 +483,7 @@
             _repNameTextField.textAlignment = NSTextAlignmentRight;
         } else if (indexPath.row == _pickerRow) {
             //if rep picker
-            if (_pickerRow == 2) {
+            if (_pickerRow == 2 + _nameRow) {
                 _repPicker.hidden = NO;
                 _timer1Picker.hidden = YES;
                 _timer2Picker.hidden = YES;
@@ -442,7 +491,8 @@
 
                 [_repPicker setDelegate:self];
                 
-                NSUInteger repIndex = [_aNumRepsPickListValues indexOfObject:[NSString stringWithFormat:@"%li", _tmpTimer.iNumReps]];
+                NSUInteger repIndex = [_aNumRepsPickListValues indexOfObject:[NSString stringWithFormat:@"%li", _iNumRep]];
+                
                 
                 [self.repPicker selectRow:repIndex inComponent:0 animated:NO];
 
@@ -468,7 +518,7 @@
                                                                 multiplier:1.0
                                                                   constant:0]];
             
-            } else if (_pickerRow == 3 ) {
+            } else if (_pickerRow == 3 + _nameRow ) {
                 //if timer 1 picker
                 _repPicker.hidden = YES;
                 _timer1Picker.hidden = NO;
@@ -506,7 +556,7 @@
                                                                 multiplier:1.0
                                                                   constant:0]];
                 
-            } else if (_pickerRow == 4 ) {
+            } else if (_pickerRow == 4 + _nameRow) {
                 //if timer 2 picker
                 _repPicker.hidden = YES;
                 _timer1Picker.hidden = YES;
@@ -542,7 +592,7 @@
                                                                 multiplier:1.0
                                                                   constant:0]];
             
-            } else if (_pickerRow == 5 ) {
+            } else if (_pickerRow == 5 + _nameRow ) {
                 _repPicker.hidden = YES;
                 _timer1Picker.hidden = YES;
                 _timer2Picker.hidden = YES;
@@ -594,46 +644,48 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 1) {
+    if (indexPath.section == _timerSectionIndex) {
         if (indexPath.row == _pickerRow - 1 && _pickerIsShowing == YES) {
-            _nameRow = 0;
-            _repRow = 1;
-            _timer1Row = 2;
-            _timer2Row = 3;
-            _soundRow = 4;
-            _pickerRow = 6;
+            //(if _saveViewIsShowing == YES || _addViewIsShowing == YES) {
+                //_nameRow = 0;
+            //}
+            _repRow = 1 + _nameRow;
+            _timer1Row = 2 + _nameRow;
+            _timer2Row = 3  + _nameRow;
+            _soundRow = 4  + _nameRow;
+            _pickerRow = 6  + _nameRow;
             _pickerIsShowing = NO;
         } else if (indexPath.row == _repRow) {
-            _nameRow = 0;
-            _repRow = 1;
-            _timer1Row = 3;
-            _timer2Row = 4;
-            _soundRow = 5;
-            _pickerRow = 2;
+//            _nameRow = 0;
+            _repRow = 1 + _nameRow;
+            _timer1Row = 3 + _nameRow;
+            _timer2Row = 4 + _nameRow;
+            _soundRow = 5 + _nameRow;
+            _pickerRow =  2 + _nameRow;
             _pickerIsShowing = YES;
         } else if (indexPath.row == _timer1Row) {
-            _nameRow = 0;
-            _repRow = 1;
-            _timer1Row = 2;
-            _timer2Row = 4;
-            _soundRow = 5;
-            _pickerRow = 3;
+//            _nameRow = 0;
+            _repRow = 1 + _nameRow;
+            _timer1Row = 2 + _nameRow;
+            _timer2Row = 4 + _nameRow;
+            _soundRow = 5 + _nameRow;
+            _pickerRow = 3 + _nameRow;
             _pickerIsShowing = YES;
         } else if (indexPath.row == _timer2Row) {
-            _nameRow = 0;
-            _repRow = 1;
-            _timer1Row = 2;
-            _timer2Row = 3;
-            _soundRow = 5;
-            _pickerRow = 4;
+//            _nameRow = 0;
+            _repRow = 1 + _nameRow;
+            _timer1Row = 2 + _nameRow;
+            _timer2Row = 3 + _nameRow;
+            _soundRow = 5 + _nameRow;
+            _pickerRow = 4 + _nameRow;
             _pickerIsShowing = YES;
         } else if (indexPath.row == _soundRow)   {
-            _nameRow = 0;
-            _repRow = 1;
-            _timer1Row = 2;
-            _timer2Row = 3;
-            _soundRow = 4;
-            _pickerRow = 5;
+//            _nameRow = 0;
+            _repRow = 1 + _nameRow;
+            _timer1Row = 2 + _nameRow;
+            _timer2Row = 3 + _nameRow;
+            _soundRow = 4 + _nameRow;
+            _pickerRow = 5 + _nameRow;
             _pickerIsShowing = YES;
         } else {
             
@@ -655,7 +707,7 @@
     
     CGFloat height = self.tableView.rowHeight;
     
-    if (indexPath.section == 1 && indexPath.row == _pickerRow) {
+    if (indexPath.section == _timerSectionIndex && indexPath.row == _pickerRow) {
         //height = self.pickerIsShowing ? 180 : 0.0f;
         height = 180;
     } else {

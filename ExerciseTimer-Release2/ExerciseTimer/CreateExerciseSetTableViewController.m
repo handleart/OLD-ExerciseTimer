@@ -17,7 +17,7 @@
 #import "SetTimerNewTableViewController.h"
 
 #define nameSectionIndex 0
-//#define editSectionIndex 1
+#define editSectionIndex 1
 #define addTimerSectionIndex 1
 #define timerSectionIndex 2
 #define saveSectionIndex 3
@@ -117,16 +117,22 @@
 - (IBAction)editButtonPressed:(id)sender {
     //CreateCustomPresetTimer
     
-    self.editing = !self.editing;
+    
+    
+    
     
     _pickerIsShowing = NO;
     
-    NSIndexPath *pickerIndexPath = [NSIndexPath indexPathForRow:_pickerRow inSection:timerSectionIndex];
     
+    if (self.editing == NO && _pickerIsShowing == YES) {
+        NSIndexPath *pickerIndexPath = [NSIndexPath indexPathForRow:_pickerRow inSection:timerSectionIndex];
+        [self.tableView beginUpdates];
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:pickerIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    }
     
-    [self.tableView beginUpdates];
-    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:pickerIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView endUpdates];
+    self.editing = !self.editing;
+
     
 
     
@@ -200,7 +206,7 @@
         return [_exerciseSet.aExercises count];
     
     } else if ( section == addTimerSectionIndex) {
-        return 2;
+        return 1;
     }
 
     //for section 0 and 2 there is only one row
@@ -319,7 +325,7 @@
          return cell;
     } else if (indexPath.section == addTimerSectionIndex) {
         UITableViewCell *cell = [[UITableViewCell alloc] init];
-        
+    
         
         if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
             [cell setLayoutMargins:UIEdgeInsetsZero];
@@ -331,7 +337,7 @@
             _addPresetTimerButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
             UILabel *addPresetLabel = [[UILabel alloc] init];
             
-            addPresetLabel.text = @"Add Preset";
+            addPresetLabel.text = @"Preset";
             
             _addPresetTimerButton.translatesAutoresizingMaskIntoConstraints = NO;
             addPresetLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -379,7 +385,7 @@
             UIButton *addCustom = [UIButton buttonWithType:UIButtonTypeContactAdd];
             UILabel *addCustomLabel = [[UILabel alloc] init];
             
-            addCustomLabel.text = @"Add Custom";
+            addCustomLabel.text = @"Manual";
 
             
             addCustom.translatesAutoresizingMaskIntoConstraints = NO;
@@ -389,14 +395,30 @@
             [cell.contentView addSubview:addCustom];
             [cell.contentView addSubview:addCustomLabel];
             
-            [cell addConstraint:[NSLayoutConstraint constraintWithItem:addCustomLabel
-                                                             attribute:NSLayoutAttributeTrailing
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:cell.contentView
-                                                             attribute:NSLayoutAttributeTrailingMargin
-                                                            multiplier:1.0
-                                                              constant:0]];
+//            [cell addConstraint:[NSLayoutConstraint constraintWithItem:addCustomLabel
+//                                                             attribute:NSLayoutAttributeTrailing
+//                                                             relatedBy:NSLayoutRelationEqual
+//                                                                toItem:cell.contentView
+//                                                             attribute:NSLayoutAttributeTrailingMargin
+//                                                            multiplier:1.0
+//                                                              constant:0]];
+//            
+//            [cell addConstraint:[NSLayoutConstraint constraintWithItem:addCustomLabel
+//                                                             attribute:NSLayoutAttributeCenterY
+//                                                             relatedBy:NSLayoutRelationEqual
+//                                                                toItem:cell.contentView
+//                                                             attribute:NSLayoutAttributeCenterY
+//                                                            multiplier:1.0
+//                                                              constant:0]];
             
+            [cell addConstraint:[NSLayoutConstraint constraintWithItem:addCustom
+                                                             attribute:NSLayoutAttributeLeading
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:addPresetLabel
+                                                             attribute:NSLayoutAttributeTrailing
+                                                            multiplier:1.0
+                                                              constant:30]];
+
             [cell addConstraint:[NSLayoutConstraint constraintWithItem:addCustomLabel
                                                              attribute:NSLayoutAttributeCenterY
                                                              relatedBy:NSLayoutRelationEqual
@@ -422,8 +444,6 @@
                                                               constant:0]];
             
             
-        } else if (indexPath.row == 1) {
-        
             UIButton *edit = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             edit.layer.borderWidth = 1.0f;
             //self.button.layer.borderColor = [[UIColor whiteColor] CGColor];
@@ -431,22 +451,21 @@
             edit.translatesAutoresizingMaskIntoConstraints = NO;
             [edit setTitle:@"Edit" forState:UIControlStateNormal];
             [edit setTitle:@"Edit" forState:UIControlStateSelected];
-            
+
             edit.translatesAutoresizingMaskIntoConstraints = NO;
             [edit addTarget:self action:@selector(editButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-            
+
             [cell.contentView addSubview:edit];
-            
-            
+
+
             [cell addConstraint:[NSLayoutConstraint constraintWithItem:edit
-                                                             attribute:NSLayoutAttributeCenterX
+                                                             attribute:NSLayoutAttributeTrailing
                                                              relatedBy:NSLayoutRelationEqual
                                                                 toItem:cell.contentView
-                                                             attribute:NSLayoutAttributeCenterX
+                                                             attribute:NSLayoutAttributeTrailingMargin
                                                             multiplier:1.0
-                                                              constant:10]];
+                                                              constant:0]];
             
-            //center y
             [cell addConstraint:[NSLayoutConstraint constraintWithItem:edit
                                                              attribute:NSLayoutAttributeCenterY
                                                              relatedBy:NSLayoutRelationEqual
@@ -455,6 +474,8 @@
                                                             multiplier:1.0
                                                               constant:0]];
             
+
+
             //width
             [cell addConstraint:[NSLayoutConstraint constraintWithItem:edit
                                                              attribute:NSLayoutAttributeWidth
@@ -462,8 +483,8 @@
                                                                 toItem:nil
                                                              attribute:NSLayoutAttributeWidth
                                                             multiplier:1.0
-                                                              constant:70]];
-            
+                                                              constant:100]];
+
             //height
             [cell addConstraint:[NSLayoutConstraint constraintWithItem:edit
                                                              attribute:NSLayoutAttributeHeight
@@ -472,16 +493,81 @@
                                                              attribute:NSLayoutAttributeHeight
                                                             multiplier:1.0
                                                               constant:40]];
-        
+
+            
+        } else {
+            
         }
         return cell;
         
+//    } else if (indexPath.section == editSectionIndex) {
+//        UITableViewCell *cell = [[UITableViewCell alloc] init];
+//        
+//        UIView *backView = [[UIView alloc] initWithFrame:CGRectZero];
+//        backView.backgroundColor = [UIColor clearColor];
+//        cell.backgroundView = backView;
+//        
+//        if (indexPath.row == 0) {
+//        
+//            UIButton *edit = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//            edit.layer.borderWidth = 1.0f;
+//            //self.button.layer.borderColor = [[UIColor whiteColor] CGColor];
+//            edit.layer.cornerRadius = 8.0f;
+//            edit.translatesAutoresizingMaskIntoConstraints = NO;
+//            [edit setTitle:@"Edit" forState:UIControlStateNormal];
+//            [edit setTitle:@"Edit" forState:UIControlStateSelected];
+//            
+//            edit.translatesAutoresizingMaskIntoConstraints = NO;
+//            [edit addTarget:self action:@selector(editButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//            
+//            [cell.contentView addSubview:edit];
+//            
+//            
+//            [cell addConstraint:[NSLayoutConstraint constraintWithItem:edit
+//                                                             attribute:NSLayoutAttributeCenterX
+//                                                             relatedBy:NSLayoutRelationEqual
+//                                                                toItem:cell.contentView
+//                                                             attribute:NSLayoutAttributeCenterX
+//                                                            multiplier:1.0
+//                                                              constant:10]];
+//            
+//            //center y
+//            [cell addConstraint:[NSLayoutConstraint constraintWithItem:edit
+//                                                             attribute:NSLayoutAttributeCenterY
+//                                                             relatedBy:NSLayoutRelationEqual
+//                                                                toItem:cell.contentView
+//                                                             attribute:NSLayoutAttributeCenterY
+//                                                            multiplier:1.0
+//                                                              constant:0]];
+//            
+//            //width
+//            [cell addConstraint:[NSLayoutConstraint constraintWithItem:edit
+//                                                             attribute:NSLayoutAttributeWidth
+//                                                             relatedBy:NSLayoutRelationEqual
+//                                                                toItem:nil
+//                                                             attribute:NSLayoutAttributeWidth
+//                                                            multiplier:1.0
+//                                                              constant:100]];
+//            
+//            //height
+//            [cell addConstraint:[NSLayoutConstraint constraintWithItem:edit
+//                                                             attribute:NSLayoutAttributeHeight
+//                                                             relatedBy:NSLayoutRelationEqual
+//                                                                toItem:nil
+//                                                             attribute:NSLayoutAttributeHeight
+//                                                            multiplier:1.0
+//                                                              constant:40]];
+//        
+//        } else {
+//            
+//        }
+//        return cell;
+//        
     } else {
         //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TestCell" forIndexPath:indexPath];
         UITableViewCell *cell = [[UITableViewCell alloc] init];
         return cell;
     }
-    
     
 }
 
@@ -592,6 +678,12 @@
             
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%02li:%02li", tmpTimer.totalLength / 60, tmpTimer.totalLength % 60];
         }
+    } else if (indexPath.section == editSectionIndex) {
+        //[cell setBackgroundColor:[UIColor clearColor]];
+        //cell.separatorInset = UIEdgeInsetsMake(0.f, cell.bounds.size.width, 0.f, 0.f);
+    } else if (indexPath.section == addTimerSectionIndex) {
+        //[cell setBackgroundColor:[UIColor clearColor]];
+        //cell.separatorInset = UIEdgeInsetsMake(0.f, cell.bounds.size.width, 0.f, 0.f);
     }
 
 
@@ -690,9 +782,11 @@
     return YES;
 }
 
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
-{
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     
+    aTimer *tmpTimer = [_exerciseSet.aExercises objectAtIndex:sourceIndexPath.row];
+    [_exerciseSet.aExercises removeObjectAtIndex:sourceIndexPath.row];
+    [_exerciseSet.aExercises insertObject:tmpTimer atIndex:destinationIndexPath.row];
 }
 
 #pragma mark - picker section

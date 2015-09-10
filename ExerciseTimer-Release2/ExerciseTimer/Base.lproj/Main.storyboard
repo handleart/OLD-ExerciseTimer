@@ -362,6 +362,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="1rD-LN-hDg" kind="unwind" identifier="unwindToChooseTimer" trigger="accessoryAction" unwindAction="unwindToChooseTimer:" id="QSa-bM-hCK"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PickerPrototypeCell" rowHeight="150" id="R6g-Bb-boL">
                                 <rect key="frame" x="0.0" y="150" width="600" height="150"/>
