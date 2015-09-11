@@ -45,11 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
-    self.navigationController.navigationBar.translucent = NO;
-    
-    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+
     
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     
@@ -61,8 +57,6 @@
     _nameTextField.placeholder = _sPlaceholderValue;
 
     
-    //app.timers = _savedTimers;
-    //[app saveData];
     
     _selectedPickerRow = 0;
     _pickerIsShowing = YES;
@@ -72,19 +66,41 @@
     
     self.aPresetTimers = app.timers;
     
-    //_exerciseSet.sSetName = @"";
+    self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     
     
     if (self.exerciseSet == nil) {
         self.exerciseSet = [[anExerciseSet alloc] init];
+        
+        if (_aPresetTimers == nil || [_aPresetTimers count] == 0) {
+             self.navigationItem.rightBarButtonItem.tintColor = [UIColor blueColor];
+            self.navigationItem.rightBarButtonItem.enabled = NO;
+        }
+        
         [self addRow];
     } else {
         _pickerRow = [_exerciseSet.aExercises count];
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
     }
     
     _picker = [[UIPickerView alloc] init];
     _picker.translatesAutoresizingMaskIntoConstraints = NO;
     
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    if (_aPresetTimers == nil || [_aPresetTimers count] == 0) {
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor blueColor];
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    } else {
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor
+];
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+
+    }
+ 
 }
 
 - (void)addRow {
@@ -97,15 +113,27 @@
 //    }
     //
     
-    aTimer *timer1 = [[aTimer alloc] init];
-    timer1 = [self.aPresetTimers objectAtIndex:_selectedPickerRow];
-    
-    _exerciseSet.iTotalLength = _exerciseSet.iTotalLength + [timer1 totalLength];
-    
-    //_exerciseSet.aExercises = savedTimers1;
-    [_exerciseSet.aExercises addObject:timer1];
-    
-    _pickerRow = [_exerciseSet.aExercises count];
+    if ([self.aPresetTimers count] == 0 || self.aPresetTimers == nil) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert"
+                                                        message:@"Please create a preset timer first."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        
+        [alert show];
+        [self performSegueWithIdentifier:@"CreateCustomPresetTimer" sender:self];
+    } else {
+        aTimer *timer1 = [[aTimer alloc] init];
+        
+        timer1 = [self.aPresetTimers objectAtIndex:_selectedPickerRow];
+        
+        _exerciseSet.iTotalLength = _exerciseSet.iTotalLength + [timer1 totalLength];
+        
+        //_exerciseSet.aExercises = savedTimers1;
+        [_exerciseSet.aExercises addObject:timer1];
+        _pickerRow = [_exerciseSet.aExercises count];
+        
+    }
     
     
 }
@@ -116,8 +144,9 @@
 }
 - (IBAction)editButtonPressed:(id)sender {
     //CreateCustomPresetTimer
+
     
-    
+    UIButton *edit = (UIButton *)sender;
     
     
     
@@ -134,9 +163,26 @@
     self.editing = !self.editing;
 
     
+    [UIView animateWithDuration:0.1f
+                          delay:0.0f
+                        options: UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         [edit
+                          setBackgroundColor:[UIColor grayColor]];
+                     }
+                     completion:nil];
+    
+    [UIView animateWithDuration:0.1f
+                          delay:0.0f
+                        options: UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         [edit
+                          setBackgroundColor:[UIColor clearColor]];
+                     }
+                     completion:nil];
 
     
-    NSLog(@"Editing has been enabled");
+    //NSLog(@"Editing has been enabled");
     
     
     
@@ -572,7 +618,7 @@
 }
 
 - (void)saveButtonPressed:(id)sender {
-    NSLog(@"Save button pressed!");
+    //NSLog(@"Save button pressed!");
     
     [UIView animateWithDuration:0.1f
                           delay:0.0f
@@ -605,7 +651,7 @@
     
     
     if ([[app exerciseSets] containsObject:_exerciseSet]) {
-        NSLog(@"value already in timer");
+       // NSLog(@"value already in timer");
         
     } else {
         
@@ -859,7 +905,11 @@
         AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
         
         [_picker reloadAllComponents];
-        [_picker selectRow:(long)[app.timers count] - 1 inComponent:0 animated:NO];
+        if (app.timers == nil) {
+            [_picker selectRow:0 inComponent:0 animated:NO];
+        } else {
+            [_picker selectRow:(long)[app.timers count] - 1 inComponent:0 animated:NO];
+        }
         
         [self.tableView reloadData];
 

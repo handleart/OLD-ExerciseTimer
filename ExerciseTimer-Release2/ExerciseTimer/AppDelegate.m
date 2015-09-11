@@ -43,9 +43,9 @@
             
         }
     
-    } //else {
-    //    self.timers = [[NSMutableArray alloc] init];
-    //}
+    } else {
+        self.timers = [[NSMutableArray alloc] init];   
+    }
     
     NSString *filePathExerciseSet = [documentsDirectoryPath stringByAppendingPathComponent:@"exerciseTimerAppData"];
     NSData *ExerciseSetData = [NSData dataWithContentsOfFile:filePathExerciseSet];
@@ -60,6 +60,8 @@
         }
         
         
+    } else {
+        self.exerciseSets = [[NSMutableArray alloc] init];
     }
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];

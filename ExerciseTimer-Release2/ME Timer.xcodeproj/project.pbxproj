@@ -65,7 +65,7 @@
 		9C8D43621B7527B4005C1523 /* aTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = aTimer.m; sourceTree = "<group>"; };
 		9C8D43641B7528E4005C1523 /* ChooseTimerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseTimerTableViewController.h; sourceTree = "<group>"; };
 		9C8D43651B7528E4005C1523 /* ChooseTimerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseTimerTableViewController.m; sourceTree = "<group>"; };
-		9CB503881B547C01006FD3B9 /* Exercise Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Exercise Timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CB503881B547C01006FD3B9 /* ME Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ME Timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CB5038C1B547C01006FD3B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9CB5038D1B547C01006FD3B9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9CB5038F1B547C01006FD3B9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -73,7 +73,7 @@
 		9CB503961B547C01006FD3B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9CB503981B547C01006FD3B9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9CB5039B1B547C01006FD3B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		9CB503A11B547C01006FD3B9 /* Exercise Timer.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Exercise Timer.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CB503A11B547C01006FD3B9 /* ME Timer.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ME Timer.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CB503A61B547C01006FD3B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9CB503A71B547C01006FD3B9 /* ExerciseTimerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExerciseTimerTests.m; sourceTree = "<group>"; };
 		9CBC2D0E1B602A7900474CD1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -150,8 +150,8 @@
 		9CB503891B547C01006FD3B9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9CB503881B547C01006FD3B9 /* Exercise Timer.app */,
-				9CB503A11B547C01006FD3B9 /* Exercise Timer.xctest */,
+				9CB503881B547C01006FD3B9 /* ME Timer.app */,
+				9CB503A11B547C01006FD3B9 /* ME Timer.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -233,9 +233,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9CB503871B547C01006FD3B9 /* Exercise Timer */ = {
+		9CB503871B547C01006FD3B9 /* ME Timer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9CB503AB1B547C01006FD3B9 /* Build configuration list for PBXNativeTarget "Exercise Timer" */;
+			buildConfigurationList = 9CB503AB1B547C01006FD3B9 /* Build configuration list for PBXNativeTarget "ME Timer" */;
 			buildPhases = (
 				9CB503841B547C01006FD3B9 /* Sources */,
 				9CB503851B547C01006FD3B9 /* Frameworks */,
@@ -245,14 +245,14 @@
 			);
 			dependencies = (
 			);
-			name = "Exercise Timer";
+			name = "ME Timer";
 			productName = ExerciseTimer;
-			productReference = 9CB503881B547C01006FD3B9 /* Exercise Timer.app */;
+			productReference = 9CB503881B547C01006FD3B9 /* ME Timer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9CB503A01B547C01006FD3B9 /* Exercise TimerTests */ = {
+		9CB503A01B547C01006FD3B9 /* ME TimerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9CB503AE1B547C01006FD3B9 /* Build configuration list for PBXNativeTarget "Exercise TimerTests" */;
+			buildConfigurationList = 9CB503AE1B547C01006FD3B9 /* Build configuration list for PBXNativeTarget "ME TimerTests" */;
 			buildPhases = (
 				9CB5039D1B547C01006FD3B9 /* Sources */,
 				9CB5039E1B547C01006FD3B9 /* Frameworks */,
@@ -263,9 +263,9 @@
 			dependencies = (
 				9CB503A31B547C01006FD3B9 /* PBXTargetDependency */,
 			);
-			name = "Exercise TimerTests";
+			name = "ME TimerTests";
 			productName = ExerciseTimerTests;
-			productReference = 9CB503A11B547C01006FD3B9 /* Exercise Timer.xctest */;
+			productReference = 9CB503A11B547C01006FD3B9 /* ME Timer.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -287,7 +287,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9CB503831B547C01006FD3B9 /* Build configuration list for PBXProject "Exercise Timer" */;
+			buildConfigurationList = 9CB503831B547C01006FD3B9 /* Build configuration list for PBXProject "ME Timer" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -300,8 +300,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9CB503871B547C01006FD3B9 /* Exercise Timer */,
-				9CB503A01B547C01006FD3B9 /* Exercise TimerTests */,
+				9CB503871B547C01006FD3B9 /* ME Timer */,
+				9CB503A01B547C01006FD3B9 /* ME TimerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -367,7 +367,7 @@
 /* Begin PBXTargetDependency section */
 		9CB503A31B547C01006FD3B9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9CB503871B547C01006FD3B9 /* Exercise Timer */;
+			target = 9CB503871B547C01006FD3B9 /* ME Timer */;
 			targetProxy = 9CB503A21B547C01006FD3B9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -484,7 +484,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "art.self.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "Exercise Timer";
+				PRODUCT_NAME = "ME Timer";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -500,7 +500,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "art.self.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "Exercise Timer";
+				PRODUCT_NAME = "ME Timer";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -520,8 +520,8 @@
 				INFOPLIST_FILE = ExerciseTimerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "art.self.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "Exercise Timer";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Exercise Timer.app/Exercise Timer";
+				PRODUCT_NAME = "ME Timer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ME Timer.app/ME Timer";
 			};
 			name = Debug;
 		};
@@ -536,15 +536,15 @@
 				INFOPLIST_FILE = ExerciseTimerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "art.self.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "Exercise Timer";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Exercise Timer.app/Exercise Timer";
+				PRODUCT_NAME = "ME Timer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ME Timer.app/ME Timer";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9CB503831B547C01006FD3B9 /* Build configuration list for PBXProject "Exercise Timer" */ = {
+		9CB503831B547C01006FD3B9 /* Build configuration list for PBXProject "ME Timer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9CB503A91B547C01006FD3B9 /* Debug */,
@@ -553,7 +553,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9CB503AB1B547C01006FD3B9 /* Build configuration list for PBXNativeTarget "Exercise Timer" */ = {
+		9CB503AB1B547C01006FD3B9 /* Build configuration list for PBXNativeTarget "ME Timer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9CB503AC1B547C01006FD3B9 /* Debug */,
@@ -562,7 +562,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9CB503AE1B547C01006FD3B9 /* Build configuration list for PBXNativeTarget "Exercise TimerTests" */ = {
+		9CB503AE1B547C01006FD3B9 /* Build configuration list for PBXNativeTarget "ME TimerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9CB503AF1B547C01006FD3B9 /* Debug */,

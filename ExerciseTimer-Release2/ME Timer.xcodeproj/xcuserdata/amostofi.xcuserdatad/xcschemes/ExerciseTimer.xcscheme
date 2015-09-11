@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9CB503871B547C01006FD3B9"
-               BuildableName = "Exercise Timer.app"
-               BlueprintName = "Exercise Timer"
-               ReferencedContainer = "container:Exercise Timer.xcodeproj">
+               BuildableName = "ME Timer.app"
+               BlueprintName = "ME Timer"
+               ReferencedContainer = "container:ME Timer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9CB503A01B547C01006FD3B9"
-               BuildableName = "Exercise Timer.xctest"
-               BlueprintName = "Exercise TimerTests"
-               ReferencedContainer = "container:Exercise Timer.xcodeproj">
+               BuildableName = "ME Timer.xctest"
+               BlueprintName = "ME TimerTests"
+               ReferencedContainer = "container:ME Timer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9CB503A01B547C01006FD3B9"
-               BuildableName = "Exercise Timer.xctest"
-               BlueprintName = "Exercise TimerTests"
-               ReferencedContainer = "container:Exercise Timer.xcodeproj">
+               BuildableName = "ME Timer.xctest"
+               BlueprintName = "ME TimerTests"
+               ReferencedContainer = "container:ME Timer.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9CB503871B547C01006FD3B9"
-            BuildableName = "Exercise Timer.app"
-            BlueprintName = "Exercise Timer"
-            ReferencedContainer = "container:Exercise Timer.xcodeproj">
+            BuildableName = "ME Timer.app"
+            BlueprintName = "ME Timer"
+            ReferencedContainer = "container:ME Timer.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9CB503871B547C01006FD3B9"
-            BuildableName = "Exercise Timer.app"
-            BlueprintName = "Exercise Timer"
-            ReferencedContainer = "container:Exercise Timer.xcodeproj">
+            BuildableName = "ME Timer.app"
+            BlueprintName = "ME Timer"
+            ReferencedContainer = "container:ME Timer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -99,9 +99,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9CB503871B547C01006FD3B9"
-            BuildableName = "Exercise Timer.app"
-            BlueprintName = "Exercise Timer"
-            ReferencedContainer = "container:Exercise Timer.xcodeproj">
+            BuildableName = "ME Timer.app"
+            BlueprintName = "ME Timer"
+            ReferencedContainer = "container:ME Timer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <Group
-      location = "container:"
+      location = "self:ME Timer.xcodeproj"
       name = "New Group">
       <FileRef
-         location = "self:">
+         location = "container:/Users/amostofi/Documents/Dev/iOS/ExerciseTimer-Release2/ME Timer.xcodeproj">
       </FileRef>
    </Group>
 </Workspace>
