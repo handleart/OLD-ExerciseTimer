@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "aTimer.h"
+#import "anExerciseSet.h"
 
 @interface AppDelegate ()
 
@@ -30,6 +31,10 @@
     NSString *documentsDirectoryPath = [paths objectAtIndex:0];
     NSString *filePath = [documentsDirectoryPath stringByAppendingPathComponent:@"timerAppData"];
    
+    aTimer *tmpTimer = [[aTimer alloc] init];
+    aTimer *tmpTimer2 = [[aTimer alloc] init];
+    aTimer *tmpTimer3 = [[aTimer alloc] init];
+    aTimer *tmpTimer4 = [[aTimer alloc] init];
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         NSData *data = [NSData dataWithContentsOfFile:filePath];
@@ -44,7 +49,52 @@
         }
     
     } else {
-        self.timers = [[NSMutableArray alloc] init];   
+        self.timers = [[NSMutableArray alloc] init];
+        
+        
+        //aTimer *tmpTimer = [[aTimer alloc] init];
+        tmpTimer.sTimerName = @"Warm Up";
+        tmpTimer.iNumReps = 1;
+        tmpTimer.iRepLen1 = 90;
+        tmpTimer.iRepLen2 = 0;
+        tmpTimer.sRepSoundName = @"Whistle";
+        tmpTimer.sRepSoundExtension = @"aiff";
+        
+        [_timers addObject:tmpTimer];
+        
+        //aTimer *tmpTimer2 = [[aTimer alloc] init];
+        tmpTimer2.sTimerName = @"High Low Timer";
+        tmpTimer2.iNumReps = 5;
+        tmpTimer2.iRepLen1 = 30;
+        tmpTimer2.iRepLen2 = 90;
+        tmpTimer2.sRepSoundName = @"Whistle";
+        tmpTimer2.sRepSoundExtension = @"aiff";
+        
+        [_timers addObject:tmpTimer2];
+
+        tmpTimer3.sTimerName = @"Cool Down";
+        tmpTimer3.iNumReps = 1;
+        tmpTimer3.iRepLen1 = 90;
+        tmpTimer3.iRepLen2 = 0;
+        tmpTimer3.sRepSoundName = @"Whistle";
+        tmpTimer3.sRepSoundExtension = @"aiff";
+        
+        [_timers addObject:tmpTimer3];
+        
+        //aTimer *tmpTimer4 = [[aTimer alloc] init];
+        tmpTimer4.sTimerName = @"Mindfulness of Breathing";
+        tmpTimer4.iNumReps = 4;
+        tmpTimer4.iRepLen1 = 4*60;
+        tmpTimer4.iRepLen2 = 0;
+        tmpTimer4.sRepSoundName = @"Temple Bell";
+        tmpTimer4.sRepSoundExtension = @"aiff";
+        
+        [_timers addObject:tmpTimer4];
+        
+        [self saveTimersData];
+        
+        
+        
     }
     
     NSString *filePathExerciseSet = [documentsDirectoryPath stringByAppendingPathComponent:@"exerciseTimerAppData"];
@@ -62,6 +112,24 @@
         
     } else {
         self.exerciseSets = [[NSMutableArray alloc] init];
+        
+        anExerciseSet *tmpExerciseSet = [[anExerciseSet alloc] init];
+        
+        if (tmpTimer != nil && tmpTimer2 != nil) {
+        
+            tmpExerciseSet.sSetName = @"HIT Set";
+            [tmpExerciseSet.aExercises addObject:tmpTimer];
+            tmpExerciseSet.iTotalLength += [tmpTimer totalLength];
+            [tmpExerciseSet.aExercises addObject:tmpTimer2];
+            tmpExerciseSet.iTotalLength += [tmpTimer2 totalLength];
+            [tmpExerciseSet.aExercises addObject:tmpTimer3];
+            tmpExerciseSet.iTotalLength += [tmpTimer totalLength];
+            
+            [_exerciseSets addObject:tmpExerciseSet];
+        
+            [self saveExerciseSetData];
+        }
+        
     }
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -125,6 +193,8 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+/*
+
 - (void)sendAppRunningNotice {
     UIApplication* app = [UIApplication sharedApplication];
     NSArray*    oldNotifications = [app scheduledLocalNotifications];
@@ -141,11 +211,13 @@
         alarm.timeZone = [NSTimeZone defaultTimeZone];
         alarm.repeatInterval = 0;
         //alarm.soundName = @"alarmsound.caf";
-        alarm.alertBody = @"Exercise timer is running in background!";
+        alarm.alertBody = @"Your timer was stopped!";
         
         [app scheduleLocalNotification:alarm];
     }
 }
+ 
+ */
 
 - (void) saveTimersData {
     NSMutableDictionary *dataDict = [[NSMutableDictionary alloc] initWithCapacity:3];

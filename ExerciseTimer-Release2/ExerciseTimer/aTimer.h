@@ -14,7 +14,6 @@
 @property NSInteger iNumReps;
 @property NSInteger iRepLen1;
 @property NSInteger iRepLen2;
-@property BOOL bDimScreen;
 
 @property NSString* sRepSoundName;
 @property NSString* sRepSoundExtension;

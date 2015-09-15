@@ -82,6 +82,8 @@
         [self addRow];
     } else {
         _pickerRow = [_exerciseSet.aExercises count];
+        _pickerIsShowing = NO;
+        
         self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
     }
     

@@ -12,6 +12,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "QuartzCore/QuartzCore.h"
 #import "aTimer.h"
+#import "AppDelegate.h"
 
 
 @interface ViewTimerTableViewController ()
@@ -84,10 +85,12 @@
     [self setUpInitialState];
     
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
 
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillBecomeActive:) name:UIApplicationWillEnterForegroundNotification object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
 }
 
 - (IBAction)volumeSliderValueChanged:(id)sender {
@@ -114,21 +117,48 @@
     
 }
 
-/*
--(void)applicationWillResignActive:(UIApplication *)application {
+
+-(void)appWillResignActive:(UIApplication *)application {
     [self.timer invalidate];
-}
-
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    [self countDownTimer];
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
+    
+    UIApplication* app = [UIApplication sharedApplication];
+    NSArray*    oldNotifications = [app scheduledLocalNotifications];
+    
+    // Clear out the old notification before scheduling a new one.
+    if ([oldNotifications count] > 0)
+        [app cancelAllLocalNotifications];
+    
+    // Create a new notification.
+    UILocalNotification* alarm = [[UILocalNotification alloc] init];
+    if (alarm)
+    {
+        alarm.fireDate = [NSDate dateWithTimeIntervalSinceNow:3];
+        alarm.timeZone = [NSTimeZone defaultTimeZone];
+        alarm.repeatInterval = 0;
+        //alarm.soundName = @"alarmsound.caf";
+        alarm.alertBody = @"Your timer was stopped!";
+        
+        [app scheduleLocalNotification:alarm];
+    }
     
 }
-*/
- 
+
+-(void)appWillTerminate:(UIApplication *)application {
+    UIApplication* app = [UIApplication sharedApplication];
+    NSArray*    oldNotifications = [app scheduledLocalNotifications];
+    
+    // Clear out the old notification before scheduling a new one.
+    if ([oldNotifications count] > 0)
+        [app cancelAllLocalNotifications];
+}
+
+
+- (void)appWillBecomeActive:(UIApplication *)application {
+    [self countDownTimer];
+    
+
+}
+
 
 #pragma mark - Utilities
 
