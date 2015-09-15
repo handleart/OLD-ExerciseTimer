@@ -273,7 +273,7 @@
         }
         else {
             
-            NSLog(@"%li", [_exerciseSet.aExercises count]);
+            NSLog(@"%li", (unsigned long)[_exerciseSet.aExercises count]);
             if ([_exerciseSet.aExercises count] - 1 > _setCount) {
                 _setCount += 1;
                 

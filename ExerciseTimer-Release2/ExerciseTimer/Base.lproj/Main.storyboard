@@ -17,15 +17,15 @@
                         <sections>
                             <tableViewSection id="JFZ-uZ-Reo">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Rep Information" rowHeight="120" id="ATn-EI-e1L">
-                                        <rect key="frame" x="0.0" y="64" width="600" height="120"/>
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Rep Information" rowHeight="91" id="ATn-EI-e1L">
+                                        <rect key="frame" x="0.0" y="64" width="600" height="91"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ATn-EI-e1L" id="HAb-fd-vXg">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="119"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rep Number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ytU-yC-fEd">
-                                                    <rect key="frame" x="233" y="45" width="134" height="29"/>
+                                                    <rect key="frame" x="233" y="31" width="134" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -40,7 +40,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Timer" rowHeight="140" id="jRo-zx-hXk">
-                                        <rect key="frame" x="0.0" y="184" width="600" height="140"/>
+                                        <rect key="frame" x="0.0" y="155" width="600" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jRo-zx-hXk" id="pVg-tH-FKt">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="139"/>
@@ -65,7 +65,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="k4A-a7-MXx">
-                                        <rect key="frame" x="0.0" y="324" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="295" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k4A-a7-MXx" id="aqM-q5-xsP">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -106,7 +106,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Button" rowHeight="163" id="Fp4-49-5O4">
-                                        <rect key="frame" x="0.0" y="368" width="600" height="163"/>
+                                        <rect key="frame" x="0.0" y="339" width="600" height="163"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fp4-49-5O4" id="NVV-AV-i9p">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="162"/>
@@ -144,7 +144,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Timer" id="P0a-qO-sNN">
-                        <barButtonItem key="leftBarButtonItem" title="&lt;&lt;" id="0Y2-1P-gTk">
+                        <barButtonItem key="leftBarButtonItem" title="&lt;" style="done" id="0Y2-1P-gTk">
                             <connections>
                                 <action selector="backButtonPressed:" destination="T52-eC-ED6" id="tsJ-Cx-dPm"/>
                             </connections>
@@ -285,7 +285,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Exercise Set" id="NXK-Tk-KhZ">
                         <barButtonItem key="backBarButtonItem" title="Back" id="9gg-Iv-XNq"/>
-                        <barButtonItem key="leftBarButtonItem" title="&lt;&lt;" id="9WW-Kb-hij">
+                        <barButtonItem key="leftBarButtonItem" title="&lt;" style="done" id="9WW-Kb-hij">
                             <connections>
                                 <segue destination="it4-bb-Cg0" kind="unwind" unwindAction="unwindToChooseExerciseSet:" id="tS6-WR-fLI"/>
                             </connections>
@@ -388,7 +388,7 @@
                     <tabBarItem key="tabBarItem" title="Item" id="YfM-8B-pAH"/>
                     <navigationItem key="navigationItem" id="NL4-5h-5t0">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title="&lt;&lt;" id="oNA-Pz-mGw">
+                        <barButtonItem key="leftBarButtonItem" title="&lt;" style="done" id="oNA-Pz-mGw">
                             <connections>
                                 <action selector="backButtonPressed:" destination="EWN-gJ-VEw" id="EuA-6p-eGh"/>
                             </connections>
@@ -670,6 +670,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="NMY-bY-bzs">
+                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="EWN-gJ-VEw" kind="relationship" relationship="rootViewController" id="434-Qx-Ruc"/>
                     </connections>
@@ -680,16 +684,16 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Exercise Set Tab Image" width="35" height="35"/>
-        <image name="Manual Tab Image" width="35" height="35"/>
-        <image name="Preset Tab Image" width="35" height="35"/>
-        <image name="Setting Tab Image" width="35" height="35"/>
+        <image name="Exercise Set Tab Image" width="42" height="42"/>
+        <image name="Manual Tab Image" width="42" height="42"/>
+        <image name="Preset Tab Image" width="32" height="32"/>
+        <image name="Setting Tab Image" width="85" height="85"/>
         <image name="Volume-Mute.png" width="128" height="128"/>
         <image name="Volume.png" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="na4-u2-ml3"/>
-        <segue reference="2si-YR-TVW"/>
         <segue reference="Ft4-rJ-RHW"/>
+        <segue reference="2si-YR-TVW"/>
+        <segue reference="na4-u2-ml3"/>
     </inferredMetricsTieBreakers>
 </document>

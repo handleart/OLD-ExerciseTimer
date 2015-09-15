@@ -108,7 +108,7 @@
     self.navigationItem.title = @"Manual Timer";
     
     AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    _sPlaceholderValue = [NSString stringWithFormat:@"Preset Timer %li", [[app timers] count] + 1];
+    _sPlaceholderValue = [NSString stringWithFormat:@"Preset Timer %lu", [[app timers] count] + 1];
     
     _repPicker = [[UIPickerView alloc] init];
     _repPicker.translatesAutoresizingMaskIntoConstraints = NO;
@@ -144,8 +144,8 @@
         _pickerRow = _timer2Row;
         _iLenOfTimer2min = _tmpTimer.iRepLen2 / 60;
         _iLenOfTimer2sec  = _tmpTimer.iRepLen2 % 60;
-        NSUInteger iLen2IndexMin = [_aMin indexOfObject:[NSString stringWithFormat:@"%li", _iLenOfTimer2min]];
-        NSUInteger iLen2IndexSec = [_aSec indexOfObject:[NSString stringWithFormat:@"%li", _iLenOfTimer2sec]];
+        NSUInteger iLen2IndexMin = [_aMin indexOfObject:[NSString stringWithFormat:@"%li", (long)_iLenOfTimer2min]];
+        NSUInteger iLen2IndexSec = [_aSec indexOfObject:[NSString stringWithFormat:@"%li", (long)_iLenOfTimer2sec]];
         [self.timer2Picker selectRow:iLen2IndexMin inComponent:0 animated:NO];
         [self.timer2Picker selectRow:iLen2IndexSec inComponent:1 animated:NO];
         
@@ -491,7 +491,7 @@
 
                 [_repPicker setDelegate:self];
                 
-                NSUInteger repIndex = [_aNumRepsPickListValues indexOfObject:[NSString stringWithFormat:@"%li", _iNumRep]];
+                NSUInteger repIndex = [_aNumRepsPickListValues indexOfObject:[NSString stringWithFormat:@"%li", (long)_iNumRep]];
                 
                 
                 [self.repPicker selectRow:repIndex inComponent:0 animated:NO];
@@ -527,8 +527,8 @@
                 
                 [_timer1Picker setDelegate:self];
                 
-                NSUInteger iLen1IndexMin = [_aMin indexOfObject:[NSString stringWithFormat:@"%li", _iLenOfTimer1min]];
-                NSUInteger iLen1IndexSec = [_aSec indexOfObject:[NSString stringWithFormat:@"%li", _iLenOfTimer1sec]];
+                NSUInteger iLen1IndexMin = [_aMin indexOfObject:[NSString stringWithFormat:@"%li", (long)_iLenOfTimer1min]];
+                NSUInteger iLen1IndexSec = [_aSec indexOfObject:[NSString stringWithFormat:@"%li", (long)_iLenOfTimer1sec]];
                 
                 [self.timer1Picker selectRow:iLen1IndexMin inComponent:0 animated:NO];
                 [self.timer1Picker selectRow:iLen1IndexSec inComponent:1 animated:NO];
@@ -565,8 +565,8 @@
                 
                 [_timer2Picker setDelegate:self];
                 
-                NSUInteger iLen2IndexMin = [_aMin indexOfObject:[NSString stringWithFormat:@"%li", _iLenOfTimer2min]];
-                NSUInteger iLen2IndexSec = [_aSec indexOfObject:[NSString stringWithFormat:@"%li", _iLenOfTimer2sec]];
+                NSUInteger iLen2IndexMin = [_aMin indexOfObject:[NSString stringWithFormat:@"%li", (long)_iLenOfTimer2min]];
+                NSUInteger iLen2IndexSec = [_aSec indexOfObject:[NSString stringWithFormat:@"%li", (long)_iLenOfTimer2sec]];
                 
                 [self.timer2Picker selectRow:iLen2IndexMin inComponent:0 animated:NO];
                 [self.timer2Picker selectRow:iLen2IndexSec inComponent:1 animated:NO];

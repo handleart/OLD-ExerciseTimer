@@ -49,10 +49,10 @@
     
     NSString *filePathExerciseSet = [documentsDirectoryPath stringByAppendingPathComponent:@"exerciseTimerAppData"];
     NSData *ExerciseSetData = [NSData dataWithContentsOfFile:filePathExerciseSet];
-    NSDictionary *ExerciseSetSavedData = [NSKeyedUnarchiver unarchiveObjectWithData:ExerciseSetData];
+    
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePathExerciseSet]) {
-    
+        NSDictionary *ExerciseSetSavedData = [NSKeyedUnarchiver unarchiveObjectWithData:ExerciseSetData];
         if ([ExerciseSetSavedData objectForKey:@"exerciseSets"] != nil) {
             self.exerciseSets = [[NSMutableArray alloc] initWithArray:[ExerciseSetSavedData objectForKey:@"exerciseSets"]];
         } else {

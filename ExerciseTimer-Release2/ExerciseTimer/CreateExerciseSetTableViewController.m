@@ -53,7 +53,7 @@
     
     
     AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    _sPlaceholderValue = [NSString stringWithFormat:@"Exercise Set %li", [[app exerciseSets] count] + 1];
+    _sPlaceholderValue = [NSString stringWithFormat:@"Exercise Set %lu", [[app exerciseSets] count] + 1];
     _nameTextField.placeholder = _sPlaceholderValue;
 
     
