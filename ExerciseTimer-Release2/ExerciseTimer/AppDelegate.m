@@ -145,7 +145,7 @@
     
     if ([userDefaults objectForKey:@"dimScreen"] == nil) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setBool:false forKey:@"dimScreen"];
+        [userDefaults setBool:true forKey:@"dimScreen"];
         [userDefaults synchronize];
     }
     
@@ -231,7 +231,7 @@
     
     [NSKeyedArchiver archiveRootObject:dataDict toFile:filePath];
     
-    NSLog(@"Timer Data Saved");
+    //NSLog(@"Timer Data Saved");
 }
 
 
@@ -247,7 +247,7 @@
     
     [NSKeyedArchiver archiveRootObject:dataDict toFile:filePath];
     
-    NSLog(@"Exercise Data Saved");
+    //NSLog(@"Exercise Data Saved");
 }
 
 

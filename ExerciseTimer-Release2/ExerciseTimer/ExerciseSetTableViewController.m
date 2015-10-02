@@ -24,7 +24,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
+    //self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(66/255.0) green:(94/255.0) blue:(157/255.0) alpha:1];
+    
     self.navigationController.navigationBar.translucent = NO;
     
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
@@ -191,7 +193,7 @@
     
     cell.textLabel.text = tmpExerciseSet.sSetName;
     //[cell.textLabel setFont:[UIFont systemFontOfSize:20]];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Total Length: %02li:%02li", tmpExerciseSet.iTotalLength / 60, tmpExerciseSet.iTotalLength % 60];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Total Length: %02li:%02li", (long)(tmpExerciseSet.iTotalLength / 60), (long)(tmpExerciseSet.iTotalLength % 60)];
   
     
 }

@@ -75,7 +75,9 @@
     _timerSectionIndex = 1;
     _saveSectionIndex = 2;
     
-    self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
+    //self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(66/255.0) green:(94/255.0) blue:(157/255.0) alpha:1];
+    
     self.navigationController.navigationBar.translucent = NO;
     
     if (_saveViewIsShowing == NO && _addViewIsShowing == NO) {
@@ -108,7 +110,7 @@
     self.navigationItem.title = @"Manual Timer";
     
     AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    _sPlaceholderValue = [NSString stringWithFormat:@"Preset Timer %lu", [[app timers] count] + 1];
+    _sPlaceholderValue = [NSString stringWithFormat:@"Preset Timer %lu", (long)[[app timers] count] + 1];
     
     _repPicker = [[UIPickerView alloc] init];
     _repPicker.translatesAutoresizingMaskIntoConstraints = NO;
@@ -126,6 +128,38 @@
     _soundNamePicker = [[UIPickerView alloc] init];
     _soundNamePicker.translatesAutoresizingMaskIntoConstraints = NO;
     _soundNamePicker.hidden = YES;
+    
+    _saveButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _saveButton.layer.borderWidth = 1.0f;
+    _saveButton.layer.cornerRadius = 8.0f;
+    _saveButton.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    
+    _repNameTextField = [[UITextField alloc] init];
+    
+    _repNameTextField.tag = 3;
+    
+    if ([_tmpTimer.sTimerName isEqualToString:@""] || _tmpTimer.sTimerName == nil) {
+        _repNameTextField.placeholder = _sPlaceholderValue;
+    } else {
+        _repNameTextField.text = _tmpTimer.sTimerName;
+    }
+    
+    _repNameTextField.translatesAutoresizingMaskIntoConstraints = NO;
+    
+
+    if (_addViewIsShowing == YES) {
+        [_saveButton setTitle:@"Add" forState:UIControlStateNormal];
+        [_saveButton setTitle:@"Add" forState:UIControlStateSelected];
+    } else {
+        [_saveButton setTitle:@"Save" forState:UIControlStateNormal];
+        [_saveButton setTitle:@"Save" forState:UIControlStateSelected];
+    }
+
+
+
+    [_saveButton addTarget:self action:@selector(saveButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+
     
     _totalLength = [[UILabel alloc] init];
     
@@ -220,7 +254,7 @@
     
     
     if ([[app timers] containsObject:_tmpTimer]) {
-        NSLog(@"value already in timer");
+        //NSLog(@"value already in timer");
         
     } else {
         [[app timers] addObject:_tmpTimer];
@@ -301,7 +335,10 @@
     
     for (i = 0; i <= 59; i++) {
         NSString *x = [NSString stringWithFormat:@"%d", i];
-        [minTmp addObject:x];
+        
+        if (i < 10)
+            [minTmp addObject:x];
+        
         if (i % 5 == 0) {
             [secTmp addObject:x];
         }
@@ -350,20 +387,16 @@
     } else if (indexPath.section == _timerSectionIndex && indexPath.row == _pickerRow) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PickerPrototypeCell" forIndexPath:indexPath];
         return cell;
-    } else {
+    } else if (indexPath.section == _totalLengthSectionIndex){
+        //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OtherPrototypeCell" forIndexPath:indexPath];
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OtherPrototypeCell" forIndexPath:indexPath];
+        //cell.textLabel.text = @"Total Length";
+        //cell.detailTextLabel.text = [NSString stringWithFormat:@"Timer Length: %02li:%02li", (long)((_iNumRep * (_iLenOfTimer1) / 60 + (_iNumRep-1) * _iLenOfTimer2 / 60)), (long)((_iNumRep * _iLenOfTimer1 + (_iNumRep-1) *_iLenOfTimer2) % 60)];
+        
+        
         return cell;
-    }
-    
         
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
-    if (indexPath.section == _totalLengthSectionIndex && indexPath.row == 0) {
-        
-
+        /*
         _totalLength.text = [NSString stringWithFormat:@"Timer Length: %02li:%02li", (_iNumRep * (_iLenOfTimer1) / 60 + (_iNumRep-1) * _iLenOfTimer2 / 60), (_iNumRep * _iLenOfTimer1 + (_iNumRep-1) *_iLenOfTimer2) % 60];
         
         
@@ -396,25 +429,75 @@
                                                         multiplier:1.0
                                                           constant:200]];
         
-    } else if (indexPath.section == _saveSectionIndex && indexPath.row == 0) {
+        */
+         return cell;
+    } else {
+        UITableViewCell *cell = [[UITableViewCell alloc] init];
+        return cell;
+    }
     
-        _saveButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    if (indexPath.section == _totalLengthSectionIndex && indexPath.row == 0) {
+        cell.textLabel.text = @"Timer Length";
+        //cell.detailTextLabel.text = @"Hello";
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%02li:%02li", (long)((_iNumRep * (_iLenOfTimer1) / 60 + (_iNumRep-1) * _iLenOfTimer2 / 60)), (long)((_iNumRep * _iLenOfTimer1 + (_iNumRep-1) *_iLenOfTimer2) % 60)];
+
+//        _totalLength.text = [NSString stringWithFormat:@"Timer Length: %02li:%02li", (_iNumRep * (_iLenOfTimer1) / 60 + (_iNumRep-1) * _iLenOfTimer2 / 60), (_iNumRep * _iLenOfTimer1 + (_iNumRep-1) *_iLenOfTimer2) % 60];
+//        
+//        
+//        _totalLength.translatesAutoresizingMaskIntoConstraints = NO;
+//        
+//        [cell.contentView addSubview:_totalLength];
+//        
+//        [cell addConstraint:[NSLayoutConstraint constraintWithItem:_totalLength
+//                                                         attribute:NSLayoutAttributeCenterX
+//                                                         relatedBy:NSLayoutRelationEqual
+//                                                            toItem:cell.contentView
+//                                                         attribute:NSLayoutAttributeCenterX
+//                                                        multiplier:1.0
+//                                                          constant:0]];
+//        
+//        [cell addConstraint:[NSLayoutConstraint constraintWithItem:_totalLength
+//                                                         attribute:NSLayoutAttributeCenterY
+//                                                         relatedBy:NSLayoutRelationEqual
+//                                                            toItem:cell.contentView
+//                                                         attribute:NSLayoutAttributeCenterYWithinMargins
+//                                                        multiplier:1.0
+//                                                          constant:0]];
+//        
+//        //width
+//        [cell addConstraint:[NSLayoutConstraint constraintWithItem:_totalLength
+//                                                         attribute:NSLayoutAttributeWidth
+//                                                         relatedBy:NSLayoutRelationEqual
+//                                                            toItem:nil
+//                                                         attribute:NSLayoutAttributeWidth
+//                                                        multiplier:1.0
+//                                                          constant:200]];
         
-        _saveButton.layer.borderWidth = 1.0f;
-        _saveButton.layer.cornerRadius = 8.0f;
-        _saveButton.translatesAutoresizingMaskIntoConstraints = NO;
+    //} else if (indexPath.section == _saveSectionIndex && indexPath.row == 0) {
+    } else if (indexPath.section == _saveSectionIndex) {
         
-        if (_addViewIsShowing == YES) {
-            [_saveButton setTitle:@"Add" forState:UIControlStateNormal];
-            [_saveButton setTitle:@"Add" forState:UIControlStateSelected];
-        } else {
-            [_saveButton setTitle:@"Save" forState:UIControlStateNormal];
-            [_saveButton setTitle:@"Save" forState:UIControlStateSelected];
-        }
+        //_saveButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         
-        
-        
-        [_saveButton addTarget:self action:@selector(saveButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//        _saveButton.layer.borderWidth = 1.0f;
+//        _saveButton.layer.cornerRadius = 8.0f;
+//        _saveButton.translatesAutoresizingMaskIntoConstraints = NO;
+//        
+//        if (_addViewIsShowing == YES) {
+//            [_saveButton setTitle:@"Add" forState:UIControlStateNormal];
+//            [_saveButton setTitle:@"Add" forState:UIControlStateSelected];
+//        } else {
+//            [_saveButton setTitle:@"Save" forState:UIControlStateNormal];
+//            [_saveButton setTitle:@"Save" forState:UIControlStateSelected];
+//        }
+//        
+//        
+//        
+//        [_saveButton addTarget:self action:@selector(saveButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         
         [cell.contentView addSubview:_saveButton];
         //center x
@@ -461,18 +544,18 @@
             cell.textLabel.text = @"Rep Name";
             cell.detailTextLabel.hidden = YES;
             [[cell viewWithTag:3] removeFromSuperview];
-            
-            _repNameTextField = [[UITextField alloc] init];
-            
-            _repNameTextField.tag = 3;
-            
-            if ([_tmpTimer.sTimerName isEqualToString:@""] || _tmpTimer.sTimerName == nil) {
-                _repNameTextField.placeholder = _sPlaceholderValue;
-            } else {
-                _repNameTextField.text = _tmpTimer.sTimerName;
-            }
-            
-            _repNameTextField.translatesAutoresizingMaskIntoConstraints = NO;
+//            
+//            _repNameTextField = [[UITextField alloc] init];
+//            
+//            _repNameTextField.tag = 3;
+//            
+//            if ([_tmpTimer.sTimerName isEqualToString:@""] || _tmpTimer.sTimerName == nil) {
+//                _repNameTextField.placeholder = _sPlaceholderValue;
+//            } else {
+//                _repNameTextField.text = _tmpTimer.sTimerName;
+//            }
+//            
+//            _repNameTextField.translatesAutoresizingMaskIntoConstraints = NO;
             [cell.contentView addSubview:_repNameTextField];
             
             [cell addConstraint:[NSLayoutConstraint constraintWithItem:_repNameTextField attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:cell.textLabel attribute:NSLayoutAttributeTrailing multiplier:1 constant:8]];

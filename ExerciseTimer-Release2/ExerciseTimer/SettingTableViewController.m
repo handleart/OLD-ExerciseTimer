@@ -24,7 +24,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
+    //self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(66/255.0) green:(94/255.0) blue:(157/255.0) alpha:1];
+    
     self.navigationController.navigationBar.translucent = NO;
     
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
@@ -115,7 +117,7 @@
         
     } else if (indexPath.row == 1) {
         cell.textLabel.text = @"Intro Length: ";
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%02li:%02li", _tmpIntroLength / 60, _tmpIntroLength % 60];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%02li:%02li", (long)(_tmpIntroLength / 60), (long)_tmpIntroLength % 60];
         
         
         //cell.detailTextLabel.hidden = YES;
@@ -242,8 +244,8 @@
         _tmpIntroLength = (NSInteger)_iIntroLength + (NSInteger)[(UIStepper*)sender value];
         
 
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%02li:%02li", _tmpIntroLength
-                                     / 60, _tmpIntroLength % 60];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%02li:%02li", (long)(_tmpIntroLength
+                                     / 60), (long)(_tmpIntroLength % 60)];
     }
     
     

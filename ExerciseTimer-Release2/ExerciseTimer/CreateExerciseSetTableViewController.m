@@ -49,11 +49,18 @@
     
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     
+    //self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(66/255.0) green:(94/255.0) blue:(157/255.0) alpha:1];
+    
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    
+    
     //self.view.layer.cornerRadius = 10;
     
     
     AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    _sPlaceholderValue = [NSString stringWithFormat:@"Exercise Set %lu", [[app exerciseSets] count] + 1];
+    _sPlaceholderValue = [NSString stringWithFormat:@"Exercise Set %li", (long)([[app exerciseSets] count] + 1)];
     _nameTextField.placeholder = _sPlaceholderValue;
 
     
@@ -66,9 +73,7 @@
     
     self.aPresetTimers = app.timers;
     
-    self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
-    self.navigationController.navigationBar.translucent = NO;
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+
     
     
     if (self.exerciseSet == nil) {
@@ -531,7 +536,7 @@
                                                                 toItem:nil
                                                              attribute:NSLayoutAttributeWidth
                                                             multiplier:1.0
-                                                              constant:100]];
+                                                              constant:70]];
 
             //height
             [cell addConstraint:[NSLayoutConstraint constraintWithItem:edit
@@ -718,13 +723,13 @@
             
             cell.textLabel.text = tmpTimer.sTimerName;
             
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%02li:%02li", tmpTimer.totalLength / 60, tmpTimer.totalLength % 60];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%02li:%02li", (long)(tmpTimer.totalLength / 60), (long)(tmpTimer.totalLength % 60)];
         } else {
             aTimer *tmpTimer = [self.exerciseSet.aExercises objectAtIndex:indexPath.row];
             
             cell.textLabel.text = tmpTimer.sTimerName;
             
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%02li:%02li", tmpTimer.totalLength / 60, tmpTimer.totalLength % 60];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%02li:%02li", (long)(tmpTimer.totalLength / 60), (long)(tmpTimer.totalLength % 60)];
         }
     } else if (indexPath.section == editSectionIndex) {
         //[cell setBackgroundColor:[UIColor clearColor]];
@@ -871,7 +876,7 @@
     tmpTimer = [_aPresetTimers objectAtIndex:row];
     
     cell.textLabel.text = [tmpTimer timerName];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%02li:%02li", [tmpTimer totalLength] / 60, [tmpTimer totalLength] % 60];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%02li:%02li", (long)([tmpTimer totalLength] / 60), (long)([tmpTimer totalLength] % 60)];
     
     [[_exerciseSet aExercises] replaceObjectAtIndex:_clickedRow withObject:tmpTimer];
     _selectedPickerRow = row;

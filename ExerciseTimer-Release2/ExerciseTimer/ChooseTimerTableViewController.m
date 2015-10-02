@@ -23,7 +23,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
+    //self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(66/255.0) green:(94/255.0) blue:(157/255.0) alpha:1];
     self.navigationController.navigationBar.translucent = NO;
     
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
@@ -114,7 +115,7 @@
     cell.textLabel.text = tmpTimer.sTimerName;
     //[cell.textLabel setFont:[UIFont systemFontOfSize:20]];
     
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Total Length: %02li:%02li, Sound: %@", tmpTimer.totalLength / 60, tmpTimer.totalLength % 60,tmpTimer.sRepSoundName];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Total Length: %02li:%02li, Sound: %@", (long)(tmpTimer.totalLength / 60), (long)(tmpTimer.totalLength % 60),tmpTimer.sRepSoundName];
     
     
     //cell.backgroundColor = [UIColor colorWithRed:215/255 green:222/255 blue:226/255 alpha:0.2];

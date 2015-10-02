@@ -45,6 +45,8 @@
 @property aTimer* tmpTimer;
 @property long setCount;
 
+@property BOOL bInBackground;
+
 @end
 
 @implementation ViewTimerTableViewController
@@ -53,7 +55,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
+    //self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(66/255.0) green:(94/255.0) blue:(157/255.0) alpha:1];
+    
     self.navigationController.navigationBar.translucent = NO;
     
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
@@ -88,9 +92,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
 
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillBecomeActive:) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(UIApplicationEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
+    
 }
 
 - (IBAction)volumeSliderValueChanged:(id)sender {
@@ -115,11 +120,23 @@
     //    AudioServicesDisposeSystemSoundID(_mBeep);
     //}
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationWillEnterForegroundNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationWillResignActiveNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationWillTerminateNotification
+                                                  object:nil];
+    
+    
 }
 
 
 -(void)appWillResignActive:(UIApplication *)application {
-    [self.timer invalidate];
+    //[self.timer invalidate];
     
     UIApplication* app = [UIApplication sharedApplication];
     NSArray*    oldNotifications = [app scheduledLocalNotifications];
@@ -132,14 +149,16 @@
     UILocalNotification* alarm = [[UILocalNotification alloc] init];
     if (alarm)
     {
-        alarm.fireDate = [NSDate dateWithTimeIntervalSinceNow:3];
+        alarm.fireDate = [NSDate dateWithTimeIntervalSinceNow:2];
         alarm.timeZone = [NSTimeZone defaultTimeZone];
         alarm.repeatInterval = 0;
         //alarm.soundName = @"alarmsound.caf";
-        alarm.alertBody = @"Your timer was stopped!";
+        alarm.alertBody = @"ME Timer is running in the background!";
         
         [app scheduleLocalNotification:alarm];
     }
+    
+    _bInBackground = YES;
     
 }
 
@@ -150,28 +169,43 @@
     // Clear out the old notification before scheduling a new one.
     if ([oldNotifications count] > 0)
         [app cancelAllLocalNotifications];
+    
+    [self.timer invalidate];
 }
 
 
-- (void)appWillBecomeActive:(UIApplication *)application {
-    [self countDownTimer];
+- (void)UIApplicationEnterForeground:(UIApplication *)application {
+    //[self countDownTimer];
     
-
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 1];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    
+    _bInBackground = NO;
+    
+    [self updateScreen];
+    
 }
 
 
 #pragma mark - Utilities
 
 - (void)updateScreen{
-    int minutes, seconds;
     
-    minutes = seconds = 0;
+    if (_bInBackground == NO) {
+        
     
-    minutes = (int) (_counter / 60);
-    seconds = (int) (_counter % 60);
     
-    self.labelRepTimerText.text = [NSString stringWithFormat:@"%02d:%02d", minutes, seconds];
-    self.labelRepNumText.text = [NSString stringWithFormat:@"%@", _sRepName];
+        int minutes, seconds;
+        
+        minutes = seconds = 0;
+        
+        minutes = (int) (_counter / 60);
+        seconds = (int) (_counter % 60);
+        
+        self.labelRepTimerText.text = [NSString stringWithFormat:@"%02d:%02d", minutes, seconds];
+        self.labelRepNumText.text = [NSString stringWithFormat:@"%@", _sRepName];
+    }
 }
 
 - (void)setUpInitialState {
@@ -187,6 +221,8 @@
     //_sRepName = [NSString stringWithFormat:@"Get Ready!",_repNumCount];
     _sRepName = [NSString stringWithFormat:@"Prep Counter"];
     _iWhichTimer = 0;
+    
+
     
     [self updateScreen];
     
@@ -241,12 +277,15 @@
     _player = [[AVAudioPlayer alloc] initWithContentsOfURL:pathAsURL error:&error];
     
     if (error) {
-        NSLog(@"%@", [error localizedDescription]);
+        //NSLog(@"%@", [error localizedDescription]);
     }
     else{
         // preload the audio player
         [_player prepareToPlay];
     }
+
+    
+    
     
     _player.volume = _iVolume;
 }
@@ -261,7 +300,7 @@
     
     
     
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown:) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.00 target:self selector:@selector(countDown:) userInfo:nil repeats:YES];
 }
 
 -(void) countDown:(NSTimer *)timer {
@@ -291,19 +330,22 @@
                 
                 
             } else {
-                NSLog(@"Um. Woops? You haven't designed this thing for more than 2 timers");
+                //NSLog(@"Um. Woops? You haven't designed this thing for more than 2 timers");
             }
             
             
             //This need to be fixed
             
             [self playASound];
+            
             [self updateScreen];
+            
             [self countDownTimer];
+            
         }
         else {
             
-            NSLog(@"%li", (unsigned long)[_exerciseSet.aExercises count]);
+            //NSLog(@"%li", (unsigned long)[_exerciseSet.aExercises count]);
             if ([_exerciseSet.aExercises count] - 1 > _setCount) {
                 _setCount += 1;
                 
@@ -344,8 +386,8 @@
 
 - (IBAction)handleButtonClick:(id)sender {
     UIButton *button = (UIButton *)sender;
-    NSLog(@"Button Title: %@", button.currentTitle);
-    NSLog(@"Button Equal: %d", button == self.buttonPauseStart);
+   // NSLog(@"Button Title: %@", button.currentTitle);
+    //NSLog(@"Button Equal: %d", button == self.buttonPauseStart);
     
     [UIView animateWithDuration:0.1f
                           delay:0.0f
