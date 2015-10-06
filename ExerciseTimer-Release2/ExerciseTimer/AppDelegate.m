@@ -117,7 +117,7 @@
         
         if (tmpTimer != nil && tmpTimer2 != nil) {
         
-            tmpExerciseSet.sSetName = @"HIT Set";
+            tmpExerciseSet.sSetName = @"HIIT Set";
             [tmpExerciseSet.aExercises addObject:tmpTimer];
             tmpExerciseSet.iTotalLength += [tmpTimer totalLength];
             [tmpExerciseSet.aExercises addObject:tmpTimer2];
