@@ -21,4 +21,6 @@
 -(NSInteger)totalLength;
 -(NSString *)timerName;
 
+-(NSArray *)getRepLengthsAsArray;
+
 @end

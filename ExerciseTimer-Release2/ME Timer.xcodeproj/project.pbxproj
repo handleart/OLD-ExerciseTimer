@@ -13,6 +13,7 @@
 		9C1F01A41B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C1F01A31B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m */; };
 		9C2406441B883F1D00A22E0E /* CreateExerciseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2406431B883F1D00A22E0E /* CreateExerciseTableViewCell.m */; };
 		9C2EAD421B90D09C0052B4A6 /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2EAD411B90D09C0052B4A6 /* SettingTableViewController.m */; };
+		9C38CBE81BC4C2EC00498E18 /* Triple Temple Bell.caf in Resources */ = {isa = PBXBuildFile; fileRef = 9C38CBE71BC4C2EC00498E18 /* Triple Temple Bell.caf */; settings = {ASSET_TAGS = (); }; };
 		9C4D71A91B6EEB3D00F500DD /* Temple Bell.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C4D71A81B6EEB3D00F500DD /* Temple Bell.aiff */; };
 		9C5E74721B6DA8C400E2AAFF /* Whistle.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C5E74711B6DA8C400E2AAFF /* Whistle.aiff */; };
 		9C5E74791B6EA0CE00E2AAFF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C5E74781B6EA0CE00E2AAFF /* AVFoundation.framework */; };
@@ -55,6 +56,7 @@
 		9C2406431B883F1D00A22E0E /* CreateExerciseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateExerciseTableViewCell.m; sourceTree = "<group>"; };
 		9C2EAD401B90D09C0052B4A6 /* SettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableViewController.h; sourceTree = "<group>"; };
 		9C2EAD411B90D09C0052B4A6 /* SettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewController.m; sourceTree = "<group>"; };
+		9C38CBE71BC4C2EC00498E18 /* Triple Temple Bell.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Triple Temple Bell.caf"; sourceTree = "<group>"; };
 		9C4D71A81B6EEB3D00F500DD /* Temple Bell.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Temple Bell.aiff"; sourceTree = SOURCE_ROOT; };
 		9C5E74711B6DA8C400E2AAFF /* Whistle.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Whistle.aiff; sourceTree = SOURCE_ROOT; };
 		9C5E74781B6EA0CE00E2AAFF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -117,6 +119,7 @@
 		9C5E74731B6DA8D000E2AAFF /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				9C38CBE71BC4C2EC00498E18 /* Triple Temple Bell.caf */,
 				9C5E747A1B6EAE9700E2AAFF /* Triple Temple Bell.aiff */,
 				9C5E747B1B6EAE9700E2AAFF /* Triple Whistle.aiff */,
 				9CF9FCB11B5F0AE800AA749E /* Beep.aiff */,
@@ -279,7 +282,7 @@
 				TargetAttributes = {
 					9CB503871B547C01006FD3B9 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 622RU2V464;
+						DevelopmentTeam = Q435ARM4D6;
 					};
 					9CB503A01B547C01006FD3B9 = {
 						CreatedOnToolsVersion = 6.4;
@@ -317,6 +320,7 @@
 				9CB503971B547C01006FD3B9 /* Main.storyboard in Resources */,
 				9CB5039C1B547C01006FD3B9 /* LaunchScreen.xib in Resources */,
 				9CF9FCB21B5F0AE900AA749E /* Beep.aiff in Resources */,
+				9C38CBE81BC4C2EC00498E18 /* Triple Temple Bell.caf in Resources */,
 				9C5E747D1B6EAE9700E2AAFF /* Triple Whistle.aiff in Resources */,
 				9CBC2D0F1B602A7900474CD1 /* Settings.bundle in Resources */,
 				9C00384E1B6040E40081C032 /* Media.xcassets in Resources */,
@@ -483,7 +487,7 @@
 				INFOPLIST_FILE = ExerciseTimer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "art.self.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mostofiit.metimer;
 				PRODUCT_NAME = "ME Timer";
 				PROVISIONING_PROFILE = "";
 			};
@@ -499,7 +503,7 @@
 				INFOPLIST_FILE = ExerciseTimer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "art.self.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mostofiit.metimer;
 				PRODUCT_NAME = "ME Timer";
 				PROVISIONING_PROFILE = "";
 			};

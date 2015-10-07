@@ -46,6 +46,8 @@
 @property long setCount;
 
 @property BOOL bInBackground;
+@property NSTimeInterval distanceBetweenDates;
+@property NSDate *now;
 
 @end
 
@@ -136,7 +138,7 @@
 
 
 -(void)appWillResignActive:(UIApplication *)application {
-    //[self.timer invalidate];
+    [self.timer invalidate];
     
     UIApplication* app = [UIApplication sharedApplication];
     NSArray*    oldNotifications = [app scheduledLocalNotifications];
@@ -160,6 +162,81 @@
     
     _bInBackground = YES;
     
+    _now = [NSDate date];
+    
+    //NSLog(@"now: %@", _now);
+    
+    NSInteger iNotification1length = 0;
+    NSInteger iNotification2length = 0;
+    
+    
+    for (int i = _repNumCount; i <= _tmpTimer.iNumReps - 1; i++) {
+    
+        if (_iWhichTimer == 0 && i == 0) {
+            
+            
+                UILocalNotification *localNotification1 = [[UILocalNotification alloc]init];
+                localNotification1.fireDate = [NSDate dateWithTimeIntervalSinceNow:_counter];
+            
+                localNotification1.soundName = [NSString stringWithFormat:@"%@.%@", _tmpTimer.sRepSoundName, _tmpTimer.sRepSoundExtension];
+                
+                localNotification1.alertBody = @"Rep Start";
+                
+                [[UIApplication sharedApplication]scheduleLocalNotification:localNotification1];
+                
+            //iNotification1length += _counter;
+            iNotification2length += _counter;
+            NSLog([NSString stringWithFormat:@"Len1: %li, Len2 %li", (long)iNotification1length, (long)iNotification2length]);
+        }
+        
+        iNotification1length =  iNotification2length + _tmpTimer.iRepLen1;
+        iNotification2length =  iNotification1length + _tmpTimer.iRepLen2;
+        
+        if (_tmpTimer.iNumReps - 1 == i) {
+        
+            iNotification2length = 0;
+        
+        }
+    
+        NSLog([NSString stringWithFormat:@"Len1: %li, Len2 %li", (long)iNotification1length, (long)iNotification2length]);
+        
+        UILocalNotification *localNotification = [[UILocalNotification alloc]init];
+        localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:iNotification1length];
+        
+        
+        
+        if (_tmpTimer.iNumReps - 1 != i) {
+            localNotification.alertBody = @"Transition / Break";
+            localNotification.soundName = [NSString stringWithFormat:@"%@.%@", _tmpTimer.sRepSoundName, _tmpTimer.sRepSoundExtension];
+            
+            UILocalNotification *localNotification2 = [[UILocalNotification alloc] init];
+            localNotification2.fireDate = [NSDate dateWithTimeIntervalSinceNow:iNotification2length];
+            
+            localNotification2.soundName = [NSString stringWithFormat:@"%@.%@", _tmpTimer.sRepSoundName, _tmpTimer.sRepSoundExtension];
+            
+            localNotification2.repeatInterval = NSCalendarUnitSecond;
+            
+            
+            localNotification2.alertBody = @"Start Rep";
+            
+            [[UIApplication sharedApplication]scheduleLocalNotification:localNotification];
+        } else {
+            localNotification.alertBody = [NSString stringWithFormat:@"End of %@", _tmpTimer.timerName];
+            localNotification.soundName = [NSString stringWithFormat:@"Triple %@.%@", _tmpTimer.sRepSoundName, _tmpTimer.sRepSoundExtension];
+            
+
+        }
+        
+        [[UIApplication sharedApplication]scheduleLocalNotification:localNotification];
+        
+    }
+        //NSArray *tmp = [[NSArray alloc] initWithArray: _tmpTimer.getRepLengthsAsArray];
+        
+    
+    
+    
+    
+    
 }
 
 -(void)appWillTerminate:(UIApplication *)application {
@@ -175,13 +252,17 @@
 
 
 - (void)UIApplicationEnterForeground:(UIApplication *)application {
-    //[self countDownTimer];
+    [self countDownTimer];
     
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 1];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     
     _bInBackground = NO;
+    
+    _distanceBetweenDates = [_now timeIntervalSinceDate:[NSDate date]];
+    
+    NSLog(@"now: %f", _distanceBetweenDates);
     
     [self updateScreen];
     
@@ -292,7 +373,7 @@
 
 
 -(void) countDownTimer{
-    UIBackgroundTaskIdentifier bgTask =0;
+    UIBackgroundTaskIdentifier bgTask = 0;
     UIApplication  *app = [UIApplication sharedApplication];
     bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
         [app endBackgroundTask:bgTask];

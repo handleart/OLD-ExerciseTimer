@@ -50,5 +50,18 @@
     return _sTimerName;
 }
 
+-(NSArray *)getRepLengthsAsArray {
+    
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < _iNumReps - 1; i++) {
+        [result addObject: [NSString stringWithFormat:@"%li", (long)_iRepLen1]];
+        [result addObject: [NSString stringWithFormat:@"%li", (long)_iRepLen2]];
+    }
+    
+    [result addObject: [NSString stringWithFormat:@"%li", (long)_iRepLen1]];
+    
+    return result;
+}
 
 @end
