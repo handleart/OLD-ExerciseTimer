@@ -46,6 +46,7 @@
 @property long setCount;
 
 @property BOOL bInBackground;
+@property BOOL doPlaySound;
 @property NSTimeInterval distanceBetweenDates;
 @property NSDate *now;
 
@@ -299,20 +300,20 @@
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     
-    if (_buttonPauseStart.selected == NO) {
+    _bInBackground = NO;
     
-        _bInBackground = NO;
+    if (_buttonPauseStart.selected == NO) {
         
         _distanceBetweenDates = [_now timeIntervalSinceDate:[NSDate date]];
-        
-        NSLog(@"now: %f", _distanceBetweenDates);
         
         //need to consider )_iWhichTimer == 0
         NSInteger timeSpentInRep = 0;
         NSInteger modulusDistanceBetweenDates = 0;
+
         
         if (_iWhichTimer == 0 && -1 * _distanceBetweenDates < _iRepLen0) {
                 _counter += _distanceBetweenDates;
+            
         } else{
             
         
@@ -327,34 +328,34 @@
                 timeSpentInRep = _tmpTimer.iRepLen2 - _counter;
             }
             
-
-            NSLog(@"%i", (int)((int)_distanceBetweenDates / (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2)));
-            NSLog(@"%i", (int)((int)_distanceBetweenDates % (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2)));
+            NSLog(@"total length %ld", (long)_tmpTimer.totalLength);
+            NSLog(@"distance %ld", (long)_distanceBetweenDates);
             
-            modulusDistanceBetweenDates = -1 * (int)((int)_distanceBetweenDates % (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
-            
-            
-            
-            
-            if (modulusDistanceBetweenDates < _tmpTimer.iRepLen1) {
+            if (_repNumCount < _tmpTimer.iNumReps) {
+                modulusDistanceBetweenDates = -1 * (int)((int)_distanceBetweenDates % (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
+                if (modulusDistanceBetweenDates < _tmpTimer.iRepLen1) {
+                    _sRepName = [NSString stringWithFormat:@"Rep %d",_repNumCount];
+                    _iWhichTimer = 1;
+                    _counter = _tmpTimer.iRepLen1 - modulusDistanceBetweenDates - timeSpentInRep;
+                } else {
+                    _sRepName = [NSString stringWithFormat:@"Transition / Break %d",_repNumCount];
+                    _iWhichTimer = 2;
+                    _counter = _tmpTimer.iRepLen1 + _tmpTimer.iRepLen2- modulusDistanceBetweenDates - timeSpentInRep;
+                }
                 
+            } else {
+                //we would need to figure out what timer we are in and call itself again
+                
+                _repNumCount = (int)_tmpTimer.iNumReps;
                 _sRepName = [NSString stringWithFormat:@"Rep %d",_repNumCount];
                 _iWhichTimer = 1;
-                _counter = _tmpTimer.iRepLen1 - modulusDistanceBetweenDates - timeSpentInRep;
-            } else {
-                _sRepName = [NSString stringWithFormat:@"Transition / Break %d",_repNumCount];
-                _iWhichTimer = 2;
-                _counter = _tmpTimer.iRepLen1 + _tmpTimer.iRepLen2- modulusDistanceBetweenDates - timeSpentInRep;
+                _counter = 0;
+                _doPlaySound = NO;
             }
-            
-
-            
-
-
         }
         
         NSLog(@"m is %li, t Rep %li", (long)modulusDistanceBetweenDates, (long)timeSpentInRep);
-        NSLog(@"timer1 %i, counter %li",_iWhichTimer, _counter);
+        NSLog(@"timer1 %i, counter %li",_iWhichTimer, (long)_counter);
         
         [self countDownTimer];
         [self updateScreen];
@@ -531,14 +532,20 @@
                 _counter = _iRepLen0;
                 
                 
-                
-                [self playASound];
+                if (_doPlaySound == YES) {
+                    [self playASound];
+                }
                 [self updateScreen];
                 [self countDownTimer];
                 
             } else {
                 [self.buttonPauseStart setTitle:@"Restart" forState:UIControlStateNormal];
-                [self playEndSound];
+                if (_doPlaySound == YES) {
+                    [self playEndSound];
+                } else {
+                    _doPlaySound = YES;
+                }
+                
             }
             
         }
