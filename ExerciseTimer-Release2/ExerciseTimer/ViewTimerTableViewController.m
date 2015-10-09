@@ -100,6 +100,33 @@
     
 }
 
+/*
+- (void) saveExerciseSetData {
+    NSMutableDictionary *dataDict = [[NSMutableDictionary alloc] initWithCapacity:3];
+    if (self.exerciseSet != nil) {
+        [dataDict setObject:self.exerciseSet forKey:@"tmpExerciseSet"];
+    }
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectoryPath = [paths objectAtIndex:0];
+    NSString *filePath = [documentsDirectoryPath stringByAppendingPathComponent:@"tmpExerciseSet"];
+    
+    
+    [NSKeyedArchiver archiveRootObject:dataDict toFile:filePath];
+    
+    
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    [userDefaults setObject:[NSDate date] forKey:@"now"];
+
+    [userDefaults synchronize];
+    
+    
+}
+*/
+
+
 - (IBAction)volumeSliderValueChanged:(id)sender {
     //NSLog(@"%@", _volumeSlider);
     _player.volume = _volumeSlider.value;
@@ -121,6 +148,8 @@
     //if (!_mBeep) {
     //    AudioServicesDisposeSystemSoundID(_mBeep);
     //}
+    
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIApplicationWillEnterForegroundNotification
@@ -148,23 +177,34 @@
         [app cancelAllLocalNotifications];
     
     // Create a new notification.
-    UILocalNotification* alarm = [[UILocalNotification alloc] init];
-    if (alarm)
-    {
-        alarm.fireDate = [NSDate dateWithTimeIntervalSinceNow:2];
-        alarm.timeZone = [NSTimeZone defaultTimeZone];
-        alarm.repeatInterval = 0;
-        //alarm.soundName = @"alarmsound.caf";
-        alarm.alertBody = @"ME Timer is running in the background!";
+    
+    
+    if (_buttonPauseStart.selected == NO) {
+    
+        UILocalNotification* alarm = [[UILocalNotification alloc] init];
+        if (alarm)
+        {
+            alarm.fireDate = [NSDate dateWithTimeIntervalSinceNow:2];
+            alarm.timeZone = [NSTimeZone defaultTimeZone];
+            alarm.repeatInterval = 0;
+            //alarm.soundName = @"alarmsound.caf";
+            alarm.alertBody = @"ME Timer is running in the background!";
+            
+            [app scheduleLocalNotification:alarm];
+        }
         
-        [app scheduleLocalNotification:alarm];
+        _bInBackground = YES;
+        
+        _now = [NSDate date];
+        
+        //NSLog(@"now: %@", _now);
+        
+        [self createNotifications];
     }
-    
-    _bInBackground = YES;
-    
-    _now = [NSDate date];
-    
-    //NSLog(@"now: %@", _now);
+    //[self saveExerciseSetData];
+}
+
+-(void)createNotifications {
     
     NSInteger iNotification1length = 0;
     NSInteger iNotification2length = 0;
@@ -186,7 +226,7 @@
                 
             //iNotification1length += _counter;
             iNotification2length += _counter;
-            NSLog([NSString stringWithFormat:@"Len1: %li, Len2 %li", (long)iNotification1length, (long)iNotification2length]);
+            //NSLog([NSString stringWithFormat:@"Len1: %li, Len2 %li", (long)iNotification1length, (long)iNotification2length]);
         }
         
         iNotification1length =  iNotification2length + _tmpTimer.iRepLen1;
@@ -198,7 +238,7 @@
         
         }
     
-        NSLog([NSString stringWithFormat:@"Len1: %li, Len2 %li", (long)iNotification1length, (long)iNotification2length]);
+        //NSLog([NSString stringWithFormat:@"Len1: %li, Len2 %li", (long)iNotification1length, (long)iNotification2length]);
         
         UILocalNotification *localNotification = [[UILocalNotification alloc]init];
         localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:iNotification1length];
@@ -231,11 +271,7 @@
         
     }
         //NSArray *tmp = [[NSArray alloc] initWithArray: _tmpTimer.getRepLengthsAsArray];
-        
-    
-    
-    
-    
+
     
 }
 
@@ -247,25 +283,82 @@
     if ([oldNotifications count] > 0)
         [app cancelAllLocalNotifications];
     
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 1];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    
     [self.timer invalidate];
+    
 }
 
 
 - (void)UIApplicationEnterForeground:(UIApplication *)application {
-    [self countDownTimer];
+   
     
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 1];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     
-    _bInBackground = NO;
+    if (_buttonPauseStart.selected == NO) {
     
-    _distanceBetweenDates = [_now timeIntervalSinceDate:[NSDate date]];
-    
-    NSLog(@"now: %f", _distanceBetweenDates);
-    
-    [self updateScreen];
-    
+        _bInBackground = NO;
+        
+        _distanceBetweenDates = [_now timeIntervalSinceDate:[NSDate date]];
+        
+        NSLog(@"now: %f", _distanceBetweenDates);
+        
+        //need to consider )_iWhichTimer == 0
+        NSInteger timeSpentInRep = 0;
+        NSInteger modulusDistanceBetweenDates = 0;
+        
+        if (_iWhichTimer == 0 && -1 * _distanceBetweenDates < _iRepLen0) {
+                _counter += _distanceBetweenDates;
+        } else{
+            
+        
+            if (_iWhichTimer ==0 && -1 * _distanceBetweenDates >_iRepLen0)  {
+                _repNumCount -= -1 + (int)((int)_distanceBetweenDates / (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
+                _distanceBetweenDates += _iRepLen0;
+            } else if (_iWhichTimer == 1) {
+                _repNumCount -= (int)((int)_distanceBetweenDates / (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
+                timeSpentInRep = _tmpTimer.iRepLen1 - _counter;
+            } else {
+                _repNumCount -= (int)((int)_distanceBetweenDates / (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
+                timeSpentInRep = _tmpTimer.iRepLen2 - _counter;
+            }
+            
+
+            NSLog(@"%i", (int)((int)_distanceBetweenDates / (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2)));
+            NSLog(@"%i", (int)((int)_distanceBetweenDates % (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2)));
+            
+            modulusDistanceBetweenDates = -1 * (int)((int)_distanceBetweenDates % (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
+            
+            
+            
+            
+            if (modulusDistanceBetweenDates < _tmpTimer.iRepLen1) {
+                
+                _sRepName = [NSString stringWithFormat:@"Rep %d",_repNumCount];
+                _iWhichTimer = 1;
+                _counter = _tmpTimer.iRepLen1 - modulusDistanceBetweenDates - timeSpentInRep;
+            } else {
+                _sRepName = [NSString stringWithFormat:@"Transition / Break %d",_repNumCount];
+                _iWhichTimer = 2;
+                _counter = _tmpTimer.iRepLen1 + _tmpTimer.iRepLen2- modulusDistanceBetweenDates - timeSpentInRep;
+            }
+            
+
+            
+
+
+        }
+        
+        NSLog(@"m is %li, t Rep %li", (long)modulusDistanceBetweenDates, (long)timeSpentInRep);
+        NSLog(@"timer1 %i, counter %li",_iWhichTimer, _counter);
+        
+        [self countDownTimer];
+        [self updateScreen];
+    }
 }
 
 
