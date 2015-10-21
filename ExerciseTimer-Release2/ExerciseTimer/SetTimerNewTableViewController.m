@@ -924,9 +924,12 @@
                 tmpExerciseSet.sSetName = @"Preset Timer";
                 _tmpTimer.sTimerName = @"Preset Timer";
             }
+            [dest setSource:@"presetSetTimerView"];
+            
         } else {
             tmpExerciseSet.sSetName = @"Manual Timer";
             _tmpTimer.sTimerName = @"Manual Timer";
+            [dest setSource:@"manualSetTimerView"];
         }
         
         [tmpExerciseSet.aExercises addObject:_tmpTimer];

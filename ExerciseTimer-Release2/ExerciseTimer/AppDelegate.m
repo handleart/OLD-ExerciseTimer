@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "aTimer.h"
 #import "anExerciseSet.h"
+#import "ViewTimerTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -100,7 +101,6 @@
     NSString *filePathExerciseSet = [documentsDirectoryPath stringByAppendingPathComponent:@"exerciseTimerAppData"];
     NSData *ExerciseSetData = [NSData dataWithContentsOfFile:filePathExerciseSet];
     
-    
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePathExerciseSet]) {
         NSDictionary *ExerciseSetSavedData = [NSKeyedUnarchiver unarchiveObjectWithData:ExerciseSetData];
         if ([ExerciseSetSavedData objectForKey:@"exerciseSets"] != nil) {
@@ -155,8 +155,63 @@
         [userDefaults setInteger:5 forKey:@"introLength"];
         [userDefaults synchronize];
     }
+    
+    //BOOL xTmp = YES;
+    
+    NSString *tmpHere =[userDefaults objectForKey:@"lastPage"];
+    
+    
+    if ([[userDefaults objectForKey:@"lastPage"] isEqual: @"ViewTimerPage"]) {
 
-    //NSLog(@"%li", (long)[userDefaults integerForKey:@"introLength"]);
+        //NSLog(@"%li", (long)[userDefaults integerForKey:@"introLength"]);
+    
+        self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        //UIStoryboard *storyboard = self.window.rootViewController.storyboard;
+        
+        
+        
+        //ViewTimerTableViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"ViewTimerPage"];
+        
+        
+        UINavigationController *nc = (UINavigationController*)[storyboard instantiateViewControllerWithIdentifier:@"NavigationViewTimerPage"];
+        
+        ViewTimerTableViewController *viewController =[[nc viewControllers] objectAtIndex:0];
+        
+        //[nc setViewControllers: @[viewController]];
+
+        
+        //[viewController setExerciseSet:[_exerciseSets objectAtIndex:0]];
+        
+        [viewController setExerciseSet:[_exerciseSets objectAtIndex:0]];
+        //[viewController setSource:@"presetSetTimerView"];
+        //[viewController setSource:@"manualSetTimerView"];
+        [viewController setSource:@"CreateExerciseSetTableViewController"];
+        
+        //self.window.rootViewController = viewController;
+        self.window.rootViewController = nc;
+        
+        
+        [self.window makeKeyAndVisible];
+        
+    } else {
+        //NSLog(@"%li", (long)[userDefaults integerForKey:@"introLength"]);
+        
+        self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        //UIStoryboard *storyboard = self.window.rootViewController.storyboard;
+        
+        UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarViewPage"];
+        
+        self.window.rootViewController = viewController;
+        [self.window makeKeyAndVisible];
+        
+        
+    }
+    
+    
     
     return YES;
 }

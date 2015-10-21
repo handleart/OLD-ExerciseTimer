@@ -13,6 +13,7 @@
 #import "QuartzCore/QuartzCore.h"
 #import "aTimer.h"
 #import "AppDelegate.h"
+#import "CreateExerciseSetTableViewController.h"
 
 
 @interface ViewTimerTableViewController ()
@@ -97,7 +98,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(UIApplicationEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
     
 }
 
@@ -159,10 +160,11 @@
                                                     name:UIApplicationWillResignActiveNotification
                                                   object:nil];
     
+    /*
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIApplicationWillTerminateNotification
                                                   object:nil];
-    
+    */
     
 }
 
@@ -202,6 +204,12 @@
         
         [self createNotifications];
     }
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:@"ViewTimerPage" forKey:@"lastPage"];
+    [userDefaults setObject:_now forKey:@"ViewTimerPage_now"];
+    
+    
     //[self saveExerciseSetData];
 }
 
@@ -276,6 +284,8 @@
     
 }
 
+/*
+
 -(void)appWillTerminate:(UIApplication *)application {
     UIApplication* app = [UIApplication sharedApplication];
     NSArray*    oldNotifications = [app scheduledLocalNotifications];
@@ -290,8 +300,12 @@
     
     [self.timer invalidate];
     
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:@"" forKey:@"lastPage"];
+    
 }
 
+ */
 
 - (void)UIApplicationEnterForeground:(UIApplication *)application {
    
@@ -304,62 +318,66 @@
     
     if (_buttonPauseStart.selected == NO) {
         
-        _distanceBetweenDates = [_now timeIntervalSinceDate:[NSDate date]];
-        
-        //need to consider )_iWhichTimer == 0
-        NSInteger timeSpentInRep = 0;
-        NSInteger modulusDistanceBetweenDates = 0;
-
-        
-        if (_iWhichTimer == 0 && -1 * _distanceBetweenDates < _iRepLen0) {
-                _counter += _distanceBetweenDates;
-            
-        } else{
-            
-        
-            if (_iWhichTimer ==0 && -1 * _distanceBetweenDates >_iRepLen0)  {
-                _repNumCount -= -1 + (int)((int)_distanceBetweenDates / (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
-                _distanceBetweenDates += _iRepLen0;
-            } else if (_iWhichTimer == 1) {
-                _repNumCount -= (int)((int)_distanceBetweenDates / (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
-                timeSpentInRep = _tmpTimer.iRepLen1 - _counter;
-            } else {
-                _repNumCount -= (int)((int)_distanceBetweenDates / (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
-                timeSpentInRep = _tmpTimer.iRepLen2 - _counter;
-            }
-            
-            NSLog(@"total length %ld", (long)_tmpTimer.totalLength);
-            NSLog(@"distance %ld", (long)_distanceBetweenDates);
-            
-            if (_repNumCount < _tmpTimer.iNumReps) {
-                modulusDistanceBetweenDates = -1 * (int)((int)_distanceBetweenDates % (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
-                if (modulusDistanceBetweenDates < _tmpTimer.iRepLen1) {
-                    _sRepName = [NSString stringWithFormat:@"Rep %d",_repNumCount];
-                    _iWhichTimer = 1;
-                    _counter = _tmpTimer.iRepLen1 - modulusDistanceBetweenDates - timeSpentInRep;
-                } else {
-                    _sRepName = [NSString stringWithFormat:@"Transition / Break %d",_repNumCount];
-                    _iWhichTimer = 2;
-                    _counter = _tmpTimer.iRepLen1 + _tmpTimer.iRepLen2- modulusDistanceBetweenDates - timeSpentInRep;
-                }
-                
-            } else {
-                //we would need to figure out what timer we are in and call itself again
-                
-                _repNumCount = (int)_tmpTimer.iNumReps;
-                _sRepName = [NSString stringWithFormat:@"Rep %d",_repNumCount];
-                _iWhichTimer = 1;
-                _counter = 0;
-                _doPlaySound = NO;
-            }
-        }
-        
-        NSLog(@"m is %li, t Rep %li", (long)modulusDistanceBetweenDates, (long)timeSpentInRep);
-        NSLog(@"timer1 %i, counter %li",_iWhichTimer, (long)_counter);
+        [self UIIsBack];
         
         [self countDownTimer];
         [self updateScreen];
     }
+}
+
+- (void)UIIsBack {
+    _distanceBetweenDates = [_now timeIntervalSinceDate:[NSDate date]];
+    
+    //need to consider )_iWhichTimer == 0
+    NSInteger timeSpentInRep = 0;
+    NSInteger modulusDistanceBetweenDates = 0;
+    
+    
+    if (_iWhichTimer == 0 && -1 * _distanceBetweenDates < _iRepLen0) {
+        _counter += _distanceBetweenDates;
+        
+    } else{
+        
+        
+        if (_iWhichTimer ==0 && -1 * _distanceBetweenDates >_iRepLen0)  {
+            _repNumCount -= -1 + (int)((int)_distanceBetweenDates / (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
+            _distanceBetweenDates += _iRepLen0;
+        } else if (_iWhichTimer == 1) {
+            _repNumCount -= (int)((int)_distanceBetweenDates / (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
+            timeSpentInRep = _tmpTimer.iRepLen1 - _counter;
+        } else {
+            _repNumCount -= (int)((int)_distanceBetweenDates / (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
+            timeSpentInRep = _tmpTimer.iRepLen2 - _counter;
+        }
+        
+        NSLog(@"total length %ld", (long)_tmpTimer.totalLength);
+        NSLog(@"distance %ld", (long)_distanceBetweenDates);
+        
+        if (_repNumCount < _tmpTimer.iNumReps) {
+            modulusDistanceBetweenDates = -1 * (int)((int)_distanceBetweenDates % (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
+            if (modulusDistanceBetweenDates < _tmpTimer.iRepLen1) {
+                _sRepName = [NSString stringWithFormat:@"Rep %d",_repNumCount];
+                _iWhichTimer = 1;
+                _counter = _tmpTimer.iRepLen1 - modulusDistanceBetweenDates - timeSpentInRep;
+            } else {
+                _sRepName = [NSString stringWithFormat:@"Transition / Break %d",_repNumCount];
+                _iWhichTimer = 2;
+                _counter = _tmpTimer.iRepLen1 + _tmpTimer.iRepLen2- modulusDistanceBetweenDates - timeSpentInRep;
+            }
+            
+        } else {
+            //we would need to figure out what timer we are in and call itself again
+            
+            _repNumCount = (int)_tmpTimer.iNumReps;
+            _sRepName = [NSString stringWithFormat:@"Rep %d",_repNumCount];
+            _iWhichTimer = 1;
+            _counter = 0;
+            _doPlaySound = NO;
+        }
+    }
+    
+    NSLog(@"m is %li, t Rep %li", (long)modulusDistanceBetweenDates, (long)timeSpentInRep);
+    NSLog(@"timer1 %i, counter %li",_iWhichTimer, (long)_counter);
 }
 
 
@@ -691,7 +709,75 @@
     } else {
         [self performSegueWithIdentifier:@"unwindToSetTimer" sender:self];
     }
+    
+    [_timer invalidate];
+    
+    //SetTimerNewTableViewController *lvc = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarViewPage"];
+    
+    
+    /*
+    UIStoryboardSegue *segue =
+    [UIStoryboardSegue segueWithIdentifier:@"test"
+                                    source:self
+                               destination:lvc
+                            performHandler:^{
+                                // transition code that would
+                                // normally go in the perform method
+                            }];
+    
+    
+    [self prepareForSegue:segue sender:self];
+    [segue perform];
+     
+     */
+    
+    //[self performSegueWithIdentifier:@"unwindToSetTimer" sender:self];
+    
+    
+    if ([_source isEqualToString:@"CreateExerciseSetTableViewController"]) {
+        
+        UINavigationController *nc = (UINavigationController*)[self.storyboard instantiateViewControllerWithIdentifier:@"createExerciseSetNavigationPage"];
+        
+        CreateExerciseSetTableViewController *lvc =[[nc viewControllers] objectAtIndex:0];
+        
+        [lvc setExerciseSet:_exerciseSet];
+        
+        
+        [self presentViewController:lvc  animated:YES completion:nil];
+        
+        
+    } else if ([_source  isEqualToString:@"manualSetTimerView"]) {
+        UITabBarController *tvc = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarViewPage"];
+        
+        UINavigationController *tmp = [tvc.viewControllers objectAtIndex:0];
+        
+        SetTimerNewTableViewController *lvc = [[tmp viewControllers] objectAtIndex:0];
+        [lvc setTmpTimer:_tmpTimer];
+        //[lvc setSaveViewIsShowing:YES];
+        
+        [self presentViewController:tvc  animated:YES completion:nil];
+    
+    } else if ([_source  isEqualToString:@"presetSetTimerView"]) {
+        UITabBarController *tvc = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarViewPage"];
+        
+        UINavigationController *tmp = [tvc.viewControllers objectAtIndex:0];
+        
+        SetTimerNewTableViewController *lvc = [[tmp viewControllers] objectAtIndex:0];
+        [lvc setTmpTimer:_tmpTimer];
+        [lvc setSaveViewIsShowing:YES];
+        
+        [self presentViewController:tvc  animated:YES completion:nil];
+
+    }
+    
+    //tb.selectedIndex =
+    
+    //[dest setSource:@"presetSetTimerView"];
+    //[dest setSource:@"manualSetTimerView"]
+
+    
 }
+
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -710,6 +796,9 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setFloat:_iVolume forKey:@"volume"];
     [userDefaults synchronize];
+
+    [userDefaults setObject:@"" forKey:@"lastPage"];
+    [userDefaults setObject:@"" forKey:@"ViewTimerPage_now"];
     
     
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
