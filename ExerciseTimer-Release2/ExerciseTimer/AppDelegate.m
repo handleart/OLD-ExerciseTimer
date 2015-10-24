@@ -158,7 +158,9 @@
     
     //BOOL xTmp = YES;
     
-    NSString *tmpHere =[userDefaults objectForKey:@"lastPage"];
+    //NSString *tmpHere =[userDefaults objectForKey:@"lastPage"];
+    
+    /*
     
     
     if ([[userDefaults objectForKey:@"lastPage"] isEqual: @"ViewTimerPage"]) {
@@ -182,9 +184,9 @@
         //[nc setViewControllers: @[viewController]];
 
         
-        //[viewController setExerciseSet:[_exerciseSets objectAtIndex:0]];
-        
         [viewController setExerciseSet:[_exerciseSets objectAtIndex:0]];
+        
+        //[viewController setExerciseSet:[_exerciseSets objectAtIndex:0]];
         //[viewController setSource:@"presetSetTimerView"];
         //[viewController setSource:@"manualSetTimerView"];
         [viewController setSource:@"CreateExerciseSetTableViewController"];
@@ -211,6 +213,7 @@
         
     }
     
+    */
     
     
     return YES;

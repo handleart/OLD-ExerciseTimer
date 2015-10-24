@@ -929,7 +929,7 @@
         } else {
             tmpExerciseSet.sSetName = @"Manual Timer";
             _tmpTimer.sTimerName = @"Manual Timer";
-            [dest setSource:@"manualSetTimerView"];
+            [dest setSource:@"TimerView"];
         }
         
         [tmpExerciseSet.aExercises addObject:_tmpTimer];

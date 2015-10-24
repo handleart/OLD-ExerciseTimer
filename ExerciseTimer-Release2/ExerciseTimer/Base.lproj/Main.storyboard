@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GXa-Al-sAe">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -319,7 +319,8 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="9gg-Iv-XNq"/>
                         <barButtonItem key="leftBarButtonItem" title="&lt; Back" style="done" id="9WW-Kb-hij">
                             <connections>
-                                <segue destination="it4-bb-Cg0" kind="unwind" unwindAction="unwindToChooseExerciseSet:" id="tS6-WR-fLI"/>
+                                <action selector="backButtonPressed:" destination="074-YK-Ovs" id="srS-HV-AsX"/>
+                                <segue destination="it4-bb-Cg0" kind="unwind" identifier="unwindToChooseExerciseSet" unwindAction="unwindToChooseExerciseSet:" id="tS6-WR-fLI"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="play" id="W5d-xA-jj4">
@@ -471,7 +472,7 @@
         <!--Exercise Sets-->
         <scene sceneID="BNF-zW-XjC">
             <objects>
-                <tableViewController id="HyY-sp-PGS" customClass="ExerciseSetTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="viewExerciseSetListPage" id="HyY-sp-PGS" customClass="ExerciseSetTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="J9H-NH-WF2">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -774,7 +775,7 @@
         <image name="Volume.png" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2si-YR-TVW"/>
+        <segue reference="G0U-Rb-t89"/>
         <segue reference="Ft4-rJ-RHW"/>
         <segue reference="mmi-kf-WK6"/>
     </inferredMetricsTieBreakers>

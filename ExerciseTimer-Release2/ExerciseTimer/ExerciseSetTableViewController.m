@@ -24,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
     //self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(66/255.0) green:(94/255.0) blue:(157/255.0) alpha:1];
     
@@ -33,9 +34,12 @@
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+     
+     
     self.exerciseSet = [[NSMutableArray alloc] init];
     
     //[self initTestData];
+     
     
     AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
 

@@ -41,6 +41,14 @@
 @end
 
 @implementation CreateExerciseSetTableViewController
+- (IBAction)backButtonPressed:(id)sender {
+    
+    
+    [self performSegueWithIdentifier:@"unwindToChooseExerciseSet" sender:self];
+    
+    
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -943,6 +951,8 @@
         
         [dest setAddViewIsShowing:YES];
     }
+    
+    
 
 }
 
