@@ -13,7 +13,7 @@
 		9C1F01A41B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C1F01A31B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m */; };
 		9C2406441B883F1D00A22E0E /* CreateExerciseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2406431B883F1D00A22E0E /* CreateExerciseTableViewCell.m */; };
 		9C2EAD421B90D09C0052B4A6 /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2EAD411B90D09C0052B4A6 /* SettingTableViewController.m */; };
-		9C38CBE81BC4C2EC00498E18 /* Triple Temple Bell.caf in Resources */ = {isa = PBXBuildFile; fileRef = 9C38CBE71BC4C2EC00498E18 /* Triple Temple Bell.caf */; settings = {ASSET_TAGS = (); }; };
+		9C38CBE81BC4C2EC00498E18 /* Triple Temple Bell.caf in Resources */ = {isa = PBXBuildFile; fileRef = 9C38CBE71BC4C2EC00498E18 /* Triple Temple Bell.caf */; };
 		9C4D71A91B6EEB3D00F500DD /* Temple Bell.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C4D71A81B6EEB3D00F500DD /* Temple Bell.aiff */; };
 		9C5E74721B6DA8C400E2AAFF /* Whistle.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C5E74711B6DA8C400E2AAFF /* Whistle.aiff */; };
 		9C5E74791B6EA0CE00E2AAFF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C5E74781B6EA0CE00E2AAFF /* AVFoundation.framework */; };
