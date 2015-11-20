@@ -234,6 +234,12 @@
 }
 
 #pragma  mark - button / field actions
+
+- (IBAction)playButtonPressed:(id)sender {
+    // using the navigation pragma section
+}
+
+
 - (IBAction)backButtonPressed:(id)sender {
     if (_addViewIsShowing == YES) {
         [self performSegueWithIdentifier:@"unwindToCreateExerciseSetWithoutSave" sender:self];
@@ -788,7 +794,9 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    CGFloat height = self.tableView.rowHeight;
+    //CGFloat height = self.tableView.rowHeight;
+    CGFloat height;
+    
     
     if (indexPath.section == _timerSectionIndex && indexPath.row == _pickerRow) {
         //height = self.pickerIsShowing ? 180 : 0.0f;
@@ -934,6 +942,18 @@
         
         [tmpExerciseSet.aExercises addObject:_tmpTimer];
         [dest setExerciseSet:tmpExerciseSet];
+        
+        if (_saveViewIsShowing != YES && _addViewIsShowing != YES) {
+            AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+            appDelegate.tmpExerciseSet = [[NSMutableArray alloc] initWithObjects:@[tmpExerciseSet], nil];
+            
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:@"ManualTimer" forKey:@"lastPage"];
+            
+            [appDelegate saveTmpExerciseSetData];
+            
+            
+        }
         
         
     } else if ([segue.identifier isEqualToString:@"unwindToCreateExerciseSetWithoutSave"]) {

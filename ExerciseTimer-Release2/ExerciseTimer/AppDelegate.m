@@ -10,6 +10,8 @@
 #import "aTimer.h"
 #import "anExerciseSet.h"
 #import "ViewTimerTableViewController.h"
+#import "SetTimerNewTableViewController.h"
+#import "CreateExerciseTableViewCell.h"
 
 @interface AppDelegate ()
 
@@ -25,6 +27,8 @@
             [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound categories:nil]];
         }
     #endif
+    
+    
 
     
     // look for saved data.
@@ -132,6 +136,36 @@
         
     }
     
+    // look for saved data
+    
+    
+    NSString *filePathTmpExerciseSet = [documentsDirectoryPath stringByAppendingPathComponent:@"tmpExerciseSetData"];
+    NSData *tmpExerciseSetData = [NSData dataWithContentsOfFile:filePathTmpExerciseSet];
+    
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePathTmpExerciseSet]) {
+        NSDictionary *tmpExerciseSetSavedData = [NSKeyedUnarchiver unarchiveObjectWithData:tmpExerciseSetData];
+        
+        if ([tmpExerciseSetSavedData objectForKey:@"tmpExerciseSet"] != nil) {
+            self.tmpExerciseSet = [[NSMutableArray alloc] initWithArray:[tmpExerciseSetSavedData objectForKey:@"tmpExerciseSet"]];
+        } else {
+            self.tmpExerciseSet = [[NSMutableArray alloc] init];
+        }
+        
+        
+    } else {
+        self.tmpExerciseSet = [[NSMutableArray alloc] initWithArray:@[[_exerciseSets objectAtIndex:0]]];
+    
+    
+    }
+        
+    
+
+    
+    
+    //User defaults
+    
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     
@@ -149,6 +183,12 @@
         [userDefaults synchronize];
     }
     
+    if ([userDefaults objectForKey:@"backgroundSwitch"] == nil) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setBool:true forKey:@"backgroundSwitch"];
+        [userDefaults synchronize];
+    }
+    
     
     if ([userDefaults objectForKey:@"introLength"] == nil) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -156,11 +196,20 @@
         [userDefaults synchronize];
     }
     
+    if ([userDefaults objectForKey:@"exerciseTimerIndex"] == nil) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setInteger:0 forKey:@"exerciseTimerIndex"];
+        [userDefaults synchronize];
+    }
+    
+    
+    
     //BOOL xTmp = YES;
     
     //NSString *tmpHere =[userDefaults objectForKey:@"lastPage"];
     
-    /*
+    //[userDefaults setObject:@"ViewTimerPage" forKey:@"lastPage"];
+    
     
     
     if ([[userDefaults objectForKey:@"lastPage"] isEqual: @"ViewTimerPage"]) {
@@ -171,6 +220,9 @@
     
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         //UIStoryboard *storyboard = self.window.rootViewController.storyboard;
+        //UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main.storyboard" bundle:nil];
+        
+        
         
         
         
@@ -179,21 +231,33 @@
         
         UINavigationController *nc = (UINavigationController*)[storyboard instantiateViewControllerWithIdentifier:@"NavigationViewTimerPage"];
         
+        
+        
+        //ViewTimerTableViewController *viewController =[[nc viewControllers]
         ViewTimerTableViewController *viewController =[[nc viewControllers] objectAtIndex:0];
+        //UIViewController *lastViewController = (UIViewController*)[storyboard instantiateViewControllerWithIdentifier:@"NavigationViewTimerPage"];
         
         //[nc setViewControllers: @[viewController]];
 
         
-        [viewController setExerciseSet:[_exerciseSets objectAtIndex:0]];
+        [viewController setExerciseSet:[[_tmpExerciseSet objectAtIndex:0] objectAtIndex:0]];
+        
         
         //[viewController setExerciseSet:[_exerciseSets objectAtIndex:0]];
-        //[viewController setSource:@"presetSetTimerView"];
+        
+        
+        //viewController setSource:@"presetSetTimerView"];
         //[viewController setSource:@"manualSetTimerView"];
-        [viewController setSource:@"CreateExerciseSetTableViewController"];
+        //[viewController setSource:@"CreateExerciseSetTableViewController"];
         
         //self.window.rootViewController = viewController;
-        self.window.rootViewController = nc;
         
+        //[self.window addSubview:nc.view];
+        
+        //self.window.rootViewController = nil;
+        //[nc.navigationController pushViewController:lvc animated:YES];
+        
+        self.window.rootViewController = nc;
         
         [self.window makeKeyAndVisible];
         
@@ -205,15 +269,26 @@
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         //UIStoryboard *storyboard = self.window.rootViewController.storyboard;
         
-        UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarViewPage"];
+        UITabBarController *tabViewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarViewPage"];
+        SetTimerNewTableViewController *viewController = [[[tabViewController.viewControllers objectAtIndex:0] viewControllers] objectAtIndex:0];
+       
         
-        self.window.rootViewController = viewController;
+        aTimer *tmpTimer = [[[[_tmpExerciseSet objectAtIndex:0] objectAtIndex:0] aExercises] objectAtIndex:0];
+        
+        
+        [viewController setTmpTimer:tmpTimer];
+        
+        
+        
+        
+        
+        self.window.rootViewController = tabViewController;
         [self.window makeKeyAndVisible];
         
         
     }
     
-    */
+    
     
     
     return YES;
@@ -313,6 +388,21 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectoryPath = [paths objectAtIndex:0];
     NSString *filePath = [documentsDirectoryPath stringByAppendingPathComponent:@"exerciseTimerAppData"];
+    
+    [NSKeyedArchiver archiveRootObject:dataDict toFile:filePath];
+    
+    //NSLog(@"Exercise Data Saved");
+}
+
+- (void) saveTmpExerciseSetData {
+    NSMutableDictionary *dataDict = [[NSMutableDictionary alloc] initWithCapacity:3];
+    if (self.tmpExerciseSet != nil) {
+        [dataDict setObject:self.tmpExerciseSet forKey:@"tmpExerciseSet"];
+    }
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectoryPath = [paths objectAtIndex:0];
+    NSString *filePath = [documentsDirectoryPath stringByAppendingPathComponent:@"tmpExerciseSetData"];
     
     [NSKeyedArchiver archiveRootObject:dataDict toFile:filePath];
     

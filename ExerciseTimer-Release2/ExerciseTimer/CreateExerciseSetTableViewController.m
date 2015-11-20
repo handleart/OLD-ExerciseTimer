@@ -41,12 +41,39 @@
 @end
 
 @implementation CreateExerciseSetTableViewController
+
+
 - (IBAction)backButtonPressed:(id)sender {
     
     
-    [self performSegueWithIdentifier:@"unwindToChooseExerciseSet" sender:self];
+    //[self performSegueWithIdentifier:@"unwindToChooseExerciseSet" sender:self];
+    
+    UITabBarController *tvc = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarViewPage"];
+
+    tvc.selectedIndex = 2;
+    
+    //CreateExerciseSetTableViewController *lvc =[[nc viewControllers] objectAtIndex:0];
     
     
+    
+    
+    
+    
+    UIStoryboardSegue *segue =
+    [UIStoryboardSegue segueWithIdentifier:@"test"
+                                    source:self
+                               destination:tvc
+                            performHandler:^{
+                                [self.navigationController presentViewController:tvc animated:NO completion: nil];
+                                
+                                // transition code that would
+                                // normally go in the perform method
+                            }];
+    
+    [self prepareForSegue:segue sender:self];
+    
+    [segue perform];
+     
     
 }
 
@@ -106,6 +133,8 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
     if (_aPresetTimers == nil || [_aPresetTimers count] == 0) {
         self.navigationItem.rightBarButtonItem.tintColor = [UIColor blueColor];
         self.navigationItem.rightBarButtonItem.enabled = NO;
@@ -138,11 +167,9 @@
         [alert show];
         [self performSegueWithIdentifier:@"CreateCustomPresetTimer" sender:self];
     } else {
-        aTimer *timer1 = [[aTimer alloc] init];
+        aTimer *timer1 = [self.aPresetTimers objectAtIndex:_selectedPickerRow];
         
-        timer1 = [self.aPresetTimers objectAtIndex:_selectedPickerRow];
-        
-        _exerciseSet.iTotalLength = _exerciseSet.iTotalLength + [timer1 totalLength];
+        //_exerciseSet.iTotalLength = _exerciseSet.iTotalLength + [timer1 totalLength];
         
         //_exerciseSet.aExercises = savedTimers1;
         [_exerciseSet.aExercises addObject:timer1];
@@ -663,6 +690,11 @@
         _exerciseSet.sSetName = _nameTextField.text;
     }
     
+    _exerciseSet.iTotalLength = 0;
+    for (aTimer *obj in [_exerciseSet aExercises]) {
+        _exerciseSet.iTotalLength += [obj totalLength];
+    }
+    
     
     
     if ([[app exerciseSets] containsObject:_exerciseSet]) {
@@ -909,25 +941,29 @@
 - (IBAction)unwindToCreateExerciseSet:(UIStoryboardSegue *)segue {
     SetTimerNewTableViewController *source = [segue sourceViewController];
     
+    
+    
     //only reload if a new timer is created on the subsequent page
-    if (source.tmpTimer != nil) {
-        [_exerciseSet.aExercises addObject:source.tmpTimer];
-        _clickedRow = [[self.exerciseSet aExercises] count] - 1;
-        _pickerRow = _clickedRow + 1;
-        _pickerSection = 2;
-        _lastPickerRow = -1;
-        _pickerIsShowing = YES;
-        AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-        
-        [_picker reloadAllComponents];
-        if (app.timers == nil) {
-            [_picker selectRow:0 inComponent:0 animated:NO];
-        } else {
-            [_picker selectRow:(long)[app.timers count] - 1 inComponent:0 animated:NO];
-        }
-        
-        [self.tableView reloadData];
+    if ([source isKindOfClass:[SetTimerNewTableViewController class]]) {
+        if (source.tmpTimer != nil) {
+            [_exerciseSet.aExercises addObject:source.tmpTimer];
+            _clickedRow = [[self.exerciseSet aExercises] count] - 1;
+            _pickerRow = _clickedRow + 1;
+            _pickerSection = 2;
+            _lastPickerRow = -1;
+            _pickerIsShowing = YES;
+            AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+            
+            [_picker reloadAllComponents];
+            if (app.timers == nil) {
+                [_picker selectRow:0 inComponent:0 animated:NO];
+            } else {
+                [_picker selectRow:(long)[app.timers count] - 1 inComponent:0 animated:NO];
+            }
+            
+            [self.tableView reloadData];
 
+        }
     }
 }
 
