@@ -11,6 +11,10 @@
 #import "aTimer.h"
 #import "appDelegate.h"
 
+//For testing
+#import "anExerciseSet.h"
+//
+
 @interface ChooseTimerTableViewController ()
 @property NSMutableArray *savedTimers;
 @property aTimer *selectedTimer;
@@ -45,6 +49,8 @@
     
     
     self.savedTimers = app.timers;
+
+     
     
     
 
@@ -132,8 +138,42 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.savedTimers removeObjectAtIndex:indexPath.row];
+        
         AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        NSMutableArray *exercises = app.exerciseSets;
+        
+        aTimer *toBeDeletedTimer = [self.savedTimers objectAtIndex:indexPath.row];
+        
+        NSMutableArray *discardItems = [[NSMutableArray alloc] init];
+        
+        for (anExerciseSet *a in exercises) {
+            NSMutableArray *timersInExerciseSet = [a aExercises];
+            
+            if ([timersInExerciseSet containsObject:toBeDeletedTimer]) {
+                [timersInExerciseSet removeObject:toBeDeletedTimer];
+            }
+            
+            if ([timersInExerciseSet count] == 0) {
+                [discardItems addObject:a];
+            }
+        
+        }
+        
+        
+        if ([discardItems count] > 0) {
+            [exercises removeObjectsInArray:discardItems];
+           
+            
+            //reload exercise set page if it has already been loaded
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadData" object:nil];
+        
+        }
+        
+        [self.savedTimers removeObjectAtIndex:indexPath.row];
+        
+    
+        
         [app saveTimersData];
         [tableView reloadData];
     }

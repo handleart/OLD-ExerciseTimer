@@ -241,10 +241,37 @@
 
 
 - (IBAction)backButtonPressed:(id)sender {
+    
     if (_addViewIsShowing == YES) {
         [self performSegueWithIdentifier:@"unwindToCreateExerciseSetWithoutSave" sender:self];
     } else if (_saveViewIsShowing == YES) {
-        [self performSegueWithIdentifier:@"unwindToChooseTimer" sender:self];
+        //[self performSegueWithIdentifier:@"unwindToChooseTimer" sender:self];
+        
+        UITabBarController *tvc = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarViewPage"];
+        
+        tvc.selectedIndex = 1;
+        
+        //CreateExerciseSetTableViewController *lvc =[[nc viewControllers] objectAtIndex:0];
+        
+        
+        
+        
+        
+        
+        UIStoryboardSegue *segue =
+        [UIStoryboardSegue segueWithIdentifier:@"TabBarViewPage2"
+                                        source:self
+                                   destination:tvc
+                                performHandler:^{
+                                    [self.navigationController presentViewController:tvc animated:NO completion: nil];
+                                    
+                                    // transition code that would
+                                    // normally go in the perform method
+                                }];
+        
+        [self prepareForSegue:segue sender:self];
+        
+        [segue perform];
     } else {
 
     }
@@ -925,27 +952,25 @@
         
         anExerciseSet *tmpExerciseSet = [[anExerciseSet alloc] init];
 
-        if (_saveViewIsShowing == YES) {
-            if (_tmpTimer.sTimerName != nil || [_tmpTimer.sTimerName length] != 0) {
-                tmpExerciseSet.sSetName = _tmpTimer.sTimerName;
-            } else {
-                tmpExerciseSet.sSetName = @"Preset Timer";
-                _tmpTimer.sTimerName = @"Preset Timer";
-            }
+        //if (_saveViewIsShowing == YES) {
+        if ((_tmpTimer.sTimerName != nil || [_tmpTimer.sTimerName length] != 0) && _saveViewIsShowing) {
+            tmpExerciseSet.sSetName = _tmpTimer.sTimerName;
             [dest setSource:@"presetSetTimerView"];
-            
         } else {
             tmpExerciseSet.sSetName = @"Manual Timer";
             _tmpTimer.sTimerName = @"Manual Timer";
             [dest setSource:@"TimerView"];
         }
         
+        
+        
+        
         [tmpExerciseSet.aExercises addObject:_tmpTimer];
         [dest setExerciseSet:tmpExerciseSet];
         
         if (_saveViewIsShowing != YES && _addViewIsShowing != YES) {
             AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-            appDelegate.tmpExerciseSet = [[NSMutableArray alloc] initWithObjects:@[tmpExerciseSet], nil];
+            appDelegate.manualExerciseSets = [[NSMutableArray alloc] initWithObjects:@[tmpExerciseSet], nil];
             
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             [userDefaults setObject:@"ManualTimer" forKey:@"lastPage"];

@@ -45,12 +45,47 @@
 
 
     self.exerciseSet = app.exerciseSets;
-
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataNeedsReload) name:@"reloadData" object:nil];
+    
+    
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+ 
+    
+    /*
+    NSInteger tmp = [self tableView:self.tableView numberOfRowsInSection:0];
+    
+    if (tmp != [_exerciseSet count]) {
+        [self.tableView reloadData];
+    }
+     */
+     
+     
+     
+    
+}
+
+
+
+
+
+- (void)dataNeedsReload {
+    
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"reloadData"
+                                                  object:nil];
+    
+    
     // Dispose of any resources that can be recreated.
 }
 

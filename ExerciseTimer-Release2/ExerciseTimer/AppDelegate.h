@@ -14,6 +14,7 @@
 @property NSMutableArray *timers;
 @property NSMutableArray *exerciseSets;
 @property NSMutableArray *tmpExerciseSet;
+@property NSMutableArray *manualExerciseSets;
 
 -(void)saveTimersData;
 -(void)saveExerciseSetData;

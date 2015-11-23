@@ -60,7 +60,7 @@
     
     
     UIStoryboardSegue *segue =
-    [UIStoryboardSegue segueWithIdentifier:@"test"
+    [UIStoryboardSegue segueWithIdentifier:@"TabBarViewPage1"
                                     source:self
                                destination:tvc
                             performHandler:^{

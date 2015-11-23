@@ -187,6 +187,9 @@
     
     // Create a new notification.
     
+    _now = [NSDate date];
+    
+    
     if (_backgroundSwitch == YES) {
     
         if (_buttonPauseStart.selected == NO) {
@@ -205,7 +208,7 @@
             
             _bInBackground = YES;
             
-            _now = [NSDate date];
+            //_now = [NSDate date];
             /*
             if (_iWhichTimer == 0) {
                 _secsLeftInRep = (int)_iWhichTimer - (int)_counter + (int)[_tmpTimer totalLength];
@@ -228,7 +231,24 @@
             
             [self createNotifications:_tmpTimer notification1length:0 notification2length:0 whichTimer:_iWhichTimer counter:_counter repNumCount:_repNumCount totalLocalNotifications:0];
         }
+    } else {
+        
+        UILocalNotification* alarm = [[UILocalNotification alloc] init];
+        if (alarm)
+        {
+            alarm.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
+            alarm.timeZone = [NSTimeZone defaultTimeZone];
+            alarm.repeatInterval = 0;
+            //alarm.soundName = @"alarmsound.caf";
+            alarm.alertBody = @"ME Timer is stopped!";
+            
+            [app scheduleLocalNotification:alarm];
+        }
+        
+        //_bInBackground = NO;
+        
     }
+    
     
     //NSMutableArray *allExerciseSets = [[NSMutableArray alloc] initWithObjects:@[_exerciseSet]];
     AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
@@ -239,7 +259,7 @@
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:@"ViewTimerPage" forKey:@"lastPage"];
-    //[userDefaults setInteger:_setCount forKey:@"exerciseTimerIndex"];
+    //[:_setCount forKey:@"exerciseTimerIndex"];
     
     //These should all be part of a dict
     [userDefaults setObject:_source forKey:@"ViewTimerPage_source"];
@@ -248,7 +268,12 @@
     [userDefaults setInteger:_iWhichTimer forKey:@"ViewTimerPage_iWhichTimer"];
     [userDefaults setInteger:_repNumCount forKey:@"ViewTimerPage_repNumCount"];
     [userDefaults setInteger:_counter forKey:@"ViewTimerPage_counter"];
-    [userDefaults setBool:_buttonPauseStart.selected forKey:@"ViewTimerPage__buttonPauseStartState"];
+    
+    if (_backgroundSwitch == NO) {
+         [userDefaults setBool:YES forKey:@"ViewTimerPage__buttonPauseStartState"];
+    } else {
+        [userDefaults setBool:_buttonPauseStart.selected forKey:@"ViewTimerPage__buttonPauseStartState"];
+    }
     
     [userDefaults synchronize];
     
@@ -331,7 +356,7 @@
                         
                         localNotificationRep1.soundName = [NSString stringWithFormat:@"%@.%@", tmpTimer.sRepSoundName, tmpTimer.sRepSoundExtension];
                         
-                        localNotificationRep1.alertBody = [NSString stringWithFormat:@"Start Rep"];
+                        localNotificationRep1.alertBody = [NSString stringWithFormat:@"Start Rep %i", i+1];
                         
                         [[UIApplication sharedApplication]scheduleLocalNotification:localNotificationRep1];
                         
@@ -422,7 +447,7 @@
                         
                         localNotificationRep1.soundName = [NSString stringWithFormat:@"%@.%@", tmpTimer.sRepSoundName, tmpTimer.sRepSoundExtension];
                         
-                        localNotificationRep1.alertBody = [NSString stringWithFormat:@"Break / Transition"];
+                        localNotificationRep1.alertBody = [NSString stringWithFormat:@"Break / Transition %i", i+1];
                         
                         [[UIApplication sharedApplication]scheduleLocalNotification:localNotificationRep1];
 
@@ -455,7 +480,7 @@
                             
                             localNotificationRep1.soundName = [NSString stringWithFormat:@"%@.%@", tmpTimer.sRepSoundName, tmpTimer.sRepSoundExtension];
                             
-                            localNotificationRep1.alertBody = [NSString stringWithFormat:@"Start Rep"];
+                            localNotificationRep1.alertBody = [NSString stringWithFormat:@"Start Rep %i", i+1];
                             
                             [[UIApplication sharedApplication]scheduleLocalNotification:localNotificationRep1];
                             
@@ -597,12 +622,16 @@
     //if the app has been in background for a very long time
     if (timerEnded != YES) {
         //are we in intro rep, then easy
-        if (_iWhichTimer == 0 && timeInBackground <= _iRepLen0) {
+        if (_iWhichTimer == 0 && timeInBackground + timeSpentInRep <= _iRepLen0) {
             _counter -= timeInBackground;
+            _sRepName = [NSString stringWithFormat:@"Get ready for %@ set", _tmpTimer.sTimerName];
+            
         //otherwise, we need to calculate which rep we are in and which timer
         } else{
             //which rep?
-            if (_iWhichTimer == 0 && timeInBackground >_iRepLen0)  {
+            //if (_iWhichTimer == 0 && timeInBackground >_iRepLen0)  {
+            if (_iWhichTimer == 0)  {
+                
                 timeInBackground -= _iRepLen0;
                 _repNumCount += 1 + (int)((int)timeInBackground / (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
             
@@ -686,9 +715,16 @@
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
-    _now = [userDefaults objectForKey:@"ViewTimerPage_now"];
+    _now = (NSDate *)[userDefaults objectForKey:@"ViewTimerPage_now"];
     
-    if (_backgroundSwitch == YES && _now != nil) {
+    
+    
+    
+
+    
+    
+    //if (_backgroundSwitch == YES && _now != nil) {
+    if (_now != nil ) {
         
         /*
         _counter = ?;
@@ -700,6 +736,7 @@
         */
         
         
+        
         _source = [userDefaults objectForKey:@"ViewTimerPage_source"];
         _setCount = (int)[userDefaults integerForKey:@"ViewTimerPage_setCount"];
         _iWhichTimer = (int)[userDefaults integerForKey:@"ViewTimerPage_iWhichTimer"];
@@ -709,8 +746,38 @@
         
         _tmpTimer = [[_exerciseSet aExercises] objectAtIndex:_setCount];
         
-        [self UIIsBack:[[NSDate date] timeIntervalSinceDate:_now]];
         
+        if (_backgroundSwitch == YES) {
+        
+            [self UIIsBack:[[NSDate date] timeIntervalSinceDate:_now]];
+            
+            [self updateScreen];
+            
+            if (_iWhichTimer != 0 && _now == nil) {
+                
+                [self playASound];
+            }
+            
+            
+            [self countDownTimer];
+            
+            
+        } else {
+            [self.timer invalidate];
+            // need to fix this. I name sRepName in too many palces
+            if (_iWhichTimer == 0) {
+                _sRepName = [NSString stringWithFormat:@"Get ready for %@ set", _tmpTimer.sTimerName];
+            } else if (_iWhichTimer == 1) {
+                _sRepName = [NSString stringWithFormat:@"Rep %d",_repNumCount];
+           
+            } else if (_iWhichTimer == 2) {
+                _sRepName = [NSString stringWithFormat:@"Transition / Break %d",_repNumCount];
+            }
+            
+            [self updateScreen];
+        }
+        
+    
     } else {
     
         _counter = _iRepLen0;
@@ -725,20 +792,19 @@
         _iWhichTimer = 0;
         
 
+        [self updateScreen];
         
+        if (_iWhichTimer != 0 && _now == nil) {
+            
+            [self playASound];
+        }
+        
+        [self countDownTimer];
         
     
     }
 
-    [self updateScreen];
-    
-    if (_iWhichTimer != 0 && _now == nil) {
-        
-        [self playASound];
-    }
-    
-    
-    [self countDownTimer];
+
     
 }
 
@@ -1042,11 +1108,16 @@
 #pragma mark - Navigation
 
 - (IBAction)backButtonPressed:(id)sender {
+    
+    /*
+    
     if ([_source  isEqual: @"CreateExerciseSetTableViewController"]) {
         [self performSegueWithIdentifier:@"unwindToCreateExerciseSet" sender:self];
     } else {
         [self performSegueWithIdentifier:@"unwindToSetTimer" sender:self];
     }
+    
+     */
     
     [_timer invalidate];
     
@@ -1082,7 +1153,11 @@
         //CreateExerciseSetTableViewController *lvc =[[nc viewControllers] objectAtIndex:0];
         
         
-        CreateExerciseSetTableViewController *lvc = (CreateExerciseSetTableViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"createExerciseSetPage"];
+        
+        
+        //CreateExerciseSetTableViewController *lvc = (CreateExerciseSetTableViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"createExerciseSetPage"];
+        
+        CreateExerciseSetTableViewController *lvc = (CreateExerciseSetTableViewController*)[[nc viewControllers] objectAtIndex:0];
         
         
         [lvc setExerciseSet:_exerciseSet];
@@ -1112,7 +1187,9 @@
         //[self.navigationController popToViewController:lvc animated:NO];
         
         
-    } else if ([_source  isEqualToString:@"TimerView"]) {
+    }
+    
+    else if ([_source  isEqualToString:@"TimerView"]) {
         UITabBarController *tvc = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarViewPage"];
         
         UINavigationController *tmp = [tvc.viewControllers objectAtIndex:0];
@@ -1144,15 +1221,56 @@
         
     
     } else if ([_source  isEqualToString:@"presetSetTimerView"]) {
+        
+        
+        UINavigationController *nc = (UINavigationController*)[self.storyboard instantiateViewControllerWithIdentifier:@"setTimerNavigationController"];
+        
+        //CreateExerciseSetTableViewController *lvc =[[nc viewControllers] objectAtIndex:0];
+        
+        
+        SetTimerNewTableViewController *lvc = [[nc viewControllers] objectAtIndex:0];
+        
+
+        [lvc setTmpTimer:_tmpTimer];
+        [lvc setSaveViewIsShowing:YES];
+        
+        
+        //presetTimerNavigationController
+        
+        UIStoryboardSegue *segue =
+        [UIStoryboardSegue segueWithIdentifier:@"test"
+                                        source:self
+                                   destination:nc
+                                performHandler:^{
+                                    [self.navigationController presentViewController:nc animated:NO completion: nil];
+                                    
+                                    // transition code that would
+                                    // normally go in the perform method
+                                }];
+        
+        [self prepareForSegue:segue sender:self];
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        [segue perform];
+        
+
+        
+        //[self.navigationController popViewControllerAnimated:YES];
+        //[self.navigationController pushViewController:tvc animated:YES];
+
+    } else {
         UITabBarController *tvc = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarViewPage"];
         
         UINavigationController *tmp = [tvc.viewControllers objectAtIndex:0];
         
         SetTimerNewTableViewController *lvc = [[tmp viewControllers] objectAtIndex:0];
         [lvc setTmpTimer:_tmpTimer];
-        [lvc setSaveViewIsShowing:YES];
+        //[lvc setSaveViewIsShowing:YES];
         
         //[self presentViewController:tvc  animated:YES completion:nil];
+        
+        //[self.navigationController popViewControllerAnimated:YES];
         
         UIStoryboardSegue *segue =
         [UIStoryboardSegue segueWithIdentifier:@"test"
@@ -1168,12 +1286,8 @@
         [self prepareForSegue:segue sender:self];
         
         [segue perform];
-        
-        //[self.navigationController popViewControllerAnimated:YES];
-        //[self.navigationController pushViewController:tvc animated:YES];
-        
-
     }
+    
     
     //tb.selectedIndex =
     
