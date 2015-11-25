@@ -356,7 +356,7 @@
                         
                         localNotificationRep1.soundName = [NSString stringWithFormat:@"%@.%@", tmpTimer.sRepSoundName, tmpTimer.sRepSoundExtension];
                         
-                        localNotificationRep1.alertBody = [NSString stringWithFormat:@"Start Rep %i", i+1];
+                        localNotificationRep1.alertBody = [NSString stringWithFormat:@"%@: Start Rep %i", [_tmpTimer sTimerName], i+1];
                         
                         [[UIApplication sharedApplication]scheduleLocalNotification:localNotificationRep1];
                         
@@ -425,7 +425,7 @@
                             
                             localNotificationRep1.soundName = [NSString stringWithFormat:@"Triple %@.%@", tmpTimer.sRepSoundName, tmpTimer.sRepSoundExtension];
                             
-                            localNotificationRep1.alertBody = [NSString stringWithFormat:@"%@ completed!", [_exerciseSet sSetName]];
+                            localNotificationRep1.alertBody = [NSString stringWithFormat:@"%@: Completed!", [_exerciseSet sSetName]];
                             
                             [[UIApplication sharedApplication]scheduleLocalNotification:localNotificationRep1];
                             
@@ -447,7 +447,11 @@
                         
                         localNotificationRep1.soundName = [NSString stringWithFormat:@"%@.%@", tmpTimer.sRepSoundName, tmpTimer.sRepSoundExtension];
                         
-                        localNotificationRep1.alertBody = [NSString stringWithFormat:@"Break / Transition %i", i+1];
+                        if (i == repNumCount) {
+                            localNotificationRep1.alertBody = [NSString stringWithFormat:@"%@: Break / Transition %i", [_tmpTimer sTimerName], i];
+                        } else {
+                            localNotificationRep1.alertBody = [NSString stringWithFormat:@"%@: Break / Transition %i", [_tmpTimer sTimerName], i+1];
+                        }
                         
                         [[UIApplication sharedApplication]scheduleLocalNotification:localNotificationRep1];
 
@@ -480,7 +484,13 @@
                             
                             localNotificationRep1.soundName = [NSString stringWithFormat:@"%@.%@", tmpTimer.sRepSoundName, tmpTimer.sRepSoundExtension];
                             
-                            localNotificationRep1.alertBody = [NSString stringWithFormat:@"Start Rep %i", i+1];
+                            if (i == repNumCount) {
+                                localNotificationRep1.alertBody = [NSString stringWithFormat:@"%@: Start Rep %i", [_tmpTimer sTimerName], i+1];
+                            } else {
+                                localNotificationRep1.alertBody = [NSString stringWithFormat:@"%@: Start Rep %i", [_tmpTimer sTimerName], i+2];
+                            }
+                            
+                            
                             
                             [[UIApplication sharedApplication]scheduleLocalNotification:localNotificationRep1];
                             
@@ -574,21 +584,21 @@
 - (void)UIIsBack:(double)timeInBackground {
     
     
-    NSInteger timeSpentInRep = [self timeAlreadySpentInRep];
+    NSInteger timeSpentinExerciseSet = [self timeAlreadySpentInRep];
     BOOL timerEnded = NO;
     
     //determine which timer of exercise set are we in
     
-    if (timeInBackground + timeSpentInRep >= [_tmpTimer totalLength] + _iRepLen0)  {
+    if (timeInBackground + timeSpentinExerciseSet >= [_tmpTimer totalLength] + _iRepLen0)  {
         int iTimerIndex = (int)[[_exerciseSet aExercises] indexOfObject:_tmpTimer];
         
-        NSInteger timeRemainingInLastRep = [_tmpTimer totalLength] + _iRepLen0 - timeSpentInRep;
+        NSInteger timeRemainingInLastRep = [_tmpTimer totalLength] + _iRepLen0 - timeSpentinExerciseSet;
         
         
         
         for (int i = iTimerIndex + 1; i < [[_exerciseSet aExercises] count]; i++) {
             timeInBackground -= timeRemainingInLastRep;
-            timeSpentInRep = 0;
+            timeSpentinExerciseSet = 0;
             timeRemainingInLastRep = [[[_exerciseSet aExercises] objectAtIndex:i] totalLength] + _iRepLen0;
             
             if (timeInBackground <= timeRemainingInLastRep) {
@@ -619,17 +629,20 @@
         }
     }
     
+    
+    NSInteger timeSpentInRep;
+    
+    
     //if the app has been in background for a very long time
     if (timerEnded != YES) {
-        //are we in intro rep, then easy
-        if (_iWhichTimer == 0 && timeInBackground + timeSpentInRep <= _iRepLen0) {
+        //are we in intro rep and is _counter - timeInBackground larger than or equal to zero
+        if (_iWhichTimer == 0 && _counter >= timeInBackground) {
             _counter -= timeInBackground;
             _sRepName = [NSString stringWithFormat:@"Get ready for %@ set", _tmpTimer.sTimerName];
             
         //otherwise, we need to calculate which rep we are in and which timer
         } else{
-            //which rep?
-            //if (_iWhichTimer == 0 && timeInBackground >_iRepLen0)  {
+            //which rep are we in
             if (_iWhichTimer == 0)  {
                 
                 timeInBackground -= _iRepLen0;
@@ -674,9 +687,12 @@
 
             }
             
-            
-            
-            
+            /*
+            if (_counter < 0) {
+                //  just in case some goes wrong ;-)
+                _counter = 0;
+            }
+             */
             
             //which timer?
             

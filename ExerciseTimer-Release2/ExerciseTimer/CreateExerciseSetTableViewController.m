@@ -802,6 +802,9 @@
             [tableView beginUpdates];
             [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:pickerIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             [tableView endUpdates];
+            
+            
+            
             //If picker is showing and the clicked row is not the same as before
         } else {
             _pickerIsShowing = YES;
@@ -816,8 +819,13 @@
             NSIndexPath *pickerInsertIndexPath = [NSIndexPath indexPathForRow:_pickerRow inSection:indexPath.section];
             
             [tableView beginUpdates];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:pickerInsertIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:pickerDeleteIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            
+                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:pickerDeleteIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            
+                [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:pickerInsertIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            
+            
+            
             [tableView endUpdates];
         }
         
@@ -827,6 +835,14 @@
         _lastPickerRow = _pickerRow;
         
     }
+    
+    //_clickedRow = ?
+    
+    
+    
+    NSInteger selectPickerRow = [_aPresetTimers indexOfObject:[[_exerciseSet aExercises] objectAtIndex:_clickedRow]];
+    
+    [_picker selectRow:selectPickerRow inComponent:0 animated:NO];
     
 }
 

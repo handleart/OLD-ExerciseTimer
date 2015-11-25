@@ -107,7 +107,13 @@
     
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     
-    self.navigationItem.title = @"Manual Timer";
+    if (_saveViewIsShowing) {
+        self.navigationItem.title = @"Adjust Preset Timer";
+    } else if (_addViewIsShowing) {
+        self.navigationItem.title = @"New Preset Timer";
+    } else {
+        self.navigationItem.title = @"Manual Timer";
+    }
     
     AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     _sPlaceholderValue = [NSString stringWithFormat:@"Preset Timer %lu", (long)[[app timers] count] + 1];
