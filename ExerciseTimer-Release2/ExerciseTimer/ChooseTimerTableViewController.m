@@ -141,9 +141,13 @@
         
         AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
         
+        
+        
         NSMutableArray *exercises = app.exerciseSets;
         
         aTimer *toBeDeletedTimer = [self.savedTimers objectAtIndex:indexPath.row];
+        
+        
         
         NSMutableArray *discardItems = [[NSMutableArray alloc] init];
         
@@ -170,11 +174,15 @@
         
         }
         
+        
+        
         [self.savedTimers removeObjectAtIndex:indexPath.row];
         
     
         
         [app saveTimersData];
+        
+        
         [tableView reloadData];
     }
 }

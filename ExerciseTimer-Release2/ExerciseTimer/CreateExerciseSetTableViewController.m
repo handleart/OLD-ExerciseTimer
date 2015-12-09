@@ -690,10 +690,14 @@
         _exerciseSet.sSetName = _nameTextField.text;
     }
     
+    /*
+    
     _exerciseSet.iTotalLength = 0;
     for (aTimer *obj in [_exerciseSet aExercises]) {
         _exerciseSet.iTotalLength += [obj totalLength];
     }
+     
+     */
     
     
     

@@ -130,7 +130,7 @@
     
     anExerciseSet *tmpExerciseSet1 = [[anExerciseSet alloc] init];
     tmpExerciseSet1.sSetName = @"# One";
-    tmpExerciseSet1.iTotalLength = 55;
+    //tmpExerciseSet1.iTotalLength = 55;
     
     tmpExerciseSet1.aExercises = savedTimers1;
     [self.exerciseSet addObject:tmpExerciseSet1];
@@ -143,7 +143,7 @@
     
     anExerciseSet *tmpExerciseSet2 = [[anExerciseSet alloc] init];
     tmpExerciseSet2.sSetName = @"# Two";
-    tmpExerciseSet2.iTotalLength = 60;
+    //tmpExerciseSet2.iTotalLength = 60;
     NSMutableArray *savedTimers2 = [[NSMutableArray alloc] init];
     [savedTimers2 addObject:timer2];
     [savedTimers2 addObject:timer1];
@@ -161,7 +161,7 @@
     
     anExerciseSet *tmpExerciseSet3 = [[anExerciseSet alloc] init];
     tmpExerciseSet3.sSetName = @"# Three";
-    tmpExerciseSet3.iTotalLength = 65;
+    //tmpExerciseSet3.iTotalLength = 65;
     [tmpExerciseSet3.aExercises addObject:timer1];
     [tmpExerciseSet3.aExercises addObject:timer3];
     [tmpExerciseSet3.aExercises addObject:timer2];
@@ -232,7 +232,7 @@
     
     cell.textLabel.text = tmpExerciseSet.sSetName;
     //[cell.textLabel setFont:[UIFont systemFontOfSize:20]];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Total Length: %02li:%02li", (long)(tmpExerciseSet.iTotalLength / 60), (long)(tmpExerciseSet.iTotalLength % 60)];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Total Length: %02li:%02li", (long)([tmpExerciseSet totalLength] / 60), (long)([tmpExerciseSet totalLength] % 60)];
   
     
 }

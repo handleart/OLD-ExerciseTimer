@@ -11,6 +11,8 @@
 @interface anExerciseSet : NSObject
 @property NSString *sSetName;
 @property NSMutableArray *aExercises;
-@property NSInteger iTotalLength;
+
+
+-(NSInteger)totalLength;
 
 @end

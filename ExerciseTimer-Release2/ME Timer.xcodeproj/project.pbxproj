@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9C00384E1B6040E40081C032 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C00384D1B6040E40081C032 /* Media.xcassets */; };
+		6E0B9E441C11657C006612E2 /* Buddha.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E0B9E431C11657C006612E2 /* Buddha.jpg */; };
 		9C0BB28E1B9CFF05005F7FA8 /* SetTimerNewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C0BB28D1B9CFF05005F7FA8 /* SetTimerNewTableViewController.m */; };
 		9C17AAA21B6D4D3B00CDA99C /* ViewTimerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C17AAA11B6D4D3A00CDA99C /* ViewTimerTableViewController.m */; };
 		9C1F01A41B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C1F01A31B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m */; };
@@ -46,7 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9C00384D1B6040E40081C032 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		6E0B9E431C11657C006612E2 /* Buddha.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Buddha.jpg; sourceTree = "<group>"; };
 		9C0BB28C1B9CFF05005F7FA8 /* SetTimerNewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTimerNewTableViewController.h; sourceTree = "<group>"; };
 		9C0BB28D1B9CFF05005F7FA8 /* SetTimerNewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTimerNewTableViewController.m; sourceTree = "<group>"; };
 		9C17AAA01B6D4D3A00CDA99C /* ViewTimerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewTimerTableViewController.h; sourceTree = "<group>"; };
@@ -132,6 +132,7 @@
 		9C5E74801B6EE85D00E2AAFF /* Pictures */ = {
 			isa = PBXGroup;
 			children = (
+				6E0B9E431C11657C006612E2 /* Buddha.jpg */,
 				9CE3186F1B7AAC33001F6846 /* Volume-Mute.png */,
 				9C5E747E1B6EE84C00E2AAFF /* Volume.png */,
 			);
@@ -142,7 +143,6 @@
 			isa = PBXGroup;
 			children = (
 				9C5E74781B6EA0CE00E2AAFF /* AVFoundation.framework */,
-				9C00384D1B6040E40081C032 /* Media.xcassets */,
 				9CBC2D0E1B602A7900474CD1 /* Settings.bundle */,
 				9CB5038A1B547C01006FD3B9 /* ExerciseTimer */,
 				9CB503A41B547C01006FD3B9 /* ExerciseTimerTests */,
@@ -323,9 +323,9 @@
 				9C38CBE81BC4C2EC00498E18 /* Triple Temple Bell.caf in Resources */,
 				9C5E747D1B6EAE9700E2AAFF /* Triple Whistle.aiff in Resources */,
 				9CBC2D0F1B602A7900474CD1 /* Settings.bundle in Resources */,
-				9C00384E1B6040E40081C032 /* Media.xcassets in Resources */,
 				9C5E747C1B6EAE9700E2AAFF /* Triple Temple Bell.aiff in Resources */,
 				9C4D71A91B6EEB3D00F500DD /* Temple Bell.aiff in Resources */,
+				6E0B9E441C11657C006612E2 /* Buddha.jpg in Resources */,
 				9CB503991B547C01006FD3B9 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

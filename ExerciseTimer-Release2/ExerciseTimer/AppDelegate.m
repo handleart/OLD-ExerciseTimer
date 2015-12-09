@@ -136,11 +136,11 @@
             
             tmpExerciseSet.sSetName = @"HIIT Set";
             [tmpExerciseSet.aExercises addObject:tmpTimer];
-            tmpExerciseSet.iTotalLength += [tmpTimer totalLength];
+            //tmpExerciseSet.iTotalLength += [tmpTimer totalLength];
             [tmpExerciseSet.aExercises addObject:tmpTimer2];
-            tmpExerciseSet.iTotalLength += [tmpTimer2 totalLength];
+            //tmpExerciseSet.iTotalLength += [tmpTimer2 totalLength];
             [tmpExerciseSet.aExercises addObject:tmpTimer3];
-            tmpExerciseSet.iTotalLength += [tmpTimer totalLength];
+            //tmpExerciseSet.iTotalLength += [tmpTimer totalLength];
             
             [_exerciseSets addObject:tmpExerciseSet];
             

@@ -14,6 +14,7 @@
 #import "aTimer.h"
 #import "AppDelegate.h"
 #import "CreateExerciseSetTableViewController.h"
+//#import "math.h"
 
 
 @interface ViewTimerTableViewController ()
@@ -84,8 +85,7 @@
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
-    _setCount = 0;
-    _tmpTimer = [_exerciseSet.aExercises objectAtIndex:_setCount];
+    
     _iRepLen0 = [userDefaults integerForKey:@"introLength"];;
     _iVolume = [userDefaults floatForKey:@"volume"];
     _volumeSlider.value = _iVolume;
@@ -192,7 +192,7 @@
     
     if (_backgroundSwitch == YES) {
     
-        if (_buttonPauseStart.selected == NO) {
+        if (_buttonPauseStart.selected == NO || !([_buttonPauseStart.currentTitle containsString:@"Restart"]) ) {
         
             UILocalNotification* alarm = [[UILocalNotification alloc] init];
             if (alarm)
@@ -331,7 +331,9 @@
 -(void)createNotifications:(aTimer *)tmpTimer notification1length:(NSInteger) iNotification1length notification2length:(NSInteger) iNotification2length whichTimer:(NSInteger)iWhichTimer counter:(NSInteger)counter repNumCount:(int)repNumCount totalLocalNotifications:(int)iTotalLocationNotifications
 {
     
+    
     //Create notification to Start Rep, if rep1 len = 0 don't send a notificaiton for rep1 but for rep2
+    //NSLog(@"Create Notifications");
     
     //Create notification to take a Break / Transition ... if rep2 len = 0, don't send a notification
     
@@ -341,36 +343,42 @@
         tmpTimer = [[_exerciseSet aExercises] objectAtIndex:j];
         
         if (iTotalLocationNotifications < 60) {
-        
-            for (int i = repNumCount; i <= tmpTimer.iNumReps - 1; i++) {
-                if (iWhichTimer == 0) {
-                    // create notification for start of rep
-                    // keep repNumCount the same
-                    iNotification2length += counter;
-                    
-                    if (counter > 2) {
-                    
-                        UILocalNotification *localNotificationRep1 = [[UILocalNotification alloc]init];
-                        
-                        localNotificationRep1.fireDate = [NSDate dateWithTimeIntervalSinceNow:iNotification2length];
-                        
-                        localNotificationRep1.soundName = [NSString stringWithFormat:@"%@.%@", tmpTimer.sRepSoundName, tmpTimer.sRepSoundExtension];
-                        
-                        localNotificationRep1.alertBody = [NSString stringWithFormat:@"%@: Start Rep %i", [_tmpTimer sTimerName], i+1];
-                        
-                        [[UIApplication sharedApplication]scheduleLocalNotification:localNotificationRep1];
-                        
-                        iTotalLocationNotifications += 1;
-                    }
-                    
-                    iWhichTimer = 1;
-                    counter = tmpTimer.iRepLen1;
-                    
-                    
-                   //NSLog(@"0 %li",  (long)iNotification2length);
-                }
-
+            
+            //BOOL bZeroTimer = NO;
+            
+            if (iWhichTimer == 0) {
+                // create notification for start of rep
+                // keep repNumCount the same
+                iNotification2length += counter;
                 
+                if (counter > 2) {
+                    
+                    UILocalNotification *localNotificationRep1 = [[UILocalNotification alloc]init];
+                    
+                    localNotificationRep1.fireDate = [NSDate dateWithTimeIntervalSinceNow:iNotification2length];
+                    
+                    localNotificationRep1.soundName = [NSString stringWithFormat:@"%@.%@", tmpTimer.sRepSoundName, tmpTimer.sRepSoundExtension];
+                    
+                    localNotificationRep1.alertBody = [NSString stringWithFormat:@"%@: Start Rep %i", [_tmpTimer sTimerName], 1];
+                    
+                    [[UIApplication sharedApplication]scheduleLocalNotification:localNotificationRep1];
+                    
+                    iTotalLocationNotifications += 1;
+                    
+                
+                }
+                
+                iWhichTimer = 1;
+                counter = tmpTimer.iRepLen1;
+                repNumCount = 1;
+                
+                //bZeroTimer = YES;
+                
+                //NSLog(@"0 %li",  (long)iNotification2length);
+            }
+        
+            for (int i = repNumCount; i <= tmpTimer.iNumReps; i++) {
+                //NSLog(@"%li", (long)iNotification2length);
                 
                 if (iWhichTimer == 1) {
                     // create notification for break, create notification for next set
@@ -378,35 +386,38 @@
                     
                     iNotification2length += counter;
                     
-                    if (i == tmpTimer.iNumReps - 1) {
+                    
+                    
+                   if (i == tmpTimer.iNumReps) {
                         
                         //iNotification2length += counter;
                         
                         //NSInteger currentTimerIndex = [[_exerciseSet aExercises] indexOfObject:tmpTimer];
                         
                         if (j != [[_exerciseSet aExercises] count] - 1) {
-                            
-                            
-                            
                             aTimer *tmpTimer2 = [[_exerciseSet aExercises] objectAtIndex:j + 1];
                             
-                            UILocalNotification *localNotificationRep1 = [[UILocalNotification alloc] init];
                             
-                            
-                            localNotificationRep1.fireDate = [NSDate dateWithTimeIntervalSinceNow:iNotification2length];
-                            
-                            localNotificationRep1.soundName = [NSString stringWithFormat:@"%@.%@", tmpTimer.sRepSoundName, tmpTimer.sRepSoundExtension];
-                            
-                            localNotificationRep1.alertBody = [NSString stringWithFormat:@"Get ready for %@ set", tmpTimer2.sTimerName];
-                            
-                            [[UIApplication sharedApplication]scheduleLocalNotification:localNotificationRep1];
-                            
-                            //NSLog(@"1-1 %li",  (long)iNotification2length);
-                            
-                            iTotalLocationNotifications += 1;
+                            if (counter > 2) {
+                                UILocalNotification *localNotificationRep1 = [[UILocalNotification alloc] init];
+                                
+                                
+                                localNotificationRep1.fireDate = [NSDate dateWithTimeIntervalSinceNow:iNotification2length];
+                                
+                                localNotificationRep1.soundName = [NSString stringWithFormat:@"%@.%@", tmpTimer.sRepSoundName, tmpTimer.sRepSoundExtension];
+                                
+                                localNotificationRep1.alertBody = [NSString stringWithFormat:@"Get ready for %@ set", tmpTimer2.sTimerName];
+                                
+                                [[UIApplication sharedApplication]scheduleLocalNotification:localNotificationRep1];
+                                
+                                //NSLog(@"1-1 %li",  (long)iNotification2length);
+                                
+                                iTotalLocationNotifications += 1;
+                            }
                             
                             iWhichTimer = 0;
                             counter = _iRepLen0;
+                            repNumCount = 0;
                             
                             //break;
                             
@@ -418,44 +429,50 @@
                             
                         } else {
                             
-                            UILocalNotification *localNotificationRep1 = [[UILocalNotification alloc] init];
+                            if (counter > 2) {
+                                UILocalNotification *localNotificationRep1 = [[UILocalNotification alloc] init];
+                                
+                                //iNotification2length += counter;
+                                localNotificationRep1.fireDate = [NSDate dateWithTimeIntervalSinceNow:iNotification2length];
+                                
+                                localNotificationRep1.soundName = [NSString stringWithFormat:@"Triple %@.%@", tmpTimer.sRepSoundName, tmpTimer.sRepSoundExtension];
+                                
+                                localNotificationRep1.alertBody = [NSString stringWithFormat:@"%@: Completed!", [_exerciseSet sSetName]];
+                                
+                                [[UIApplication sharedApplication]scheduleLocalNotification:localNotificationRep1];
+                                
+                                //NSLog(@"1-2 %li",  (long)iNotification2length);
+                                
+                                iTotalLocationNotifications += 1;
+                            }
                             
-                            //iNotification2length += counter;
-                            localNotificationRep1.fireDate = [NSDate dateWithTimeIntervalSinceNow:iNotification2length];
-                            
-                            localNotificationRep1.soundName = [NSString stringWithFormat:@"Triple %@.%@", tmpTimer.sRepSoundName, tmpTimer.sRepSoundExtension];
-                            
-                            localNotificationRep1.alertBody = [NSString stringWithFormat:@"%@: Completed!", [_exerciseSet sSetName]];
-                            
-                            [[UIApplication sharedApplication]scheduleLocalNotification:localNotificationRep1];
-                            
-                            //NSLog(@"1-2 %li",  (long)iNotification2length);
-                            
-                            iTotalLocationNotifications += 1;
+                            iWhichTimer = 0;
+                            counter = _iRepLen0;
                             
                         }
                     
                     } else {
                     
+                        if (counter > 2) {
                         
-                        
-                        //iNotification2length += counter;
-                        UILocalNotification *localNotificationRep1 = [[UILocalNotification alloc] init];
-                        
-                        //iNotification2length += counter;
-                        localNotificationRep1.fireDate = [NSDate dateWithTimeIntervalSinceNow:iNotification2length];
-                        
-                        localNotificationRep1.soundName = [NSString stringWithFormat:@"%@.%@", tmpTimer.sRepSoundName, tmpTimer.sRepSoundExtension];
-                        
-                        if (i == repNumCount) {
-                            localNotificationRep1.alertBody = [NSString stringWithFormat:@"%@: Break / Transition %i", [_tmpTimer sTimerName], i];
-                        } else {
-                            localNotificationRep1.alertBody = [NSString stringWithFormat:@"%@: Break / Transition %i", [_tmpTimer sTimerName], i+1];
-                        }
-                        
-                        [[UIApplication sharedApplication]scheduleLocalNotification:localNotificationRep1];
+                            //iNotification2length += counter;
+                            UILocalNotification *localNotificationRep1 = [[UILocalNotification alloc] init];
+                            
+                            //iNotification2length += counter;
+                            localNotificationRep1.fireDate = [NSDate dateWithTimeIntervalSinceNow:iNotification2length];
+                            
+                            localNotificationRep1.soundName = [NSString stringWithFormat:@"%@.%@", tmpTimer.sRepSoundName, tmpTimer.sRepSoundExtension];
+                            
+                            //if (i == repNumCount) {
+                                localNotificationRep1.alertBody = [NSString stringWithFormat:@"%@: Break / Transition %i", [_tmpTimer sTimerName], i];
+                            //} else {
+                            //    localNotificationRep1.alertBody = [NSString stringWithFormat:@"%@: Break / Transition %i", [_tmpTimer sTimerName], i+1];
+                            //}
+                            
+                            [[UIApplication sharedApplication]scheduleLocalNotification:localNotificationRep1];
 
-                        iTotalLocationNotifications += 1;
+                            iTotalLocationNotifications += 1;
+                        }
                         
                         iWhichTimer = 2;
                         counter = tmpTimer.iRepLen2;
@@ -466,9 +483,9 @@
                 }
                 
                
-
+                //NSLog(@"%li", (long)iNotification2length);
                 
-                if (iWhichTimer == 2 && i != tmpTimer.iNumReps - 1) {
+                if (iWhichTimer == 2 && i != tmpTimer.iNumReps) {
                     
                     iNotification2length += counter;
                     
@@ -487,7 +504,7 @@
                             if (i == repNumCount) {
                                 localNotificationRep1.alertBody = [NSString stringWithFormat:@"%@: Start Rep %i", [_tmpTimer sTimerName], i+1];
                             } else {
-                                localNotificationRep1.alertBody = [NSString stringWithFormat:@"%@: Start Rep %i", [_tmpTimer sTimerName], i+2];
+                               localNotificationRep1.alertBody = [NSString stringWithFormat:@"%@: Start Rep %i", [_tmpTimer sTimerName], i+1];
                             }
                             
                             
@@ -517,7 +534,7 @@
             
             UILocalNotification *localNotificationRep1 = [[UILocalNotification alloc] init];
             
-            iNotification2length += counter;
+            //iNotification2length += counter;
             localNotificationRep1.fireDate = [NSDate dateWithTimeIntervalSinceNow:iNotification2length];
             
             localNotificationRep1.soundName = [NSString stringWithFormat:@"Triple %@.%@", tmpTimer.sRepSoundName, tmpTimer.sRepSoundExtension];
@@ -531,6 +548,8 @@
         }
     
     }
+    
+    
 }
 
 /*
@@ -564,7 +583,7 @@
     
     _bInBackground = NO;
     
-    if (_buttonPauseStart.selected == NO) {
+    if (_buttonPauseStart.selected == NO && !([_buttonPauseStart.currentTitle containsString:@"Restart"])) {
         
         //[self UIIsBack:[_now timeIntervalSinceDate:[NSDate date]]];
         if (_backgroundSwitch == YES) {
@@ -595,112 +614,88 @@
         NSInteger timeRemainingInLastRep = [_tmpTimer totalLength] + _iRepLen0 - timeSpentinExerciseSet;
         
         
-        
-        for (int i = iTimerIndex + 1; i < [[_exerciseSet aExercises] count]; i++) {
-            timeInBackground -= timeRemainingInLastRep;
-            timeSpentinExerciseSet = 0;
-            timeRemainingInLastRep = [[[_exerciseSet aExercises] objectAtIndex:i] totalLength] + _iRepLen0;
+        if (iTimerIndex + 1 >= [[_exerciseSet aExercises] count]) {
+            timerEnded = YES;
+            _repNumCount = (int)_tmpTimer.iNumReps;
+            _sRepName = [NSString stringWithFormat:@"Rep %d",_repNumCount];
+            _iWhichTimer = 1;
+            _counter = 0;
+            _setCount = iTimerIndex;
+            _doPlaySound = NO;
+            self.navigationItem.title = _tmpTimer.sTimerName;
+            //[self.buttonPauseStart setTitle:@"Restart" forState:UIControlStateNormal];
             
-            if (timeInBackground <= timeRemainingInLastRep) {
-                _iWhichTimer = 0;
-                _counter = _iRepLen0;
-                _tmpTimer = [[_exerciseSet aExercises] objectAtIndex:i];
-                if (_tmpTimer.sTimerName != nil) {
-                    self.navigationItem.title = _tmpTimer.sTimerName;
+        } else {
+            for (int i = iTimerIndex + 1; i < [[_exerciseSet aExercises] count]; i++) {
+                timeInBackground -= timeRemainingInLastRep;
+                timeSpentinExerciseSet = 0;
+                timeRemainingInLastRep = [[[_exerciseSet aExercises] objectAtIndex:i] totalLength] + _iRepLen0;
+                
+                if (timeInBackground <= timeRemainingInLastRep) {
+                    _iWhichTimer = 0;
+                    _counter = _iRepLen0;
+                    _tmpTimer = [[_exerciseSet aExercises] objectAtIndex:i];
+                    if (_tmpTimer.sTimerName != nil) {
+                        self.navigationItem.title = _tmpTimer.sTimerName;
+                    }
+                    
+                    _setCount = i;
+                    
+                    break;
                 }
                 
-                break;
-            }
-            
-            
-            if (i == [[_exerciseSet aExercises] count] -1) {
-                timerEnded = YES;
-                _tmpTimer = [[_exerciseSet aExercises] objectAtIndex:i];
-                _repNumCount = (int)_tmpTimer.iNumReps;
-                _sRepName = [NSString stringWithFormat:@"Rep %d",_repNumCount];
-                _iWhichTimer = 1;
-                _counter = 0;
-                _setCount = i;
-                _doPlaySound = NO;
-                self.navigationItem.title = _tmpTimer.sTimerName;
                 
-            }
-            
-        }
-    }
-    
-    
-    NSInteger timeSpentInRep;
-    
-    
-    //if the app has been in background for a very long time
-    if (timerEnded != YES) {
-        //are we in intro rep and is _counter - timeInBackground larger than or equal to zero
-        if (_iWhichTimer == 0 && _counter >= timeInBackground) {
-            _counter -= timeInBackground;
-            _sRepName = [NSString stringWithFormat:@"Get ready for %@ set", _tmpTimer.sTimerName];
-            
-        //otherwise, we need to calculate which rep we are in and which timer
-        } else{
-            //which rep are we in
-            if (_iWhichTimer == 0)  {
                 
-                timeInBackground -= _iRepLen0;
-                _repNumCount += 1 + (int)((int)timeInBackground / (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
-            
-                timeSpentInRep = 0;
-            
-            } else if (_iWhichTimer == 1) {
-                _repNumCount += (int)((int)timeInBackground / (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
-                timeSpentInRep = _tmpTimer.iRepLen1 - _counter;
-            } else {
-                _repNumCount += (int)((int)timeInBackground / (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
-                timeSpentInRep = _tmpTimer.iRepLen2 - _counter;
-            }
-             
-            
-                
-            //NSInteger modulustimeInBackground = (int)((int)timeInBackground % (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
-            
-            NSInteger modulustimeInBackground;
-            
-            if (_repNumCount <= _tmpTimer.iNumReps) {
-                modulustimeInBackground = (int)((int)timeInBackground % (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
-                if (modulustimeInBackground < _tmpTimer.iRepLen1) {
+                if (i == [[_exerciseSet aExercises] count] -1) {
+                    timerEnded = YES;
+                    _tmpTimer = [[_exerciseSet aExercises] objectAtIndex:i];
+                    _repNumCount = (int)_tmpTimer.iNumReps;
                     _sRepName = [NSString stringWithFormat:@"Rep %d",_repNumCount];
                     _iWhichTimer = 1;
-                    _counter = _tmpTimer.iRepLen1 - modulustimeInBackground - timeSpentInRep;
-                } else {
-                    _sRepName = [NSString stringWithFormat:@"Transition / Break %d",_repNumCount];
-                    _iWhichTimer = 2;
-                    _counter = _tmpTimer.iRepLen1 + _tmpTimer.iRepLen2 - modulustimeInBackground - timeSpentInRep;
+                    _counter = 0;
+                    _setCount = i;
+                    _doPlaySound = NO;
+                    self.navigationItem.title = _tmpTimer.sTimerName;
+                    //[self.buttonPauseStart setTitle:@"Restart" forState:UIControlStateNormal];
+                    
                 }
-                
-            //did timer end?
-            } else {
-                _repNumCount = (int)_tmpTimer.iNumReps;
-                _sRepName = [NSString stringWithFormat:@"Rep %d",_repNumCount];
-                _iWhichTimer = 1;
-                _counter = 0;
-                _doPlaySound = NO;
-                self.navigationItem.title = _tmpTimer.sTimerName;
-
             }
-            
-            /*
-            if (_counter < 0) {
-                //  just in case some goes wrong ;-)
-                _counter = 0;
-            }
-             */
-            
-            //which timer?
             
         }
-        
     }
     
+    if (timerEnded != YES) {
     
+        NSInteger timeNowSpent = timeSpentinExerciseSet + timeInBackground;
+        
+        if (timeNowSpent <= _iRepLen0) {
+            
+            _iWhichTimer = 0;
+            _counter = timeNowSpent;
+            _sRepName = [NSString stringWithFormat:@"Get ready for %@ set", _tmpTimer.sTimerName];
+            _repNumCount = 0;
+        } else {
+            timeNowSpent -= _iRepLen0;
+            
+            _repNumCount = 1 + (int) (timeNowSpent / (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
+            
+            //rounding -- this should be fine since timeNowSpent >= 0
+            
+            _counter = (int)((int)(timeNowSpent + 0.5) / (_tmpTimer.iRepLen1 + _tmpTimer.iRepLen2));
+            
+            if (_counter <= _tmpTimer.iRepLen1) {
+                _iWhichTimer = 1;
+                _sRepName = [NSString stringWithFormat:@"Rep %d",_repNumCount];
+            } else {
+                _counter -= _tmpTimer.iRepLen1;
+                _iWhichTimer = 2;
+                 _sRepName = [NSString stringWithFormat:@"Transition / Break %d",_repNumCount];
+            }
+            
+        }
+    }
+    
+
 }
 
 
@@ -708,11 +703,7 @@
 #pragma mark - Utilities
 
 - (void)updateScreen{
-    
     if (_bInBackground == NO) {
-        
-    
-    
         int minutes, seconds;
         
         //minutes = seconds = 0;
@@ -727,13 +718,12 @@
 
 - (void)setUpInitialState {
     [self configureButtons];
-    [self prepareToPlayASound:_tmpTimer.sRepSoundName fileExtension:_tmpTimer.sRepSoundExtension];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     _now = (NSDate *)[userDefaults objectForKey:@"ViewTimerPage_now"];
     
-    
+    _doPlaySound = YES;
     
     
 
@@ -761,6 +751,9 @@
         _buttonPauseStart.selected = (bool)[userDefaults boolForKey:@"ViewTimerPage__buttonPauseStartState"];
         
         _tmpTimer = [[_exerciseSet aExercises] objectAtIndex:_setCount];
+        
+        [self prepareToPlayASound:_tmpTimer.sRepSoundName fileExtension:_tmpTimer.sRepSoundExtension];
+        
         
         
         if (_backgroundSwitch == YES) {
@@ -795,19 +788,28 @@
         
     
     } else {
-    
+        //if (!_timer) {
+        //    [_timer invalidate];
+        //}
+        
         _counter = _iRepLen0;
         _repNumCount = 0;
+        _setCount = 0;
+        _tmpTimer = [[_exerciseSet aExercises] objectAtIndex:_setCount];
+        
+        [self prepareToPlayASound:_tmpTimer.sRepSoundName fileExtension:_tmpTimer.sRepSoundExtension];
+        
+        
         if (_tmpTimer.sTimerName != nil) {
             self.navigationItem.title = _tmpTimer.sTimerName;
         }
         
         //_sRepName = [NSString stringWithFormat:@"Get Ready!",_repNumCount];
         _sRepName = [NSString stringWithFormat:@"Get ready for %@ set", _tmpTimer.sTimerName];
+        
         //_sRepName = [NSString stringWithFormat:@"Prep Counter"];
         _iWhichTimer = 0;
         
-
         [self updateScreen];
         
         if (_iWhichTimer != 0 && _now == nil) {
@@ -852,6 +854,7 @@
 }
 
 -(void)playEndSound {
+    
     NSString *sEndSoundName = [NSString stringWithFormat:@"Triple %@", _tmpTimer.sRepSoundName];
     NSString *sEndSoundExtension = _tmpTimer.sRepSoundExtension;
     [self prepareToPlayASound:sEndSoundName fileExtension:sEndSoundExtension];
@@ -859,11 +862,18 @@
 }
 
 - (void)prepareToPlayASound:(NSString *)filename fileExtension:(NSString *)ext {
+    
+    
+    
     NSString *audioFilePath = [[NSBundle mainBundle] pathForResource:filename ofType:ext];
+    
     NSURL *pathAsURL = [[NSURL alloc] initFileURLWithPath:audioFilePath];
     NSError *error;
     
+    
     _player = [[AVAudioPlayer alloc] initWithContentsOfURL:pathAsURL error:&error];
+         
+    
     
     if (error) {
         //NSLog(@"%@", [error localizedDescription]);
@@ -887,7 +897,9 @@
     //    [app endBackgroundTask:bgTask];
     //}];
     
-    
+    if (!_timer) {
+        [_timer invalidate];
+    }
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.00 target:self selector:@selector(countDown:) userInfo:nil repeats:YES];
 }
@@ -941,6 +953,12 @@
                 _tmpTimer = [_exerciseSet.aExercises objectAtIndex:_setCount];
                 
                 _sRepName = [NSString stringWithFormat:@"Next up - %@ set", _tmpTimer.sTimerName];
+                
+            
+                [self prepareToPlayASound:_tmpTimer.sRepSoundName fileExtension:_tmpTimer.sRepSoundExtension];
+                
+                self.navigationItem.title = _tmpTimer.sTimerName;
+                
                 _repNumCount = 0;
                 _iWhichTimer = 0;
                 _counter = _iRepLen0;
@@ -953,7 +971,10 @@
                 [self countDownTimer];
                 
             } else {
+                
+                
                 [self.buttonPauseStart setTitle:@"Restart" forState:UIControlStateNormal];
+                
                 if (_doPlaySound == YES) {
                     [self playEndSound];
                 } else {
@@ -1009,6 +1030,8 @@
         if ([button.currentTitle containsString:@"Restart"]) {
             
             [self clearLocalUserDefaults];
+            
+            //_tmpTimer = [[_exerciseSet aExercises] objectAtIndex:0];
             
             [self setUpInitialState];
         } else {
