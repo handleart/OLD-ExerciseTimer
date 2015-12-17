@@ -592,7 +592,10 @@
     //NSLog(@"%li", (long)[[_exerciseSet aExercises] count]);
     
     if (timeInBackground + timeSpentinExerciseSet >= [_tmpTimer totalLength] + _iRepLen0)  {
-        int iTimerIndex = (int)[[_exerciseSet aExercises] indexOfObject:_tmpTimer];
+        //int iTimerIndex = (int)[[_exerciseSet aExercises] indexOfObject:_tmpTimer];
+        
+        int iTimerIndex = (int)[[_exerciseSet aExercises] indexOfObject:_tmpTimer inRange:NSMakeRange(_setCount+1,[[_exerciseSet aExercises] count] - 1)];
+        
         
         NSInteger timeRemainingInLastRep = [_tmpTimer totalLength] + _iRepLen0 - timeSpentinExerciseSet;
         
