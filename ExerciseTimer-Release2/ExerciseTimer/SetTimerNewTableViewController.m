@@ -80,19 +80,32 @@
     
     self.navigationController.navigationBar.translucent = NO;
     
+   
+    
     if (_saveViewIsShowing == NO && _addViewIsShowing == NO) {
         self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+        self.navigationItem.leftBarButtonItem.enabled = NO;
+        
     } else if (_addViewIsShowing == YES) {
-        self.navigationItem.rightBarButtonItem.tintColor = [UIColor blueColor];
-        self.navigationItem.rightBarButtonItem.enabled = NO;
-    } else if (_tmpTimer != nil) {
+        self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+        self.navigationItem.rightBarButtonItem = nil;
+        
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:(66/255.0) green:(94/255.0) blue:(157/255.0) alpha:1];
+        
+        
+        
+    } else if (_tmpTimer != nil && _saveViewIsShowing == YES) {
         self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+        self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     } else {
-        self.navigationItem.rightBarButtonItem.enabled = NO;
+        //self.navigationItem.rightBarButtonItem.enabled = NO;
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+        self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     }
     
     
     
+    /*
     if (_saveViewIsShowing == NO && _addViewIsShowing == NO) {
         
         self.navigationItem.leftBarButtonItem.tintColor = [UIColor blueColor];
@@ -102,6 +115,7 @@
         self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
         //NSLog(@"white color");
     }
+    */
 
     
     
@@ -299,7 +313,7 @@
         [[app timers] addObject:_tmpTimer];
         [_playButton setEnabled:YES];
         [_playButton setTintColor:nil];
-        if (_saveViewIsShowing) {
+        if (_saveViewIsShowing == YES) {
             self.navigationItem.rightBarButtonItem.enabled = YES;
             self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
         }
@@ -375,7 +389,7 @@
     for (i = 0; i <= 59; i++) {
         NSString *x = [NSString stringWithFormat:@"%d", i];
         
-        if (i < 10)
+        if (i < 60)
             [minTmp addObject:x];
         
         if (i % 5 == 0) {

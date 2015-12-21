@@ -43,44 +43,8 @@
 @implementation CreateExerciseSetTableViewController
 
 
-- (IBAction)backButtonPressed:(id)sender {
-    
-    
-    //[self performSegueWithIdentifier:@"unwindToChooseExerciseSet" sender:self];
-    
-    UITabBarController *tvc = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarViewPage"];
-
-    tvc.selectedIndex = 2;
-    
-    //CreateExerciseSetTableViewController *lvc =[[nc viewControllers] objectAtIndex:0];
-    
-    
-    
-    
-    
-    
-    UIStoryboardSegue *segue =
-    [UIStoryboardSegue segueWithIdentifier:@"TabBarViewPage1"
-                                    source:self
-                               destination:tvc
-                            performHandler:^{
-                                [self.navigationController presentViewController:tvc animated:NO completion: nil];
-                                
-                                // transition code that would
-                                // normally go in the perform method
-                            }];
-    
-    [self prepareForSegue:segue sender:self];
-    
-    [segue perform];
-     
-    
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-
     
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     
@@ -114,12 +78,12 @@
     if (self.exerciseSet == nil) {
         self.exerciseSet = [[anExerciseSet alloc] init];
         
-        if (_aPresetTimers == nil || [_aPresetTimers count] == 0) {
-             self.navigationItem.rightBarButtonItem.tintColor = [UIColor blueColor];
-            self.navigationItem.rightBarButtonItem.enabled = NO;
-        }
+        //if (_aPresetTimers == nil || [_aPresetTimers count] == 0) {
+        //     self.navigationItem.rightBarButtonItem.tintColor = [UIColor blueColor];
+        //    self.navigationItem.rightBarButtonItem.enabled = NO;
+        //}
         
-        [self addRow];
+        
     } else {
         _pickerRow = [_exerciseSet.aExercises count];
         _pickerIsShowing = NO;
@@ -129,6 +93,10 @@
     
     _picker = [[UIPickerView alloc] init];
     _picker.translatesAutoresizingMaskIntoConstraints = NO;
+    [_picker setDelegate:self];
+    
+    [self validateTimer];
+    
     
 }
 
@@ -147,9 +115,9 @@
  
 }
 
+
+/*
 - (void)addRow {
-    
-    
 //    NSMutableArray *savedTimers1 = [[NSMutableArray alloc] init];
 //    //
 //    if (_exerciseSet.aExercises != nil) {
@@ -163,6 +131,7 @@
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
+        [self validateTimer];
         
         [alert show];
         [self performSegueWithIdentifier:@"CreateCustomPresetTimer" sender:self];
@@ -179,6 +148,20 @@
     
     
 }
+*/
+
+//Check if play button should be enabled or not
+- (void)validateTimer {
+    if (_exerciseSet == nil || [[_exerciseSet aExercises] count] == 0 || [_exerciseSet aExercises] == nil) {
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+        _pickerIsShowing = NO;
+    } else {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    }
+    
+    
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     //[textField setBackgroundColor:[UIColor blueColor]];
@@ -236,7 +219,26 @@
 }
 
 - (IBAction)addPresetTimerPressed:(id)sender {
-    [self addRow];
+    if ([self.aPresetTimers count] == 0 || self.aPresetTimers == nil) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert"
+                                                        message:@"Please create a preset timer first."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [self validateTimer];
+        
+        [alert show];
+        [self performSegueWithIdentifier:@"CreateCustomPresetTimer" sender:self];
+    } else {
+        aTimer *timer1 = [self.aPresetTimers objectAtIndex:_selectedPickerRow];
+        
+        //_exerciseSet.iTotalLength = _exerciseSet.iTotalLength + [timer1 totalLength];
+        
+        //_exerciseSet.aExercises = savedTimers1;
+        [_exerciseSet.aExercises addObject:timer1];
+        _pickerRow = [_exerciseSet.aExercises count];
+        
+    }
     
     /*
     [UIView animateWithDuration:0.1f
@@ -259,14 +261,18 @@
 
     
      */
-     
-    UITableView *tableView = self.tableView;
+
+    
     _clickedRow = [[self.exerciseSet aExercises] count] - 1;
     _pickerRow = _clickedRow + 1;
     
     _pickerIsShowing = YES;
-    [tableView reloadData];
+    
     _lastPickerRow = _pickerRow;
+    
+    [self validateTimer];
+    
+    [self.tableView reloadData];
 
 }
 
@@ -741,7 +747,7 @@
     
         if (indexPath.row == _pickerRow && _pickerIsShowing == YES) {
 
-            [_picker setDelegate:self];
+            //[_picker setDelegate:self];
             [cell addSubview:_picker];
             
             //center x
@@ -769,6 +775,7 @@
             
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%02li:%02li", (long)(tmpTimer.totalLength / 60), (long)(tmpTimer.totalLength % 60)];
         } else {
+            
             aTimer *tmpTimer = [self.exerciseSet.aExercises objectAtIndex:indexPath.row];
             
             cell.textLabel.text = tmpTimer.sTimerName;
@@ -863,8 +870,17 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         if (indexPath.section == timerSectionIndex && indexPath.row != _pickerRow && [_exerciseSet.aExercises count] > 1) {
     
-        
-            [self.exerciseSet.aExercises removeObjectAtIndex:indexPath.row];
+            //NSLog(@"%li", (long)indexPath.row);
+            
+            NSInteger deleteRow = indexPath.row;
+            
+            
+            if (_pickerIsShowing && indexPath.row >= _pickerRow) {
+                //Need to subtract by one since the row selected would be off by one since there would be a picker in between
+                deleteRow -= 1;
+            }
+            
+            [self.exerciseSet.aExercises removeObjectAtIndex:deleteRow];
             _pickerRow = [_exerciseSet.aExercises count];
             _pickerIsShowing = NO;
             [tableView reloadData];
@@ -966,25 +982,82 @@
     //only reload if a new timer is created on the subsequent page
     if ([source isKindOfClass:[SetTimerNewTableViewController class]]) {
         if (source.tmpTimer != nil) {
+            
             [_exerciseSet.aExercises addObject:source.tmpTimer];
             _clickedRow = [[self.exerciseSet aExercises] count] - 1;
-            _pickerRow = _clickedRow + 1;
-            _pickerSection = 2;
-            _lastPickerRow = -1;
-            _pickerIsShowing = YES;
-            AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
             
-            [_picker reloadAllComponents];
-            if (app.timers == nil) {
-                [_picker selectRow:0 inComponent:0 animated:NO];
-            } else {
-                [_picker selectRow:(long)[app.timers count] - 1 inComponent:0 animated:NO];
-            }
+            _pickerRow = _clickedRow + 1;
+            _lastPickerRow = _pickerRow;
+            _pickerSection = 2;
+            _selectedPickerRow = _pickerRow;
+            
+            _pickerIsShowing = YES;
+            //AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+            
+            
+            
+            [self validateTimer];
+            
             
             [self.tableView reloadData];
+            [_picker reloadAllComponents];
+            
+            if (_aPresetTimers == nil) {
+                [_picker selectRow:0 inComponent:0 animated:NO];
+            } else {
+                _selectedPickerRow = (long)[_aPresetTimers count] - 1;
+                [_picker selectRow:_selectedPickerRow inComponent:0 animated:NO];
+                
+            }
+            //NSLog(@"%li", (long)tmpor);
+            
+            //NSLog(@"%li", (long)[app.timers count] - 1);
+            
+            
+            
+            
 
         }
     }
+    
+    
+    
+    
+    
+}
+
+- (IBAction)backButtonPressed:(id)sender {
+    
+    
+    //[self performSegueWithIdentifier:@"unwindToChooseExerciseSet" sender:self];
+    
+    UITabBarController *tvc = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarViewPage"];
+    
+    tvc.selectedIndex = 2;
+    
+    //CreateExerciseSetTableViewController *lvc =[[nc viewControllers] objectAtIndex:0];
+    
+    
+    
+    
+    
+    
+    UIStoryboardSegue *segue =
+    [UIStoryboardSegue segueWithIdentifier:@"TabBarViewPage1"
+                                    source:self
+                               destination:tvc
+                            performHandler:^{
+                                [self.navigationController presentViewController:tvc animated:NO completion: nil];
+                                
+                                // transition code that would
+                                // normally go in the perform method
+                            }];
+    
+    [self prepareForSegue:segue sender:self];
+    
+    [segue perform];
+    
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

@@ -342,7 +342,8 @@
     
     //Create notification to take a Break / Transition ... if rep2 len = 0, don't send a notification
     
-    int iTimerIndex = (int)[[_exerciseSet aExercises] indexOfObject:_tmpTimer];
+    //int iTimerIndex = (int)[[_exerciseSet aExercises] indexOfObject:_tmpTimer];
+    int iTimerIndex = _setCount;
     
     for (int j = iTimerIndex; j < [[_exerciseSet aExercises] count]; j++) {
         tmpTimer = [[_exerciseSet aExercises] objectAtIndex:j];
@@ -592,10 +593,8 @@
     //NSLog(@"%li", (long)[[_exerciseSet aExercises] count]);
     
     if (timeInBackground + timeSpentinExerciseSet >= [_tmpTimer totalLength] + _iRepLen0)  {
-        //int iTimerIndex = (int)[[_exerciseSet aExercises] indexOfObject:_tmpTimer];
-        
-        int iTimerIndex = (int)[[_exerciseSet aExercises] indexOfObject:_tmpTimer inRange:NSMakeRange(_setCount+1,[[_exerciseSet aExercises] count] - 1)];
-        
+        //set the starting index to +1 of the index before we went into background
+        int iTimerIndex = _setCount;
         
         NSInteger timeRemainingInLastRep = [_tmpTimer totalLength] + _iRepLen0 - timeSpentinExerciseSet;
         
@@ -607,6 +606,7 @@
             
         } else {
             for (int i = iTimerIndex + 1; i < [[_exerciseSet aExercises] count]; i++) {
+                
                 timeInBackground -= timeRemainingInLastRep;
                 timeSpentinExerciseSet = 0;
                 timeRemainingInLastRep = [[[_exerciseSet aExercises] objectAtIndex:i] totalLength] + _iRepLen0;
@@ -628,7 +628,7 @@
                 
                 if (i == [[_exerciseSet aExercises] count] -1) {
                     _bTimerEnded = YES;
-                    
+                    _tmpTimer = [[_exerciseSet aExercises] objectAtIndex:i];
                     
                 }
             }
@@ -650,7 +650,8 @@
             
             _iWhichTimer = 0;
             _counter = _iRepLen0 - timeNowSpent;
-            _sRepName = [NSString stringWithFormat:@"Get ready for %@ set", _tmpTimer.sTimerName];
+            //_sRepName = [NSString stringWithFormat:@"Get ready for %@ set", _tmpTimer.sTimerName];
+            _sRepName = [NSString stringWithFormat:@"Intro: Get ready!"];
             _repNumCount = 0;
         } else {
             
@@ -683,7 +684,7 @@
         _sRepName = [NSString stringWithFormat:@"Rep %d",_repNumCount];
         _iWhichTimer = 1;
         _counter = 0;
-        _setCount = (int)[[_exerciseSet aExercises] indexOfObject:_tmpTimer];
+        _setCount = (int)[[_exerciseSet aExercises] count] - 1;
 ;
         _doPlaySound = NO;
         self.navigationItem.title = _tmpTimer.sTimerName;
@@ -781,7 +782,8 @@
             [self.timer invalidate];
             // need to fix this. I name sRepName in too many palces
             if (_iWhichTimer == 0) {
-                _sRepName = [NSString stringWithFormat:@"Get ready for %@ set", _tmpTimer.sTimerName];
+               // _sRepName = [NSString stringWithFormat:@"Get ready for %@ set", _tmpTimer.sTimerName];
+                _sRepName = [NSString stringWithFormat:@"Get ready!"];
             } else if (_iWhichTimer == 1) {
                 _sRepName = [NSString stringWithFormat:@"Rep %d",_repNumCount];
            
@@ -811,7 +813,8 @@
         }
         
         //_sRepName = [NSString stringWithFormat:@"Get Ready!",_repNumCount];
-        _sRepName = [NSString stringWithFormat:@"Get ready for %@ set", _tmpTimer.sTimerName];
+        //_sRepName = [NSString stringWithFormat:@"Get ready for %@ set", _tmpTimer.sTimerName];
+        _sRepName = [NSString stringWithFormat:@"Get ready!"];
         
         //_sRepName = [NSString stringWithFormat:@"Prep Counter"];
         _iWhichTimer = 0;
@@ -960,8 +963,9 @@
                     
                     _tmpTimer = [_exerciseSet.aExercises objectAtIndex:_setCount];
                     
-                    _sRepName = [NSString stringWithFormat:@"Next up - %@ set", _tmpTimer.sTimerName];
+                    //_sRepName = [NSString stringWithFormat:@"Next up - %@ set", _tmpTimer.sTimerName];
                     
+                    _sRepName = [NSString stringWithFormat:@"Get ready!"];
                 
                     [self prepareToPlayASound:_tmpTimer.sRepSoundName fileExtension:_tmpTimer.sRepSoundExtension];
                     

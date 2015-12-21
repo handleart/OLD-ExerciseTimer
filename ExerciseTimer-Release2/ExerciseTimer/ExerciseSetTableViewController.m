@@ -33,6 +33,8 @@
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     
+    
+    
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
      
      
@@ -45,6 +47,7 @@
 
 
     self.exerciseSet = app.exerciseSets;
+
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataNeedsReload) name:@"reloadData" object:nil];
     
@@ -69,6 +72,7 @@
     
 }
 
+#pragma mark - helpers
 
 
 
