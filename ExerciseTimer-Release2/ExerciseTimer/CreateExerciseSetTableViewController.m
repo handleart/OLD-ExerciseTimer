@@ -230,13 +230,24 @@
         [alert show];
         [self performSegueWithIdentifier:@"CreateCustomPresetTimer" sender:self];
     } else {
-        aTimer *timer1 = [self.aPresetTimers objectAtIndex:_selectedPickerRow];
         
-        //_exerciseSet.iTotalLength = _exerciseSet.iTotalLength + [timer1 totalLength];
         
-        //_exerciseSet.aExercises = savedTimers1;
-        [_exerciseSet.aExercises addObject:timer1];
-        _pickerRow = [_exerciseSet.aExercises count];
+        //if ([self.aPresetTimers objectAtIndex:_selectedPickerRow]) {
+
+            aTimer *timer1 = [self.aPresetTimers objectAtIndex:_selectedPickerRow];
+            [_exerciseSet.aExercises addObject:timer1];
+            
+            _clickedRow = [[self.exerciseSet aExercises] count] - 1;
+            _pickerRow = _clickedRow + 1;
+            
+            _pickerIsShowing = YES;
+            
+            _lastPickerRow = _pickerRow;
+            
+            [self validateTimer];
+            
+            [self.tableView reloadData];
+        //}
         
     }
     
@@ -263,16 +274,7 @@
      */
 
     
-    _clickedRow = [[self.exerciseSet aExercises] count] - 1;
-    _pickerRow = _clickedRow + 1;
-    
-    _pickerIsShowing = YES;
-    
-    _lastPickerRow = _pickerRow;
-    
-    [self validateTimer];
-    
-    [self.tableView reloadData];
+
 
 }
 
