@@ -103,6 +103,9 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    //[self validateTimer];
+    
+    /*
     if (_aPresetTimers == nil || [_aPresetTimers count] == 0) {
         self.navigationItem.rightBarButtonItem.tintColor = [UIColor blueColor];
         self.navigationItem.rightBarButtonItem.enabled = NO;
@@ -112,6 +115,7 @@
         self.navigationItem.rightBarButtonItem.enabled = YES;
 
     }
+     */
  
 }
 
@@ -152,11 +156,13 @@
 
 //Check if play button should be enabled or not
 - (void)validateTimer {
+    
     if (_exerciseSet == nil || [[_exerciseSet aExercises] count] == 0 || [_exerciseSet aExercises] == nil) {
         self.navigationItem.rightBarButtonItem.enabled = NO;
         _pickerIsShowing = NO;
     } else {
         self.navigationItem.rightBarButtonItem.enabled = YES;
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
     }
     
     
