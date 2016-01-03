@@ -16,7 +16,7 @@
 		9C38CBE81BC4C2EC00498E18 /* Triple Temple Bell.caf in Resources */ = {isa = PBXBuildFile; fileRef = 9C38CBE71BC4C2EC00498E18 /* Triple Temple Bell.caf */; };
 		9C4D71A91B6EEB3D00F500DD /* Temple Bell.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C4D71A81B6EEB3D00F500DD /* Temple Bell.aiff */; };
 		9C5E74721B6DA8C400E2AAFF /* Whistle.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C5E74711B6DA8C400E2AAFF /* Whistle.aiff */; };
-		9C5E74791B6EA0CE00E2AAFF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C5E74781B6EA0CE00E2AAFF /* AVFoundation.framework */; };
+		9C5E74791B6EA0CE00E2AAFF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C5E74781B6EA0CE00E2AAFF /* AVFoundation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		9C5E747C1B6EAE9700E2AAFF /* Triple Temple Bell.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C5E747A1B6EAE9700E2AAFF /* Triple Temple Bell.aiff */; };
 		9C5E747D1B6EAE9700E2AAFF /* Triple Whistle.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C5E747B1B6EAE9700E2AAFF /* Triple Whistle.aiff */; };
 		9C5E747F1B6EE84C00E2AAFF /* Volume.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C5E747E1B6EE84C00E2AAFF /* Volume.png */; };

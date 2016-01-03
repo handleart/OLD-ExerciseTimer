@@ -791,11 +791,22 @@
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%02li:%02li", (long)(tmpTimer.totalLength / 60), (long)(tmpTimer.totalLength % 60)];
         }
     } else if (indexPath.section == editSectionIndex) {
+        
+        //[[cell contentView] setBackgroundColor:[UIColor clearColor]];
+        //[[cell backgroundView] setBackgroundColor:[UIColor clearColor]];
+        //[tableView setSeparatorColor:[UIColor clearColor]];
+        //self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
         //[cell setBackgroundColor:[UIColor clearColor]];
+        //[[cell layer] setBorderColor:[UIColor redColor].CGColor];
+        //[[cell layer] setBorderWidth:0];
         //cell.separatorInset = UIEdgeInsetsMake(0.f, cell.bounds.size.width, 0.f, 0.f);
     } else if (indexPath.section == addTimerSectionIndex) {
         //[cell setBackgroundColor:[UIColor clearColor]];
         //cell.separatorInset = UIEdgeInsetsMake(0.f, cell.bounds.size.width, 0.f, 0.f);
+        //[cell setBackgroundColor:[UIColor clearColor]];
+        
+    } else if (indexPath.section == saveSectionIndex) {
+        //[cell setBackgroundColor:[UIColor clearColor]];
     }
 
 
@@ -853,15 +864,17 @@
          
         _lastPickerRow = _pickerRow;
         
+        NSInteger selectPickerRow = [_aPresetTimers indexOfObject:[[_exerciseSet aExercises] objectAtIndex:_clickedRow]];
+        
+        [_picker selectRow:selectPickerRow inComponent:0 animated:NO];
+        
     }
     
     //_clickedRow = ?
     
     
     
-    NSInteger selectPickerRow = [_aPresetTimers indexOfObject:[[_exerciseSet aExercises] objectAtIndex:_clickedRow]];
-    
-    [_picker selectRow:selectPickerRow inComponent:0 animated:NO];
+
     
 }
 
