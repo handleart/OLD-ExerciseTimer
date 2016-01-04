@@ -276,6 +276,14 @@
                                     <segue destination="cdB-mQ-cuW" kind="presentation" identifier="CreateCustomPresetTimer" id="2si-YR-TVW"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TestCell2" rowHeight="50" id="ewM-aO-lSK" customClass="CreateExerciseTableViewCell">
+                                <rect key="frame" x="0.0" y="468.5" width="600" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ewM-aO-lSK" id="EdQ-cb-uDJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="49.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="074-YK-Ovs" id="WkE-0a-ybD"/>
@@ -710,7 +718,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Ft4-rJ-RHW"/>
-        <segue reference="eQh-dO-BfK"/>
         <segue reference="mmi-kf-WK6"/>
+        <segue reference="2si-YR-TVW"/>
     </inferredMetricsTieBreakers>
 </document>

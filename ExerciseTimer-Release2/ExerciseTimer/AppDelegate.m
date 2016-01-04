@@ -355,14 +355,10 @@
     
     if ([[userDefaults objectForKey:@"lastPage"] isEqual: @"ViewTimerPage"] &&
         [userDefaults objectForKey:@"ViewTimerPage_now"] != nil) {
-
-        //NSLog(@"%li", (long)[userDefaults integerForKey:@"introLength"]);
     
         self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        //UIStoryboard *storyboard = self.window.rootViewController.storyboard;
-        //UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main.storyboard" bundle:nil];
         
         
         

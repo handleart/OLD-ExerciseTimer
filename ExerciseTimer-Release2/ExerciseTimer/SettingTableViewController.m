@@ -5,13 +5,14 @@
 //  Created by Art Mostofi on 8/28/15.
 //  Copyright © 2015 Art Mostofi. All rights reserved.
 //
+//  Page loads user defaults such as disable dim screen, work in background, intro rep length (iRepLen0?) and allows the user to change it
+
 
 #import "SettingTableViewController.h"
 
 @interface SettingTableViewController ()
 @property UISwitch *dimScreenSwitch;
 @property UISwitch *backgroundSwitch;
-//@property UILabel *introLengthLabel;
 @property UIStepper *stepper;
 @property BOOL backgroundSwitchBool;
 @property BOOL blockDimScreen;
@@ -26,7 +27,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(66/255.0) green:(94/255.0) blue:(157/255.0) alpha:1];
     
     self.navigationController.navigationBar.translucent = NO;
@@ -36,23 +36,13 @@
     
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
     
     _backgroundSwitch = [[UISwitch alloc] init];
     _backgroundSwitch.on = [userDefaults boolForKey:@"backgroundSwitch"];
     
      _dimScreenSwitch = [[UISwitch alloc] init];
     _stepper = [[UIStepper alloc] init];
-    //_introLengthLabel = [[UILabel alloc] init];
-    //BOOL tmp = [userDefaults boolForKey:@"keepScreenOn"];;
     _dimScreenSwitch.on = [userDefaults boolForKey:@"keepScreenOn"];
     
     _blockDimScreen = _dimScreenSwitch.on;
@@ -60,11 +50,28 @@
     _backgroundSwitchBool = _backgroundSwitch.on;
     
     _iIntroLength = [userDefaults integerForKey:@"introLength"];
-    _stepper.minimumValue = -1 * _iIntroLength;
+    _stepper.minimumValue = -1 * _iIntroLength + 3;
     _tmpIntroLength = _iIntroLength;
-    //_introLengthTextField.text = [NSString stringWithFormat:@"%li", _iIntroLength];
     
     _showStepper = NO;
+    
+}
+
+
+-(void) viewWillDisappear:(BOOL)animated {
+    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
+        // Navigation button was pressed. Do some stuff
+        [self.navigationController popViewControllerAnimated:NO];
+    }
+    
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:_blockDimScreen forKey:@"keepScreenOn"];
+    [userDefaults setBool:_backgroundSwitchBool forKey:@"backgroundSwitch"];
+    [userDefaults setInteger:_tmpIntroLength forKey:@"introLength"];
+    [userDefaults synchronize];
+    
+    [super viewWillDisappear:animated];
     
 }
 
@@ -81,13 +88,8 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //if (_showThirdRow == YES) {
-    //    return 3;
-    //}
-    
     return 3;
 }
-
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -128,35 +130,6 @@
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%02li:%02li", (long)(_tmpIntroLength / 60), (long)_tmpIntroLength % 60];
         
         
-        //cell.detailTextLabel.hidden = YES;
-        //[[cell viewWithTag:3] removeFromSuperview];
-        
-        /*
-        
-        //_introLengthTextField = [[UITextField alloc] init];
-        _introLengthTextField.delegate = self;
-        
-        _introLengthTextField.placeholder = [NSString stringWithFormat:@"00:%02li", _iIntroLength];
-        _introLengthTextField.keyboardType = UIKeyboardTypeNumberPad;
-        
-        [_introLengthTextField addTarget:self action:@selector(introLengthTextFieldEdited:) forControlEvents:UIControlEventAllEditingEvents];
-
-        _introLengthTextField.translatesAutoresizingMaskIntoConstraints = NO;
-        [cell.contentView addSubview:_introLengthTextField];
-        
-        
-        //add constraints
-        
-        
-        
-        [cell addConstraint:[NSLayoutConstraint constraintWithItem:_introLengthTextField attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:cell.textLabel attribute:NSLayoutAttributeTrailing multiplier:1 constant:8]];
-        [cell addConstraint:[NSLayoutConstraint constraintWithItem:_introLengthTextField attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:8]];
-        [cell addConstraint:[NSLayoutConstraint constraintWithItem:_introLengthTextField attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:-8]];
-        [cell addConstraint:[NSLayoutConstraint constraintWithItem:_introLengthTextField attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:cell.detailTextLabel attribute:NSLayoutAttributeTrailing multiplier:1 constant:0]];
-        _introLengthTextField.textAlignment = NSTextAlignmentRight;
-        
-        */
-       
         [cell.contentView addSubview:_stepper];
         
         if (_showStepper == YES) {
@@ -234,42 +207,18 @@
     if (indexPath.row == 2) {
         if (_showStepper == YES) {
             _showStepper = NO;
-            //_stepper.hidden = YES;
         } else if (_showStepper == NO) {
             _showStepper = YES;
-            //_stepper.hidden = NO;
         }
-        //UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         
         [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
     }
     
-    
-    
-    //[tableView reloadData];
+
 }
 
-/*
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-}
- */
 
--(void) viewWillDisappear:(BOOL)animated {
-    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
-        // Navigation button was pressed. Do some stuff
-        [self.navigationController popViewControllerAnimated:NO];
-    }
-    
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setBool:_blockDimScreen forKey:@"keepScreenOn"];
-    [userDefaults setBool:_backgroundSwitchBool forKey:@"backgroundSwitch"];
-    [userDefaults setInteger:_iIntroLength forKey:@"introLength"];
-    [userDefaults synchronize];
-    
-    [super viewWillDisappear:animated];
-    
-}
+#pragma mark - Buttons
 
 -(void)stepperPressed:(id)sender {
     if ([sender class] == [UIStepper class]) {
@@ -278,25 +227,14 @@
         
         _tmpIntroLength = (NSInteger)_iIntroLength + (NSInteger)[(UIStepper*)sender value];
         
-
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%02li:%02li", (long)(_tmpIntroLength
                                      / 60), (long)(_tmpIntroLength % 60)];
     }
-    
-    
-    
-    
 }
 
 -(void)dimScreenSwitchPressed:(id)sender {
     UISwitch *aSwitch = (UISwitch *)sender;
-    
     _blockDimScreen = aSwitch.on;
-    
-    //NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    //[userDefaults setBool:_blockDimScreen forKey:@"keepScreenOn"];
-    //[userDefaults synchronize];
-    
     
 }
 
@@ -305,52 +243,8 @@
     
     _backgroundSwitchBool = aSwitch.on;
     
-    //NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    //[userDefaults setBool:_blockDimScreen forKey:@"keepScreenOn"];
-    //[userDefaults synchronize];
-    
-    
 }
 
--(void)introLengthTextFieldEdited:(id)sender {
-    
-    
-    
-}
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 
 #pragma mark - Navigation
@@ -360,8 +254,6 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 
-
-    //NSLog(@"Went through here");
     
 
 }

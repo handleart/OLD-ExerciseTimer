@@ -10,8 +10,6 @@
 
 @interface ExerciseSetTableViewController : UITableViewController
 
-
-
 - (IBAction)unwindToChooseExerciseSet:(UIStoryboardSegue *)segue;
 
 @end

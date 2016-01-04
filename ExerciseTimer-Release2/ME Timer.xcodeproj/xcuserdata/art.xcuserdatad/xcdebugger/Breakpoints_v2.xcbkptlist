@@ -41,12 +41,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ExerciseTimer/CreateExerciseSetTableViewController.m"
-            timestampString = "473466779.752486"
+            timestampString = "473562140.444564"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "798"
-            endingLineNumber = "798"
+            startingLineNumber = "799"
+            endingLineNumber = "799"
             landmarkName = "-tableView:willDisplayCell:forRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ExerciseTimer/ViewTimerTableViewController.m"
+            timestampString = "473560435.767582"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
+            landmarkName = "-createNotifications:whichTimer:counter:repNumCount:totalLocalNotifications:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ExerciseTimer/CreateExerciseSetTableViewController.m"
+            timestampString = "473561781.629069"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
+            landmarkName = "-addCustomTimerPressed:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

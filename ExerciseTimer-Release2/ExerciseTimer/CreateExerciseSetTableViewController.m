@@ -220,6 +220,7 @@
 }
 
 - (IBAction)addCustomTimerPressed:(id)sender {
+    
     [self performSegueWithIdentifier:@"CreateCustomPresetTimer" sender:self];
     
 }
@@ -363,7 +364,7 @@
         return cell;
     } else if (indexPath.section == saveSectionIndex ){
         //CreateExerciseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SavePrototypeCell" forIndexPath:indexPath];
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TestCell" forIndexPath:indexPath];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TestCell2" forIndexPath:indexPath];
         
         
         
@@ -814,7 +815,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    //NSLog(@"%li", (long)indexPath.section);
     if (indexPath.section == timerSectionIndex) {
+        
+        
         if (indexPath.row == _clickedRow && _pickerIsShowing == YES) {
             _pickerIsShowing = NO;
             _clickedRow = indexPath.row;
@@ -964,6 +968,8 @@
 }
 
 - (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    
+    
     
     NSIndexPath *pickerIndexPath = [NSIndexPath indexPathForRow:_clickedRow inSection:_pickerSection];
     
