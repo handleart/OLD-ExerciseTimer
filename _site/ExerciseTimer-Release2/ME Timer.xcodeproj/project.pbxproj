@@ -1,0 +1,581 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6E0B9E441C11657C006612E2 /* Buddha.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E0B9E431C11657C006612E2 /* Buddha.jpg */; };
+		9C0BB28E1B9CFF05005F7FA8 /* SetTimerNewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C0BB28D1B9CFF05005F7FA8 /* SetTimerNewTableViewController.m */; };
+		9C17AAA21B6D4D3B00CDA99C /* ViewTimerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C17AAA11B6D4D3A00CDA99C /* ViewTimerTableViewController.m */; };
+		9C1F01A41B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C1F01A31B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m */; };
+		9C2406441B883F1D00A22E0E /* CreateExerciseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2406431B883F1D00A22E0E /* CreateExerciseTableViewCell.m */; };
+		9C2EAD421B90D09C0052B4A6 /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2EAD411B90D09C0052B4A6 /* SettingTableViewController.m */; };
+		9C38CBE81BC4C2EC00498E18 /* Triple Temple Bell.caf in Resources */ = {isa = PBXBuildFile; fileRef = 9C38CBE71BC4C2EC00498E18 /* Triple Temple Bell.caf */; };
+		9C4D71A91B6EEB3D00F500DD /* Temple Bell.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C4D71A81B6EEB3D00F500DD /* Temple Bell.aiff */; };
+		9C5E74721B6DA8C400E2AAFF /* Whistle.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C5E74711B6DA8C400E2AAFF /* Whistle.aiff */; };
+		9C5E74791B6EA0CE00E2AAFF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C5E74781B6EA0CE00E2AAFF /* AVFoundation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		9C5E747C1B6EAE9700E2AAFF /* Triple Temple Bell.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C5E747A1B6EAE9700E2AAFF /* Triple Temple Bell.aiff */; };
+		9C5E747D1B6EAE9700E2AAFF /* Triple Whistle.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C5E747B1B6EAE9700E2AAFF /* Triple Whistle.aiff */; };
+		9C5E747F1B6EE84C00E2AAFF /* Volume.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C5E747E1B6EE84C00E2AAFF /* Volume.png */; };
+		9C8D43631B7527B4005C1523 /* aTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8D43621B7527B4005C1523 /* aTimer.m */; };
+		9C8D43661B7528E4005C1523 /* ChooseTimerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8D43651B7528E4005C1523 /* ChooseTimerTableViewController.m */; };
+		9CB5038E1B547C01006FD3B9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB5038D1B547C01006FD3B9 /* main.m */; };
+		9CB503911B547C01006FD3B9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB503901B547C01006FD3B9 /* AppDelegate.m */; };
+		9CB503971B547C01006FD3B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CB503951B547C01006FD3B9 /* Main.storyboard */; };
+		9CB503991B547C01006FD3B9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CB503981B547C01006FD3B9 /* Images.xcassets */; };
+		9CB5039C1B547C01006FD3B9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CB5039A1B547C01006FD3B9 /* LaunchScreen.xib */; };
+		9CB503A81B547C01006FD3B9 /* ExerciseTimerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB503A71B547C01006FD3B9 /* ExerciseTimerTests.m */; };
+		9CBC2D0F1B602A7900474CD1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC2D0E1B602A7900474CD1 /* Settings.bundle */; };
+		9CC8A15B1B82FDE4006D2155 /* ExerciseSetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC8A15A1B82FDE4006D2155 /* ExerciseSetTableViewController.m */; };
+		9CC8A15F1B82FE80006D2155 /* anExerciseSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC8A15E1B82FE80006D2155 /* anExerciseSet.m */; };
+		9CE318701B7AAC33001F6846 /* Volume-Mute.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CE3186F1B7AAC33001F6846 /* Volume-Mute.png */; };
+		9CF9FCB21B5F0AE900AA749E /* Beep.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9CF9FCB11B5F0AE800AA749E /* Beep.aiff */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9CB503A21B547C01006FD3B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9CB503801B547C01006FD3B9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9CB503871B547C01006FD3B9;
+			remoteInfo = ExerciseTimer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6E0B9E431C11657C006612E2 /* Buddha.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Buddha.jpg; sourceTree = "<group>"; };
+		9C0BB28C1B9CFF05005F7FA8 /* SetTimerNewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTimerNewTableViewController.h; sourceTree = "<group>"; };
+		9C0BB28D1B9CFF05005F7FA8 /* SetTimerNewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTimerNewTableViewController.m; sourceTree = "<group>"; };
+		9C17AAA01B6D4D3A00CDA99C /* ViewTimerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewTimerTableViewController.h; sourceTree = "<group>"; };
+		9C17AAA11B6D4D3A00CDA99C /* ViewTimerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewTimerTableViewController.m; sourceTree = "<group>"; };
+		9C1F01A31B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateExerciseSetTableViewController.m; sourceTree = "<group>"; };
+		9C2406421B883F1D00A22E0E /* CreateExerciseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateExerciseTableViewCell.h; sourceTree = "<group>"; };
+		9C2406431B883F1D00A22E0E /* CreateExerciseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateExerciseTableViewCell.m; sourceTree = "<group>"; };
+		9C2EAD401B90D09C0052B4A6 /* SettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableViewController.h; sourceTree = "<group>"; };
+		9C2EAD411B90D09C0052B4A6 /* SettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewController.m; sourceTree = "<group>"; };
+		9C38CBE71BC4C2EC00498E18 /* Triple Temple Bell.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Triple Temple Bell.caf"; sourceTree = "<group>"; };
+		9C4D71A81B6EEB3D00F500DD /* Temple Bell.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Temple Bell.aiff"; sourceTree = SOURCE_ROOT; };
+		9C5E74711B6DA8C400E2AAFF /* Whistle.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Whistle.aiff; sourceTree = SOURCE_ROOT; };
+		9C5E74781B6EA0CE00E2AAFF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		9C5E747A1B6EAE9700E2AAFF /* Triple Temple Bell.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Triple Temple Bell.aiff"; sourceTree = SOURCE_ROOT; };
+		9C5E747B1B6EAE9700E2AAFF /* Triple Whistle.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Triple Whistle.aiff"; sourceTree = SOURCE_ROOT; };
+		9C5E747E1B6EE84C00E2AAFF /* Volume.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Volume.png; path = ../Volume.png; sourceTree = "<group>"; };
+		9C8D43611B7527B4005C1523 /* aTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aTimer.h; sourceTree = "<group>"; };
+		9C8D43621B7527B4005C1523 /* aTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = aTimer.m; sourceTree = "<group>"; };
+		9C8D43641B7528E4005C1523 /* ChooseTimerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseTimerTableViewController.h; sourceTree = "<group>"; };
+		9C8D43651B7528E4005C1523 /* ChooseTimerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseTimerTableViewController.m; sourceTree = "<group>"; };
+		9CB503881B547C01006FD3B9 /* ME Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ME Timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CB5038C1B547C01006FD3B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9CB5038D1B547C01006FD3B9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9CB5038F1B547C01006FD3B9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		9CB503901B547C01006FD3B9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		9CB503961B547C01006FD3B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9CB503981B547C01006FD3B9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		9CB5039B1B547C01006FD3B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		9CB503A11B547C01006FD3B9 /* ME Timer.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ME Timer.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CB503A61B547C01006FD3B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9CB503A71B547C01006FD3B9 /* ExerciseTimerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExerciseTimerTests.m; sourceTree = "<group>"; };
+		9CBC2D0E1B602A7900474CD1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		9CC8A1591B82FDE4006D2155 /* ExerciseSetTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExerciseSetTableViewController.h; sourceTree = "<group>"; };
+		9CC8A15A1B82FDE4006D2155 /* ExerciseSetTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExerciseSetTableViewController.m; sourceTree = "<group>"; };
+		9CC8A15D1B82FE80006D2155 /* anExerciseSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = anExerciseSet.h; sourceTree = "<group>"; };
+		9CC8A15E1B82FE80006D2155 /* anExerciseSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = anExerciseSet.m; sourceTree = "<group>"; };
+		9CC8A1601B830382006D2155 /* CreateExerciseSetTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateExerciseSetTableViewController.h; sourceTree = "<group>"; };
+		9CE3186F1B7AAC33001F6846 /* Volume-Mute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Volume-Mute.png"; sourceTree = SOURCE_ROOT; };
+		9CF9FCB11B5F0AE800AA749E /* Beep.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Beep.aiff; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9CB503851B547C01006FD3B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C5E74791B6EA0CE00E2AAFF /* AVFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9CB5039E1B547C01006FD3B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9C2406411B883EF800A22E0E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				9C2406421B883F1D00A22E0E /* CreateExerciseTableViewCell.h */,
+				9C2406431B883F1D00A22E0E /* CreateExerciseTableViewCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		9C5E74731B6DA8D000E2AAFF /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				9C38CBE71BC4C2EC00498E18 /* Triple Temple Bell.caf */,
+				9C5E747A1B6EAE9700E2AAFF /* Triple Temple Bell.aiff */,
+				9C5E747B1B6EAE9700E2AAFF /* Triple Whistle.aiff */,
+				9CF9FCB11B5F0AE800AA749E /* Beep.aiff */,
+				9C5E74711B6DA8C400E2AAFF /* Whistle.aiff */,
+				9C4D71A81B6EEB3D00F500DD /* Temple Bell.aiff */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
+		9C5E74801B6EE85D00E2AAFF /* Pictures */ = {
+			isa = PBXGroup;
+			children = (
+				6E0B9E431C11657C006612E2 /* Buddha.jpg */,
+				9CE3186F1B7AAC33001F6846 /* Volume-Mute.png */,
+				9C5E747E1B6EE84C00E2AAFF /* Volume.png */,
+			);
+			name = Pictures;
+			sourceTree = "<group>";
+		};
+		9CB5037F1B547C01006FD3B9 = {
+			isa = PBXGroup;
+			children = (
+				9C5E74781B6EA0CE00E2AAFF /* AVFoundation.framework */,
+				9CBC2D0E1B602A7900474CD1 /* Settings.bundle */,
+				9CB5038A1B547C01006FD3B9 /* ExerciseTimer */,
+				9CB503A41B547C01006FD3B9 /* ExerciseTimerTests */,
+				9CB503891B547C01006FD3B9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9CB503891B547C01006FD3B9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9CB503881B547C01006FD3B9 /* ME Timer.app */,
+				9CB503A11B547C01006FD3B9 /* ME Timer.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9CB5038A1B547C01006FD3B9 /* ExerciseTimer */ = {
+			isa = PBXGroup;
+			children = (
+				9C2406411B883EF800A22E0E /* Cell */,
+				9CB5038F1B547C01006FD3B9 /* AppDelegate.h */,
+				9CB503901B547C01006FD3B9 /* AppDelegate.m */,
+				9CC8A15C1B82FDEC006D2155 /* Controllers */,
+				9CCBBA241B75B88100CBAE6A /* Classes */,
+				9CB503951B547C01006FD3B9 /* Main.storyboard */,
+				9CB503981B547C01006FD3B9 /* Images.xcassets */,
+				9CB5039A1B547C01006FD3B9 /* LaunchScreen.xib */,
+				9CB5038B1B547C01006FD3B9 /* Supporting Files */,
+				9C5E74801B6EE85D00E2AAFF /* Pictures */,
+				9C5E74731B6DA8D000E2AAFF /* Sounds */,
+			);
+			path = ExerciseTimer;
+			sourceTree = "<group>";
+		};
+		9CB5038B1B547C01006FD3B9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9CB5038C1B547C01006FD3B9 /* Info.plist */,
+				9CB5038D1B547C01006FD3B9 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9CB503A41B547C01006FD3B9 /* ExerciseTimerTests */ = {
+			isa = PBXGroup;
+			children = (
+				9CB503A71B547C01006FD3B9 /* ExerciseTimerTests.m */,
+				9CB503A51B547C01006FD3B9 /* Supporting Files */,
+			);
+			path = ExerciseTimerTests;
+			sourceTree = "<group>";
+		};
+		9CB503A51B547C01006FD3B9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9CB503A61B547C01006FD3B9 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9CC8A15C1B82FDEC006D2155 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9C8D43641B7528E4005C1523 /* ChooseTimerTableViewController.h */,
+				9C8D43651B7528E4005C1523 /* ChooseTimerTableViewController.m */,
+				9C17AAA01B6D4D3A00CDA99C /* ViewTimerTableViewController.h */,
+				9C17AAA11B6D4D3A00CDA99C /* ViewTimerTableViewController.m */,
+				9C0BB28C1B9CFF05005F7FA8 /* SetTimerNewTableViewController.h */,
+				9C0BB28D1B9CFF05005F7FA8 /* SetTimerNewTableViewController.m */,
+				9CC8A1591B82FDE4006D2155 /* ExerciseSetTableViewController.h */,
+				9CC8A15A1B82FDE4006D2155 /* ExerciseSetTableViewController.m */,
+				9CC8A1601B830382006D2155 /* CreateExerciseSetTableViewController.h */,
+				9C1F01A31B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m */,
+				9C2EAD401B90D09C0052B4A6 /* SettingTableViewController.h */,
+				9C2EAD411B90D09C0052B4A6 /* SettingTableViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		9CCBBA241B75B88100CBAE6A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				9C8D43611B7527B4005C1523 /* aTimer.h */,
+				9C8D43621B7527B4005C1523 /* aTimer.m */,
+				9CC8A15D1B82FE80006D2155 /* anExerciseSet.h */,
+				9CC8A15E1B82FE80006D2155 /* anExerciseSet.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9CB503871B547C01006FD3B9 /* ME Timer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9CB503AB1B547C01006FD3B9 /* Build configuration list for PBXNativeTarget "ME Timer" */;
+			buildPhases = (
+				9CB503841B547C01006FD3B9 /* Sources */,
+				9CB503851B547C01006FD3B9 /* Frameworks */,
+				9CB503861B547C01006FD3B9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ME Timer";
+			productName = ExerciseTimer;
+			productReference = 9CB503881B547C01006FD3B9 /* ME Timer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9CB503A01B547C01006FD3B9 /* ME TimerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9CB503AE1B547C01006FD3B9 /* Build configuration list for PBXNativeTarget "ME TimerTests" */;
+			buildPhases = (
+				9CB5039D1B547C01006FD3B9 /* Sources */,
+				9CB5039E1B547C01006FD3B9 /* Frameworks */,
+				9CB5039F1B547C01006FD3B9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9CB503A31B547C01006FD3B9 /* PBXTargetDependency */,
+			);
+			name = "ME TimerTests";
+			productName = ExerciseTimerTests;
+			productReference = 9CB503A11B547C01006FD3B9 /* ME Timer.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9CB503801B547C01006FD3B9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Art Mostofi";
+				TargetAttributes = {
+					9CB503871B547C01006FD3B9 = {
+						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = Q435ARM4D6;
+					};
+					9CB503A01B547C01006FD3B9 = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = 9CB503871B547C01006FD3B9;
+					};
+				};
+			};
+			buildConfigurationList = 9CB503831B547C01006FD3B9 /* Build configuration list for PBXProject "ME Timer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9CB5037F1B547C01006FD3B9;
+			productRefGroup = 9CB503891B547C01006FD3B9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9CB503871B547C01006FD3B9 /* ME Timer */,
+				9CB503A01B547C01006FD3B9 /* ME TimerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9CB503861B547C01006FD3B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C5E74721B6DA8C400E2AAFF /* Whistle.aiff in Resources */,
+				9C5E747F1B6EE84C00E2AAFF /* Volume.png in Resources */,
+				9CE318701B7AAC33001F6846 /* Volume-Mute.png in Resources */,
+				9CB503971B547C01006FD3B9 /* Main.storyboard in Resources */,
+				9CB5039C1B547C01006FD3B9 /* LaunchScreen.xib in Resources */,
+				9CF9FCB21B5F0AE900AA749E /* Beep.aiff in Resources */,
+				9C38CBE81BC4C2EC00498E18 /* Triple Temple Bell.caf in Resources */,
+				9C5E747D1B6EAE9700E2AAFF /* Triple Whistle.aiff in Resources */,
+				9CBC2D0F1B602A7900474CD1 /* Settings.bundle in Resources */,
+				9C5E747C1B6EAE9700E2AAFF /* Triple Temple Bell.aiff in Resources */,
+				9C4D71A91B6EEB3D00F500DD /* Temple Bell.aiff in Resources */,
+				6E0B9E441C11657C006612E2 /* Buddha.jpg in Resources */,
+				9CB503991B547C01006FD3B9 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9CB5039F1B547C01006FD3B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9CB503841B547C01006FD3B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C8D43661B7528E4005C1523 /* ChooseTimerTableViewController.m in Sources */,
+				9CB503911B547C01006FD3B9 /* AppDelegate.m in Sources */,
+				9C2406441B883F1D00A22E0E /* CreateExerciseTableViewCell.m in Sources */,
+				9CB5038E1B547C01006FD3B9 /* main.m in Sources */,
+				9C2EAD421B90D09C0052B4A6 /* SettingTableViewController.m in Sources */,
+				9CC8A15B1B82FDE4006D2155 /* ExerciseSetTableViewController.m in Sources */,
+				9C0BB28E1B9CFF05005F7FA8 /* SetTimerNewTableViewController.m in Sources */,
+				9C17AAA21B6D4D3B00CDA99C /* ViewTimerTableViewController.m in Sources */,
+				9CC8A15F1B82FE80006D2155 /* anExerciseSet.m in Sources */,
+				9C8D43631B7527B4005C1523 /* aTimer.m in Sources */,
+				9C1F01A41B98EE2C0031D8BE /* CreateExerciseSetTableViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9CB5039D1B547C01006FD3B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9CB503A81B547C01006FD3B9 /* ExerciseTimerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9CB503A31B547C01006FD3B9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9CB503871B547C01006FD3B9 /* ME Timer */;
+			targetProxy = 9CB503A21B547C01006FD3B9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9CB503951B547C01006FD3B9 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9CB503961B547C01006FD3B9 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		9CB5039A1B547C01006FD3B9 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9CB5039B1B547C01006FD3B9 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9CB503A91B547C01006FD3B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		9CB503AA1B547C01006FD3B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9CB503AC1B547C01006FD3B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = ExerciseTimer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mostofiit.metimer;
+				PRODUCT_NAME = "ME Timer";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		9CB503AD1B547C01006FD3B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = ExerciseTimer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mostofiit.metimer;
+				PRODUCT_NAME = "ME Timer";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		9CB503AF1B547C01006FD3B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ExerciseTimerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "art.self.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "ME Timer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ME Timer.app/ME Timer";
+			};
+			name = Debug;
+		};
+		9CB503B01B547C01006FD3B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ExerciseTimerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "art.self.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "ME Timer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ME Timer.app/ME Timer";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9CB503831B547C01006FD3B9 /* Build configuration list for PBXProject "ME Timer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9CB503A91B547C01006FD3B9 /* Debug */,
+				9CB503AA1B547C01006FD3B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9CB503AB1B547C01006FD3B9 /* Build configuration list for PBXNativeTarget "ME Timer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9CB503AC1B547C01006FD3B9 /* Debug */,
+				9CB503AD1B547C01006FD3B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9CB503AE1B547C01006FD3B9 /* Build configuration list for PBXNativeTarget "ME TimerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9CB503AF1B547C01006FD3B9 /* Debug */,
+				9CB503B01B547C01006FD3B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9CB503801B547C01006FD3B9 /* Project object */;
+}
